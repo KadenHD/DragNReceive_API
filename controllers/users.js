@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 
-/* Users temporaires */
-// à supprimer une fois la db monté
+/* Temporary Users */
+// Delete this once the DataBase is build
 let users = [];
-/* Users temporaires */
+/* \Temporary Users */
 
 export const getUsers = (req, res) => {
     res.send(users);

@@ -3,7 +3,7 @@ import express from 'express';
 
 import usersRoutes from './routes/users.js';
 
-dotenv.config(); //permet de mettre les variables du .env dans le process.env
+dotenv.config(); // add the variables from .env to process.env
 const app = express();
 
 app.use(express.json()) //For JSON requests
