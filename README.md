@@ -32,13 +32,15 @@
 </details> 
     
 # Introduction
-  
+    
 
     
 # Installation
 
 ### Prérequis
 
+### Mise en place du projet
+    
 # Technologies
 
 ***Le projet a été créé en utilisant :***
