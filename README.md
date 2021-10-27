@@ -40,6 +40,11 @@
 ### Prérequis
 
 ### Mise en place du projet
+
+- create database in phpmyadmin
+- modify .env parameters as needed
+- npm run buildDB to create the tables and somes fakes entities
+- npm start
     
 # Technologies
 
