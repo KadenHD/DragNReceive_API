@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export const getUsers = (req, res) => {
+export const findAllUsers = (req, res) => {
     res.send(users);
 }
 
@@ -12,7 +12,7 @@ export const createUser = (req, res) => {
     res.send(`${user.firstName} ${user.lastName} added to the DataBase`);
 }
 
-export const getUser = (req, res) => {
+export const findOneUser = (req, res) => {
     const { id } = req.params;
 
     const user = users.find((user) => user.id === id);

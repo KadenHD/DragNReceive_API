@@ -1,15 +1,15 @@
 import express from 'express';
 
-import { getUsers, createUser, getUser, deleteUser, updateUser } from '../Controllers/Users.js';
+import { findAllUsers, createUser, findOneUser, deleteUser, updateUser } from '../Controllers/Users.js';
 
 const router = express.Router();
 
 // all routes in here are starting with '/users'
-router.get('/', getUsers);
+router.get('/', findAllUsers);
 
 router.post('/', createUser);
 
-router.get('/:id', getUser);
+router.get('/:id', findOneUser);
 
 router.delete('/:id', deleteUser);
 
