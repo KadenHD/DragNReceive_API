@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 
-import usersRoutes from './routes/users.js';
+import usersRoutes from './Routes/Users.js';
 
 dotenv.config(); // add the variables from .env to process.env
 const app = express();

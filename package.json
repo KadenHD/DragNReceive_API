@@ -2,10 +2,10 @@
   "name": "dragnreceive_api",
   "version": "1.0.0",
   "description": "a NodeJS API for DragNReceive project",
-  "main": "index.js",
+  "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,8 @@
   "dependencies": {
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "mysql2": "^2.3.2",
+    "sequelize": "^6.8.0",
     "uuid": "^8.3.2"
   }
 }
