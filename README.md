@@ -64,9 +64,11 @@
 
 # To-do
 
-- Relier une base de donné SQL à l'API
+- Utiliser la base de donnée pour faire le crud
+- Faire un système de permissions en fonction du rôle de l'utilisateur
+- Faire un système de login pour avoir une session stocké sur le webserver permettant les requetes
 
 # Sources
 
 - Vidéo sur la création de base du CRUD et routing avec Express : https://youtu.be/l8WPWK9mS5M?list=PLzBCdvbn0AZWnKk55ezv82IwNm7lJcu_N
-
+- Vidéo sur la manipulation et création de tables avec l'ORM Sequelize en MySQL : https://youtu.be/ExTZYpyAn6s?list=PLzBCdvbn0AZWnKk55ezv82IwNm7lJcu_N
