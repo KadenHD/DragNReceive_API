@@ -108,7 +108,7 @@ export const updateUser = (req, res) => {
         });
         return;
     }
-    const { id } = req.params;
+    const id = req.params.id;
     const { firstName, lastName, email, password, roleId } = req.body;
 
     const user = User.findByPk(id);
