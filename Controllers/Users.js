@@ -29,6 +29,11 @@ export const createUser = async (req, res) => {
         });
         return;
     }
+
+    // Verify if email already exist
+    const userExist = await User.findOne({ where: { email: req.body.email } })
+    if (userExist) return res.status(400).send('Email already exists')
+
     // Hash the password
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     // Create a User

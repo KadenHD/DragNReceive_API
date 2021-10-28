@@ -10,7 +10,7 @@ app.use(express.json()) //For JSON requests
 app.use(express.urlencoded({ extended: true }));
 
 /* Define Routes */
-app.use('/users', usersRoutes);
+app.use('/api/users', usersRoutes);
 app.get('/', (req, res) => res.send('Hello from Homepage.'));
 
 var port = process.env.PORT || 3000;
