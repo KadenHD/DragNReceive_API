@@ -3,6 +3,12 @@ import bcrypt from 'bcrypt';
 
 import User from '../Models/User.js';
 
+const deletePassword = {
+    attributes: {
+        exclude: ['password'] // Removing password from User response data
+    }
+}
+
 export const findAllUsers = (req, res) => {
     User.findAll(deletePassword)
         .then(data => {
@@ -68,28 +74,64 @@ export const findOneUser = (req, res) => {
 }
 
 export const deleteUser = (req, res) => {
-    const { id } = req.params;
+    const id = req.params.id;
 
-    users = users.filter((user) => user.id !== id);
-
-    res.send(`User with the id ${id} deleted from the DataBase`);
+    User.destroy({ where: { id: id } })
+        .then(num => {
+            if (num == 1) {
+                res.status(200).send({
+                    message: `User with id=${id} was deleted successfully!`
+                });
+            } else {
+                res.send({
+                    message: `Cannot delete User with id=${id}. Maybe User was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: `Could not delete User with id=${id} : ${err}.`
+            });
+        });
 }
 
 export const updateUser = (req, res) => {
-    const { id } = req.params;
-    const { firstName, lastName, age } = req.body;
-
-    const user = users.find((user) => user.id === id);
-
-    if (firstName) user.firstName = firstName;
-    if (lastName) user.lastName = lastName;
-    if (age) user.age = age;
-
-    res.send(`User with the id ${id} patched elements !`);
-}
-
-const deletePassword = {
-    attributes: {
-        exclude: ['password'] // Removing password from User response data
+    // Validate request
+    if (!req.body.lastName && !req.body.firstName && !req.body.email && !req.body.password && !req.body.roleId) {
+        res.status(400).send({
+            message: "Request not valid !"
+        });
+        return;
     }
+    const { id } = req.params;
+    const { firstName, lastName, email, password, roleId } = req.body;
+
+    const user = User.findByPk(id);
+
+    if (firstName) user.firstname = firstName;
+    if (lastName) user.lastname = lastName;
+    if (email) user.email = email;
+    if (password) user.password = password;
+    if (roleId) user.roleId = roleId;
+
+    User.update(
+        user,
+        { where: { id: id } }
+    )
+        .then(num => {
+            if (num == 1) {
+                res.status(200).send({
+                    message: `User with id=${id} was updated successfully!`
+                });
+            } else {
+                res.send({
+                    message: `Cannot update User with id=${id}. Maybe User was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: `Could not update User with id=${id} : ${err}.`
+            });
+        })
 }

@@ -64,14 +64,9 @@
 
 # To-do
 
-- hash password
-- créer id v4
-- comprendre soucis roleId dans le create
-- afficher le role de l'user dans les finds
-
-- Utiliser la base de donnée pour faire le crud
-- Faire un système de permissions en fonction du rôle de l'utilisateur
 - Faire un système de login pour avoir une session stocké sur le webserver permettant les requetes
+- Faire un système de permissions en fonction du rôle de l'utilisateur en session
+- changer les choses disponibles dans le crud en fonction du role (retourner tout ou seulement celui de l'user, être admin ou sadmin pour delete, update certaines valeurs que si admin ou sadmin etc...)
 
 # Sources
 
