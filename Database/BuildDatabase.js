@@ -1,6 +1,6 @@
 import User from '../Models/User.js';
 import Role from '../Models/Role.js';
-import sequelize from './Database.js'
+import sequelize from './DBConfig.js'
 
 sequelize
     .sync({ force: true })
