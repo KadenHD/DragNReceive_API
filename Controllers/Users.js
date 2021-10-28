@@ -32,7 +32,9 @@ export const createUser = async (req, res) => {
 
     // Verify if email already exist
     const userExist = await User.findOne({ where: { email: req.body.email } })
-    if (userExist) return res.status(400).send('Email already exists')
+    if (userExist) return res.status(400).send({
+        message: 'Email already exists'
+    });
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -49,7 +51,9 @@ export const createUser = async (req, res) => {
     // Save User in the database
     User.create(user)
         .then(data => {
-            res.status(200).send(`User ${user.firstname} ${user.lastname} created !`);
+            res.status(200).send({
+                message: `User ${user.firstname} ${user.lastname} created !`
+            });
         })
         .catch(err => {
             res.status(500).send({
