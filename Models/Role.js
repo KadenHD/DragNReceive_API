@@ -4,8 +4,7 @@ import sequelize from "../Configs/Database.js";
 
 const Role = sequelize.define("role", {
     id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
+        type: Sequelize.STRING,
         primaryKey: true
     },
     label: {

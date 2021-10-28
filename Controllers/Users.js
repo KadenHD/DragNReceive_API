@@ -1,13 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
+import bcrypt from 'bcrypt';
 
 import User from '../Models/User.js';
-import Role from '../Models/Role.js';
 
 export const findAllUsers = (req, res) => {
-    const title = req.query.title;
-    var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
-
-    User.findAll(deletePassword, { where: condition })
+    User.findAll(deletePassword)
         .then(data => {
             res.status(200).send(data);
         })
@@ -18,7 +15,7 @@ export const findAllUsers = (req, res) => {
         });
 }
 
-export const createUser = (req, res) => {
+export const createUser = async (req, res) => {
     // Validate request
     if (!req.body.lastName || !req.body.firstName || !req.body.email || !req.body.password || !req.body.roleId) {
         res.status(400).send({
@@ -26,13 +23,16 @@ export const createUser = (req, res) => {
         });
         return;
     }
-
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
     // Create a User
     const user = {
+        id: uuidv4(),
         lastname: req.body.lastName,
         firstname: req.body.firstName,
         email: req.body.email,
-        password: req.body.password,
+        password: hashedPassword,
+        roleId: req.body.roleId
     }
 
     // Save User in the database
@@ -53,11 +53,10 @@ export const findOneUser = (req, res) => {
     User.findByPk(id, deletePassword)
         .then(data => {
             if (data) {
-                delete data.password;
                 res.status(200).send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find User with id=${id}.`
+                    message: `User with id=${id} does not exist.`
                 });
             }
         })

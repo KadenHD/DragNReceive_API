@@ -1,11 +1,11 @@
 import Sequelize from "sequelize";
 
 import sequelize from "../Configs/Database.js";
+import Role from "./Role.js";
 
 const User = sequelize.define("user", {
     id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
+        type: Sequelize.STRING,
         primaryKey: true
     },
     lastname: {
@@ -21,5 +21,7 @@ const User = sequelize.define("user", {
         type: Sequelize.STRING
     }
 });
+User.belongsTo(Role);
+Role.hasMany(User);
 
 export default User;
