@@ -11,7 +11,7 @@ app.use(express.json()) //For JSON requests
 app.use(express.urlencoded({ extended: true }));
 
 /* Define Routes */
-app.use('/', defaultRoutes);
+app.use('/api', defaultRoutes);
 app.use('/api/users', usersRoutes);
 
 var port = process.env.PORT || 3000;
