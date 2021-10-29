@@ -1,17 +1,10 @@
-{
-    "user1": {
-        "firstName": "Dylan",
-        "lastName": "Mona",
-        "age": 20
-    },
-    "user2": {
-        "firstName": "Rémy",
-        "lastName": "Loncle",
-        "age": 21
-    },
-    "user3": {
-        "firstName": "Neven",
-        "lastName": "Bichon",
-        "age": 24
-    }
+user = {
+    "id": "1234"
+    "firstName": "Dylan",
+    "lastName": "Mona",
+    "email": momo@gmail.com,
+    "roleId": 1,
+    "password": "momo"
 }
+
+export default user;
