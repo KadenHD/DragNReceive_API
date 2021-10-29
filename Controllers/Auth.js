@@ -9,6 +9,7 @@ export const loginUser = async (req, res) => {
     });
     try {
         if (await bcrypt.compare(req.body.password, user.password)) {
+            // Do the token creation and auth
             res.send({
                 message: 'You are connected'
             });
