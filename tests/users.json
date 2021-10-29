@@ -3,7 +3,7 @@ user = {
     "firstName": "Dylan",
     "lastName": "Mona",
     "email": momo@gmail.com,
-    "roleId": 1,
+    "roleId": "1",
     "password": "momo"
 }
 
