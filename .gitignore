@@ -1,3 +1,7 @@
+# Environements file and packages
 node_modules
-.idea
 .env
+
+# Editors directories / files
+.idea
+.vscode
