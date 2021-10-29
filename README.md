@@ -64,6 +64,7 @@
 
 # To-do
 
+- gitignore le .env
 - Faire un système de login pour avoir une session stocké sur le webserver permettant les requetes de certaines routes
 - Faire un système de permissions en fonction du rôle de l'utilisateur en session
 - changer les choses disponibles dans le crud en fonction du role (retourner tout ou seulement celui de l'user, être admin ou sadmin pour delete, update certaines valeurs que si admin ou sadmin etc...)
