@@ -116,11 +116,13 @@ export const updateUser = (req, res) => {
     const { firstName, lastName, email, password, roleId } = req.body;
 
     const user = User.findByPk(id);
-
+    
+    // Own User and Admin/Sadmin only
     if (firstName) user.firstname = firstName;
     if (lastName) user.lastname = lastName;
     if (email) user.email = email;
-    if (password) user.password = password;
+    if (password) user.password = password; // password recovery for user
+    // Admin/Sadmin only
     if (roleId) user.roleId = roleId;
 
     User.update(
