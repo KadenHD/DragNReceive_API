@@ -42,7 +42,7 @@
 ### Mise en place du projet
 
 - create database in phpmyadmin
-- modify .env parameters as needed
+- create .env file and start to add the BD config and Server parameters
 - npm run buildDB to create the tables and somes fakes entities
 - npm start
     
