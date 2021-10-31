@@ -12,10 +12,10 @@ const deletePassword = {
 export const findAllUsers = (req, res) => {
     User.findAll(deletePassword)
         .then(data => {
-            res.status(200).send(data);
+            res.status(200).json(data);
         })
         .catch(err => {
-            res.status(500).send({
+            res.status(500).json({
                 message: `Error retrieving Users : ${err}.`
             });
         });
@@ -24,7 +24,7 @@ export const findAllUsers = (req, res) => {
 export const createUser = async (req, res) => {
     // Validate request
     if (!req.body.lastname || !req.body.firstname || !req.body.email || !req.body.password || !req.body.roleId) {
-        res.status(400).send({
+        res.status(400).json({
             message: "Request not valid !"
         });
         return;
@@ -32,7 +32,7 @@ export const createUser = async (req, res) => {
 
     // Verify if email already exist
     const userExist = await User.findOne({ where: { email: req.body.email } })
-    if (userExist) return res.status(400).send({
+    if (userExist) return res.status(400).json({
         message: 'Email already exists'
     });
 
@@ -51,12 +51,12 @@ export const createUser = async (req, res) => {
     // Save User in the database
     User.create(user)
         .then(data => {
-            res.status(200).send({
+            res.status(200).json({
                 message: `User ${user.firstname} ${user.lastname} created !`
             });
         })
         .catch(err => {
-            res.status(500).send({
+            res.status(500).json({
                 message: `Some error occurred while creating the User : ${err}.`
             });
         });
@@ -68,15 +68,15 @@ export const findOneUser = (req, res) => {
     User.findByPk(id, deletePassword)
         .then(data => {
             if (data) {
-                res.status(200).send(data);
+                res.status(200).json(data);
             } else {
-                res.status(404).send({
+                res.status(404).json({
                     message: `User with id=${id} does not exist.`
                 });
             }
         })
         .catch(err => {
-            res.status(500).send({
+            res.status(500).json({
                 message: `Error retrieving User with id=${id} : ${err}.`
             });
         });
@@ -88,17 +88,17 @@ export const deleteUser = (req, res) => {
     User.destroy({ where: { id: id } })
         .then(num => {
             if (num == 1) {
-                res.status(200).send({
+                res.status(200).json({
                     message: `User with id=${id} was deleted successfully!`
                 });
             } else {
-                res.send({
+                res.json({
                     message: `Cannot delete User with id=${id}. Maybe User was not found!`
                 });
             }
         })
         .catch(err => {
-            res.status(500).send({
+            res.status(500).json({
                 message: `Could not delete User with id=${id} : ${err}.`
             });
         });
@@ -107,7 +107,7 @@ export const deleteUser = (req, res) => {
 export const updateUser = (req, res) => {
     // Validate request
     if (!req.body.lastname && !req.body.firstname && !req.body.email && !req.body.password && !req.body.roleId) {
-        res.status(400).send({
+        res.status(400).json({
             message: "Request not valid !"
         });
         return;
@@ -131,17 +131,17 @@ export const updateUser = (req, res) => {
     )
         .then(num => {
             if (num == 1) {
-                res.status(200).send({
+                res.status(200).json({
                     message: `User with id=${id} was updated successfully!`
                 });
             } else {
-                res.send({
+                res.json({
                     message: `Cannot update User with id=${id}. Maybe User was not found!`
                 });
             }
         })
         .catch(err => {
-            res.status(500).send({
+            res.status(500).json({
                 message: `Could not update User with id=${id} : ${err}.`
             });
         })

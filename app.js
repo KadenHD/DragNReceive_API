@@ -9,8 +9,8 @@ dotenv.config(); // add the variables from .env to process.env
 
 const app = express();
 
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); //For JSON requests
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 /* Define Routes */
