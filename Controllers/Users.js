@@ -23,7 +23,7 @@ export const findAllUsers = (req, res) => {
 
 export const createUser = async (req, res) => {
     // Validate request
-    if (!req.body.lastName || !req.body.firstName || !req.body.email || !req.body.password || !req.body.roleId) {
+    if (!req.body.lastname || !req.body.firstname || !req.body.email || !req.body.password || !req.body.roleId) {
         res.status(400).send({
             message: "Request not valid !"
         });
@@ -41,8 +41,8 @@ export const createUser = async (req, res) => {
     // Create a User
     const user = {
         id: uuidv4(),
-        lastname: req.body.lastName,
-        firstname: req.body.firstName,
+        lastname: req.body.lastname,
+        firstname: req.body.firstname,
         email: req.body.email,
         password: hashedPassword,
         roleId: req.body.roleId
@@ -106,20 +106,20 @@ export const deleteUser = (req, res) => {
 
 export const updateUser = (req, res) => {
     // Validate request
-    if (!req.body.lastName && !req.body.firstName && !req.body.email && !req.body.password && !req.body.roleId) {
+    if (!req.body.lastname && !req.body.firstname && !req.body.email && !req.body.password && !req.body.roleId) {
         res.status(400).send({
             message: "Request not valid !"
         });
         return;
     }
     const id = req.params.id;
-    const { firstName, lastName, email, password, roleId } = req.body;
+    const { firstname, lastname, email, password, roleId } = req.body;
 
     const user = User.findByPk(id);
     
     // Own User and Admin/Sadmin only
-    if (firstName) user.firstname = firstName;
-    if (lastName) user.lastname = lastName;
+    if (firstname) user.firstname = firstname;
+    if (lastname) user.lastname = lastname;
     if (email) user.email = email;
     if (password) user.password = password; // password recovery for user
     // Admin/Sadmin only

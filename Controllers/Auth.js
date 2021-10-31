@@ -14,11 +14,15 @@ export const loginUser = async (req, res) => {
                 message: 'You are connected'
             });
         } else {
-            res.send({
+            res.status(400).send({
                 message: 'Wrong password'
             });
         }
     } catch {
         res.status(500).send();
     }
+}
+
+export const currentUser = (req, res) => {
+    
 }
