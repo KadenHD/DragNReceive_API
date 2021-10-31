@@ -24,7 +24,7 @@ export const loginUser = async (req, res) => {
         }, 
         process.env.SECRET_TOKEN
     );
-    res.header('token', token).json({token: token})
+    res.header('token', token).json({token: token, user})
 }
 
 export const currentUser = async (req, res) => {
