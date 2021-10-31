@@ -18,4 +18,4 @@ app.use('/api', defaultRoutes);
 app.use('/api/users', usersRoutes);
 
 var port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Server running on port : ${process.env.BASE_URL}:${port}`));
+app.listen(port, () => console.log(`App running at :\n - Local : ${process.env.BASE_URL}:${port}`));
