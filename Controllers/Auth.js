@@ -7,5 +7,5 @@ export const loginUser = (req, res) => {
 }
 
 export const currentUser = (req, res) => {
-    
+
 }
