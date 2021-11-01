@@ -64,6 +64,7 @@
 
 # To-do
 
+- Faire le système de reset de mot de pass par email + token mais aussi le relier à un mail trap
 - Faire le refresh du token en back-end
 - Faire un système de permissions en fonction du rôle de l'utilisateur en session
 - Définir les caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule....
