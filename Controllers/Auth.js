@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { extractBearerToken } from '../Middlewares/Token.js';
+import { extractBearerToken } from '../Middlewares/TokenJWT.js';
 
 import User from '../Models/User.js'
 
