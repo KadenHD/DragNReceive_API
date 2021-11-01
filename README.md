@@ -64,7 +64,7 @@
 
 # To-do
 
-- Faire un système de login pour avoir une session stocké sur le webserver permettant les requetes de certaines routes
+- Faire le refresh du token en back-end
 - Faire un système de permissions en fonction du rôle de l'utilisateur en session
 - Définir les caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule....
 - changer les choses disponibles dans le crud en fonction du role (retourner tout ou seulement celui de l'user, être admin ou sadmin pour delete, update certaines valeurs que si admin ou sadmin etc...)
@@ -73,4 +73,4 @@
 
 - Vidéo sur la création de base du CRUD et routing avec Express : https://youtu.be/l8WPWK9mS5M?list=PLzBCdvbn0AZWnKk55ezv82IwNm7lJcu_N
 - Vidéo sur la manipulation et création de tables avec l'ORM Sequelize en MySQL : https://youtu.be/ExTZYpyAn6s?list=PLzBCdvbn0AZWnKk55ezv82IwNm7lJcu_N
-- https://www.bezkoder.com/node-js-express-sequelize-mysql/
+- Tutoriel sur l'utilisation d'un CRUD avec l'utilisation des models Sequelize : https://www.bezkoder.com/node-js-express-sequelize-mysql/
