@@ -121,7 +121,7 @@ export const updateUser = (req, res) => {
     if (firstname) user.firstname = firstname;
     if (lastname) user.lastname = lastname;
     if (email) user.email = email;
-    if (password) user.password = password; // password recovery for user
+    if (password) user.password = password; // password recovery for user only
     // Admin/Sadmin only
     if (roleId) user.roleId = roleId;
 
