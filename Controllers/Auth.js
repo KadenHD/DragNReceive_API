@@ -11,11 +11,11 @@ export const loginUser = async (req, res) => {
             email: req.body.email
         }
     });
-    if(!user) return res.status(400).json({message: `Email not found`});
+    if(!user) return res.status(400).json({error: `Email not found`});
 
     // Check Password
     const checkPassword = await bcrypt.compareSync(req.body.password, user.password);
-    if(!checkPassword) return res.status(400).json({message: `Invalid Password`});
+    if(!checkPassword) return res.status(400).json({error: `Invalid Password`});
 
     // Create User token
     const token = jwt.sign(
