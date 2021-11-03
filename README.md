@@ -65,10 +65,10 @@
 # To-do
 
 - Faire le système de reset de mot de pass par email + token mais aussi le relier à un mail trap
-- Faire le refresh du token en back-end
 - Faire un système de permissions en fonction du rôle de l'utilisateur en session
 - Définir les caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule....
 - changer les choses disponibles dans le crud en fonction du role (retourner tout ou seulement celui de l'user, être admin ou sadmin pour delete, update certaines valeurs que si admin ou sadmin etc...)
+- Faire le refresh du token en back-end
 
 # Sources
 

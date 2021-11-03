@@ -16,7 +16,7 @@ export const findAllUsers = (req, res) => {
         })
         .catch(err => {
             res.status(500).json({
-                message: `Error retrieving Users : ${err}.`
+                error: `Une erreur est survenue lors de la recherche d'utilisateurs : ${err}.`
             });
         });
 }
@@ -25,7 +25,7 @@ export const createUser = async (req, res) => {
     // Validate request
     if (!req.body.lastname || !req.body.firstname || !req.body.email || !req.body.password || !req.body.roleId) {
         res.status(400).json({
-            message: "Request not valid !"
+            error: `Requête non-valide.`
         });
         return;
     }
@@ -33,7 +33,7 @@ export const createUser = async (req, res) => {
     // Verify if email already exist
     const userExist = await User.findOne({ where: { email: req.body.email } })
     if (userExist) return res.status(400).json({
-        message: 'Email already exists'
+        error: `L'email existe déjà.`
     });
 
     // Hash the password
@@ -52,12 +52,12 @@ export const createUser = async (req, res) => {
     User.create(user)
         .then(data => {
             res.status(200).json({
-                message: `User ${user.firstname} ${user.lastname} created !`
+                error: `L'utilisateur du nom de ${user.firstname} ${user.lastname} a bien été créé.`
             });
         })
         .catch(err => {
             res.status(500).json({
-                message: `Some error occurred while creating the User : ${err}.`
+                error: `Une erreur est survenue lors de la création de l'utilisateur : ${err}.`
             });
         });
 }
@@ -71,13 +71,13 @@ export const findOneUser = (req, res) => {
                 res.status(200).json(data);
             } else {
                 res.status(404).json({
-                    message: `User with id=${id} does not exist.`
+                    error: `L'utilisateur avec l'id ${id} n'existe pas.`
                 });
             }
         })
         .catch(err => {
             res.status(500).json({
-                message: `Error retrieving User with id=${id} : ${err}.`
+                error: `Une erreur est survenue lors de la recherche de l'utilisateur d'id ${id} : ${err}.`
             });
         });
 }
@@ -89,17 +89,17 @@ export const deleteUser = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.status(200).json({
-                    message: `User with id=${id} was deleted successfully!`
+                    error: `L'utilisateur avec l'identifiant ${id} a bien été supprimé.`
                 });
             } else {
                 res.json({
-                    message: `Cannot delete User with id=${id}. Maybe User was not found!`
+                    error: `Impossible de supprimer l'utilisateur d'id ${id}. Peut-être que l'utilisateur n'existe pas.`
                 });
             }
         })
         .catch(err => {
             res.status(500).json({
-                message: `Could not delete User with id=${id} : ${err}.`
+                error: `Une erreur est survenue de lors de la suppression de l'utilisateur d'id ${id} : ${err}.`
             });
         });
 }
@@ -108,21 +108,22 @@ export const updateUser = (req, res) => {
     // Validate request
     if (!req.body.lastname && !req.body.firstname && !req.body.email && !req.body.password && !req.body.roleId) {
         res.status(400).json({
-            message: "Request not valid !"
+            error: "Requête non-valide."
         });
         return;
     }
-    const id = req.params.id;
     const { firstname, lastname, email, password, roleId } = req.body;
 
+    const id = req.params.id;
     const user = User.findByPk(id);
     
-    // Own User and Admin/Sadmin only
+    // Own User, Admin and Sadmin only
     if (firstname) user.firstname = firstname;
     if (lastname) user.lastname = lastname;
     if (email) user.email = email;
-    if (password) user.password = password; // password recovery for user only
-    // Admin/Sadmin only
+    // User only
+    if (password) user.password = password; 
+    // Sadmin only
     if (roleId) user.roleId = roleId;
 
     User.update(
@@ -132,17 +133,17 @@ export const updateUser = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.status(200).json({
-                    message: `User with id=${id} was updated successfully!`
+                    error: `L'utilisateur d'id ${id} a bien été modifié`
                 });
             } else {
                 res.json({
-                    message: `Cannot update User with id=${id}. Maybe User was not found!`
+                    error: `Impossible de modifier l'utilisateur d'id ${id}. Peut-être que l'utilisateur n'existe pas.`
                 });
             }
         })
         .catch(err => {
             res.status(500).json({
-                message: `Could not update User with id=${id} : ${err}.`
+                error: `Une erreur est survenue de lors de la modification de l'utilisateur d'id ${id} : ${err}.`
             });
         })
 }
