@@ -52,7 +52,7 @@ export const createUser = async (req, res) => {
     User.create(user)
         .then(data => {
             res.status(200).json({
-                error: `L'utilisateur du nom de ${user.firstname} ${user.lastname} a bien été créé.`
+                success: `L'utilisateur du nom de ${user.firstname} ${user.lastname} a bien été créé.`
             });
         })
         .catch(err => {
@@ -89,7 +89,7 @@ export const deleteUser = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.status(200).json({
-                    error: `L'utilisateur avec l'identifiant ${id} a bien été supprimé.`
+                    success: `L'utilisateur avec l'identifiant ${id} a bien été supprimé.`
                 });
             } else {
                 res.json({
@@ -133,7 +133,7 @@ export const updateUser = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.status(200).json({
-                    error: `L'utilisateur d'id ${id} a bien été modifié`
+                    success: `L'utilisateur d'id ${id} a bien été modifié`
                 });
             } else {
                 res.json({
