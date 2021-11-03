@@ -72,6 +72,6 @@
 
 # Sources
 
-- Vidéo sur la création de base du CRUD et routing avec Express : https://youtu.be/l8WPWK9mS5M?list=PLzBCdvbn0AZWnKk55ezv82IwNm7lJcu_N
-- Vidéo sur la manipulation et création de tables avec l'ORM Sequelize en MySQL : https://youtu.be/ExTZYpyAn6s?list=PLzBCdvbn0AZWnKk55ezv82IwNm7lJcu_N
-- Tutoriel sur l'utilisation d'un CRUD avec l'utilisation des models Sequelize : https://www.bezkoder.com/node-js-express-sequelize-mysql/
+- Video about creation of standard CRUD and routing with Express : [Link](https://youtu.be/l8WPWK9mS5M?list=PLzBCdvbn0AZWnKk55ezv82IwNm7lJcu_N)
+- Video manipulation and creation of tables with ORM Sequelize with MySQL : [Link](https://youtu.be/ExTZYpyAn6s?list=PLzBCdvbn0AZWnKk55ezv82IwNm7lJcu_N)
+- Tutorial about the utilisation of a CRUD with Sequelize models : [Link](https://www.bezkoder.com/node-js-express-sequelize-mysql/)
