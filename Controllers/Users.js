@@ -104,7 +104,7 @@ export const deleteUser = (req, res) => {
         });
 }
 
-export const updateUser = (req, res) => {
+export const updateUser = async (req, res) => {
     // Validate request
     if (!req.body.lastname && !req.body.firstname && !req.body.email && !req.body.password && !req.body.roleId) {
         res.status(400).json({
@@ -122,7 +122,7 @@ export const updateUser = (req, res) => {
     if (lastname) user.lastname = lastname;
     if (email) user.email = email;
     // User only
-    if (password) user.password = password; 
+    if (password) user.password = await bcrypt.hash(password, 10); 
     // Sadmin only
     if (roleId) user.roleId = roleId;
 
