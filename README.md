@@ -64,7 +64,6 @@
 
 # To-do
 
-- tester si les MDP sont hashe lors de lupdate
 - Faire le système de reset de mot de pass par email + token mais aussi le relier à un mail trap
 - Faire un système de permissions en fonction du rôle de l'utilisateur en session
 - Définir les caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule....
