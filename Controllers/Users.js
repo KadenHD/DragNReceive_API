@@ -22,6 +22,7 @@ export const findAllUsers = (req, res) => {
 }
 
 export const createUser = async (req, res) => {
+    console.log(req.body)
     // Validate request
     if (!req.body.lastname || !req.body.firstname || !req.body.email || !req.body.password || !req.body.roleId) {
         res.status(400).json({

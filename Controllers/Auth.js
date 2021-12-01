@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { extractBearerToken } from '../Middlewares/TokenJWT.js';
+import Role from '../Models/Role.js';
 
 import User from '../Models/User.js'
 
@@ -32,13 +33,15 @@ export const currentUser = async (req, res) => {
     const decoded = jwt.decode(token, {complete: false})
 
     const getUser = await User.findByPk(decoded.id)
-    
+    const getRole = await Role.findByPk(getUser.roleId)
+
     const user = {
         id: getUser.id,
         lastname: getUser.lastname,
         firstname: getUser.firstname,
         email: getUser.email,
-        roleId: getUser.roleId
+        roleId: getUser.roleId,
+        role: getRole
     }
 
     return res.status(200).json({user})
