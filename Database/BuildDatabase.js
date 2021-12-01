@@ -12,43 +12,43 @@ import Order from '../Models/Order.js';
 
 // User <-> Role
 User.belongsTo(Role, {
-    foreignKey: {
-      allowNull: false
-    }
+  foreignKey: {
+    allowNull: false
+  }
 });
 Role.hasMany(User);
 
 // User <-> Shop
 User.belongsTo(Shop, {
-    foreignKey: {
-      allowNull: true
-    }
+  foreignKey: {
+    allowNull: true
+  }
 });
 Shop.hasMany(User);
 
 // Ticket <-> User
 Ticket.belongsTo(User, {
-    foreignKey: {
-      allowNull: false
-    },
-    onDelete: 'CASCADE'
+  foreignKey: {
+    allowNull: false
+  },
+  onDelete: 'CASCADE'
 });
 User.hasMany(Ticket);
 
 // Message <-> User
 Message.belongsTo(User, {
-    foreignKey: {
-      allowNull: false
-    }
+  foreignKey: {
+    allowNull: false
+  }
 });
 User.hasMany(Message);
 
 // Message <-> Ticket
 Message.belongsTo(Ticket, {
-    foreignKey: {
-      allowNull: false
-    },
-    onDelete: 'CASCADE'
+  foreignKey: {
+    allowNull: false
+  },
+  onDelete: 'CASCADE'
 });
 Ticket.hasMany(Message);
 
@@ -58,26 +58,26 @@ Logo.hasOne(Shop);
 
 // Product <-> Shop
 Product.belongsTo(Shop, {
-    foreignKey: {
-      allowNull: false
-    },
-    onDelete: 'CASCADE'
+  foreignKey: {
+    allowNull: false
+  },
+  onDelete: 'CASCADE'
 });
 Shop.hasMany(Product);
 
 // Order <-> User
 Order.belongsTo(User, {
-    foreignKey: {
-      allowNull: false
-    }
+  foreignKey: {
+    allowNull: false
+  }
 });
 User.hasMany(Order);
 
 // Order <-> Product
 Order.belongsTo(Product, {
-    foreignKey: {
-      allowNull: false
-    }
+  foreignKey: {
+    allowNull: false
+  }
 });
 Product.hasMany(Order);
 
