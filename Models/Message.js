@@ -2,14 +2,14 @@ import Sequelize from "sequelize";
 
 import sequelize from "../Database/DBConfig.js";
 
-const Role = sequelize.define("role", {
+const Message = sequelize.define("message", {
     id: {
         type: Sequelize.STRING,
         primaryKey: true
     },
-    label: {
+    content: {
         type: Sequelize.STRING
     }
 });
 
-export default Role;
+export default Message;

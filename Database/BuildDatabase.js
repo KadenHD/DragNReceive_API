@@ -1,7 +1,45 @@
-import User from '../Models/User.js';
-import Role from '../Models/Role.js';
 import sequelize from './DBConfig.js';
 import bcrypt from 'bcrypt';
+
+import User from '../Models/User.js';
+import Role from '../Models/Role.js';
+import Ticket from '../Models/Ticket.js';
+import Message from '../Models/Message.js';
+import Shop from '../Models/Shop.js';
+import Product from '../Models/Product.js';
+import Logo from '../Models/Logo.js';
+import Order from '../Models/Order.js';
+
+// User <-> Role
+User.belongsTo(Role);
+Role.hasMany(User);
+
+// Ticket <-> User
+Ticket.belongsTo(User);
+User.hasMany(Ticket);
+
+// Message <-> User
+Message.belongsTo(User);
+User.hasMany(Message);
+
+// Message <-> Ticket
+Message.belongsTo(Ticket);
+Ticket.hasMany(Message);
+
+// Shop <-> Logo
+
+
+// User <-> Shop
+
+
+// Product <-> Shop
+
+
+// Order <-> User
+
+
+// Order <-> Product
+
 
 // Hash the password
 const hashedSadmin = await bcrypt.hash("sadmin", 10);

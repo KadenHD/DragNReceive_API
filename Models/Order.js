@@ -2,14 +2,17 @@ import Sequelize from "sequelize";
 
 import sequelize from "../Database/DBConfig.js";
 
-const Role = sequelize.define("role", {
+const Order = sequelize.define("order", {
     id: {
         type: Sequelize.STRING,
         primaryKey: true
     },
-    label: {
+    quantities: {
+        type: Sequelize.INTEGER
+    },
+    number: {
         type: Sequelize.STRING
     }
 });
 
-export default Role;
+export default Order;

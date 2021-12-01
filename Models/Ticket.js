@@ -2,23 +2,17 @@ import Sequelize from "sequelize";
 
 import sequelize from "../Database/DBConfig.js";
 
-const User = sequelize.define("user", {
+const Ticket = sequelize.define("ticket", {
     id: {
         type: Sequelize.STRING,
         primaryKey: true
     },
-    lastname: {
+    title: {
         type: Sequelize.STRING
     },
-    firstname: {
-        type: Sequelize.STRING
-    },
-    email: {
-        type: Sequelize.STRING
-    },
-    password: {
+    content: {
         type: Sequelize.STRING
     }
 });
 
-export default User;
+export default Ticket;
