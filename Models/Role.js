@@ -8,7 +8,8 @@ const Role = sequelize.define("role", {
         primaryKey: true
     },
     label: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     }
 });
 

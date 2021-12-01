@@ -8,10 +8,12 @@ const Ticket = sequelize.define("ticket", {
         primaryKey: true
     },
     title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     },
     content: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     }
 });
 

@@ -8,16 +8,20 @@ const Logo = sequelize.define("logo", {
         primaryKey: true
     },
     name: {
-        type: Sequelize.STRING(100)
+        type: Sequelize.STRING(100),
+        allowNull: false
     },
     size: {
-        type: Sequelize.INTEGER(11)
+        type: Sequelize.INTEGER(11),
+        allowNull: false
     },
     type: {
-        type: Sequelize.STRING(20)
+        type: Sequelize.STRING(20),
+        allowNull: false
     },
     bin: {
-        type: Sequelize.BLOB
+        type: Sequelize.BLOB,
+        allowNull: false
     }
 });
 

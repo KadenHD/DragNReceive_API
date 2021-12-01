@@ -8,10 +8,12 @@ const Order = sequelize.define("order", {
         primaryKey: true
     },
     quantities: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
     },
     number: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     }
 });
 
