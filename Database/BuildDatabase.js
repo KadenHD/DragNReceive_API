@@ -27,19 +27,24 @@ Message.belongsTo(Ticket);
 Ticket.hasMany(Message);
 
 // Shop <-> Logo
-
+Shop.belongsTo(Logo);
+Logo.hasOne(Shop);
 
 // User <-> Shop
-
+User.belongsTo(Shop);
+Shop.hasMany(User);
 
 // Product <-> Shop
-
+Product.belongsTo(Shop);
+Shop.hasMany(Product);
 
 // Order <-> User
-
+Order.belongsTo(User);
+User.hasMany(Order);
 
 // Order <-> Product
-
+Order.belongsTo(Product);
+Product.hasMany(Order);
 
 // Hash the password
 const hashedSadmin = await bcrypt.hash("sadmin", 10);
