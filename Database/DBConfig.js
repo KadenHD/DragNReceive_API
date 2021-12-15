@@ -9,6 +9,7 @@ const sequelize = new Sequelize(
     process.env.DB_USER,
     process.env.DB_PASS,
     {
+        timezone: '+01:00',
         dialect: process.env.DB_DIAL,
         host: process.env.DB_HOST,
     }
