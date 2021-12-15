@@ -65,8 +65,7 @@
 # To-do
 
 - Dans le user controller et Auth réadapter les fonctions en rajoutant par exemple dans la création de user le shopId etc...
-- Faire un fichier .json externe et l'appeler dans BuildDatabase pour faire des foreach des faker à créer pour alléger le code de BuildDatabase
-- Dans le DBConfig, rajouter des "fakes values" des autres tab en lien avec d'autres entités
+- Dans le BuildDatabase, rajouter des "fakes values" des autres tab en lien avec d'autres entités
 - Faire le système de reset de mot de pass par email + token mais aussi le relier à un mail trap
 - Faire un système de permissions en fonction du rôle de l'utilisateur en session pour faire ou non certain crud et en fonction de ce qu'il veut modifier genre un admin ne modifie pas un sadmin (donc dans son token ?)
 - Définir les caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule.... (contraintes)
