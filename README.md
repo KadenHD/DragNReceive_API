@@ -64,7 +64,7 @@
 
 # To-do
 
-- Résoudre la non-création de user (soucis avec Sequelize et le roleId) => ptet parce que j'ai mis les cardinalités dans le build et pas dans les models permettant le bon export car du coup quand je User.create dans le controller il reprends pas les many hasTo belongs etc...
+- Résoudre le soucis de non-création d'user, causé par le fait que je dois faire un fichier remplis de fonctions des models avec les Cardinalités que j'enlève du fichier Build Database et ensuite dans Build Database j'appelle mes nouveaux modèles avec les cardinalités
 - Faire le système de reset de mot de pass par email + token mais aussi le relier à un mail trap
 - Faire un système de permissions en fonction du rôle de l'utilisateur en session
 - Définir les caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule....
