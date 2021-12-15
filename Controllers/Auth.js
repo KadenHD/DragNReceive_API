@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { extractBearerToken } from '../Middlewares/TokenJWT.js';
-import Role from '../Models/Role.js';
 
-import User from '../Models/User.js'
+import { extractBearerToken } from '../Middlewares/TokenJWT.js';
+
+import { User, Role } from '../Models/Models.js';
 
 export const loginUser = async (req, res) => {
     // Get user and Check email

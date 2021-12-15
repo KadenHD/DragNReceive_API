@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 
-import User from '../Models/User.js';
+import { User } from '../Models/Models.js';
 
 const deletePassword = {
     attributes: {

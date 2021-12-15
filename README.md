@@ -64,12 +64,13 @@
 
 # To-do
 
-- Résoudre le soucis de non-création d'user, causé par le fait que je dois faire un fichier remplis de fonctions des models avec les Cardinalités que j'enlève du fichier Build Database et ensuite dans Build Database j'appelle mes nouveaux modèles avec les cardinalités
+- Dans le user controller et Auth réadapter les fonctions en rajoutant par exemple dans la création de user le shopId etc...
+- Faire un fichier .json externe et l'appeler dans BuildDatabase pour faire des foreach des faker à créer pour alléger le code de BuildDatabase
+- Dans le DBConfig, rajouter des "fakes values" des autres tab en lien avec d'autres entités
 - Faire le système de reset de mot de pass par email + token mais aussi le relier à un mail trap
-- Faire un système de permissions en fonction du rôle de l'utilisateur en session
-- Définir les caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule....
-- changer les choses disponibles dans le crud en fonction du role (retourner tout ou seulement celui de l'user, être admin ou sadmin pour delete, update certaines valeurs que si admin ou sadmin etc...)
-- Faire le refresh du token en back-end
+- Faire un système de permissions en fonction du rôle de l'utilisateur en session pour faire ou non certain crud et en fonction de ce qu'il veut modifier genre un admin ne modifie pas un sadmin (donc dans son token ?)
+- Définir les caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule.... (contraintes)
+- Faire le refresh du token en back-end (optionnel)
 
 # Sources
 
