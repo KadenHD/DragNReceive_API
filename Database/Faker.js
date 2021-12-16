@@ -1,58 +1,96 @@
 import faker from 'faker';
 import bcrypt from 'bcrypt';
+import { v4 as uuidv4 } from 'uuid';
 
-export const logos = [
-    {},
-];
+faker.locale = "fr";
 
+let fakerLogos = [];
 let fakerShops = [];
+let fakerProducts = [];
+let fakerRoles = [];
+let fakerDefaultUsers = [];
+let fakerUsers = [];
+let fakerOrders = [];
+let fakerTickets = [];
+let fakerMessages = [];
+
 for (let i = 1; i < 11; i++) {
-    let j = { 
-        id: i, 
+    let shopId = uuidv4();
+    let roleId = faker.datatype.number({min: 1, max: 4});
+    let userId = uuidv4();
+
+    let logo = { 
+
+    };
+    let shop = {
+        id: shopId, 
         name: faker.company.companyName(), 
-        phone: faker.phone.phoneFormats(), 
-        city:"Compiègne", 
-        street:"8 rue de ta soeur l'andouille", 
-        postal:"60200", 
+        phone: faker.phone.phoneNumberFormat(), 
+        city: faker.address.cityName(), 
+        street: faker.address.streetAddress(), 
+        postal: faker.address.zipCode(),
         logoId: null
     };
-    fakerShops[i] = j;
+
+    if (roleId !== 3) {
+        shopId = null;
+    }
+
+    let product = {
+
+    };
+    let user = {
+        id: userId,
+        lastname: faker.name.lastName(),
+        firstname: faker.name.firstName(),
+        email: faker.internet.email(),
+        password: await bcrypt.hash(faker.internet.password(), 10),
+        roleId: roleId,
+        shopId: shopId
+    };
+    let order = {
+
+    };
+    let ticket = {
+
+    };
+    let message = {
+
+    };
+    fakerLogos[i] = logo;
+    fakerShops[i] = shop;
+    fakerProducts[i] = product;
+    fakerUsers[i] = user;
+    fakerOrders[i] = order;
+    fakerTickets[i] = ticket;
+    fakerMessages[i] = message;
 }
-export const shops = fakerShops;
-
-export const products = [
-    {},
-];
-
-export const roles = [
+fakerRoles = [
     { id: "1", label: "SUPERADMIN" }, 
     { id: "2", label: "ADMIN" }, 
     { id: "3", label: "PARTNER" }, 
     { id: "4", label: "USER" }
 ];
-
 // Hash the password
 const hashedSadmin = await bcrypt.hash("sadmin", 10);
 const hashedAdmin = await bcrypt.hash("admin", 10);
 const hashedPartner = await bcrypt.hash("partner", 10);
 const hashedUser = await bcrypt.hash("user", 10);
-export const users = [
-    { id: "1", lastname: "sadmin", firstname: "sadmin", email: "sadmin@sadmin.sadmin", password: hashedSadmin, roleId: "1", shopId: null },
-    { id: "2", lastname: "admin", firstname: "admin", email: "admin@admin.admin", password: hashedAdmin, roleId: "2", shopId: null },
-    { id: "3", lastname: "partner", firstname: "partner", email: "partner@partner.partner", password: hashedPartner, roleId: "3", shopId: "1" },
-    { id: "4", lastname: "user", firstname: "user", email: "user@user.user", password: hashedUser, roleId: "4", shopId: null }
+fakerDefaultUsers = [
+    { id: '1', lastname: "sadmin", firstname: "sadmin", email: "sadmin@sadmin.sadmin", password: hashedSadmin, roleId: "1", shopId: null },
+    { id: '2', lastname: "admin", firstname: "admin", email: "admin@admin.admin", password: hashedAdmin, roleId: "2", shopId: null },
+    { id: '3', lastname: "partner", firstname: "partner", email: "partner@partner.partner", password: hashedPartner, roleId: "3", shopId: null },
+    { id: '4', lastname: "user", firstname: "user", email: "user@user.user", password: hashedUser, roleId: "4", shopId: null }
 ];
 
-export const orders = [
-    {},
-];
+export const logos = fakerLogos;
+export const shops = fakerShops;
+export const products = fakerProducts;
+export const roles = fakerRoles;
+export const defaultUsers = fakerDefaultUsers;
+export const users = fakerUsers;
+export const orders = fakerOrders;
+export const tickets = fakerTickets;
+export const messages = fakerMessages;
 
-export const tickets = [
-    {},
-];
-
-export const messages = [
-    {},
-];
-
-export default { logos, shops, products, roles, users, orders, tickets, messages };
+export default { logos, shops, products, roles, defaultUsers, users, orders, tickets, messages };
