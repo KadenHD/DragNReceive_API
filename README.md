@@ -64,6 +64,7 @@
 
 # To-do
 
+- Faire dans le DataTest des test pour faire des boucles de create en Sequilize au lieu de séparer dans faker et faire des tableaux
 - voir pour le format téléphone faker
 - Dans le user controller et Auth réadapter les fonctions en rajoutant par exemple dans la création de user le shopId etc...
 - Dans le BuildDatabase, rajouter des "fakes values" des autres tab en lien avec d'autres entités

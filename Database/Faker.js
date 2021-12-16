@@ -18,10 +18,13 @@ for (let i = 1; i < 11; i++) {
     let shopId = uuidv4();
     let roleId = faker.datatype.number({min: 1, max: 4});
     let userId = uuidv4();
+    let productId = uuidv4();
 
     let logo = { 
 
     };
+    fakerLogos[i] = logo;
+
     let shop = {
         id: shopId, 
         name: faker.company.companyName(), 
@@ -31,14 +34,22 @@ for (let i = 1; i < 11; i++) {
         postal: faker.address.zipCode(),
         logoId: null
     };
+    fakerShops[i] = shop;
+
+    let product = {
+        id: productId,
+        name: "",
+        description: "",
+        price: 2,
+        stock: 5,
+        shopId: shopId,
+    };
+    fakerProducts[i] = product;
 
     if (roleId !== 3) {
         shopId = null;
     }
 
-    let product = {
-
-    };
     let user = {
         id: userId,
         lastname: faker.name.lastName(),
@@ -48,21 +59,21 @@ for (let i = 1; i < 11; i++) {
         roleId: roleId,
         shopId: shopId
     };
+    fakerUsers[i] = user;
+
     let order = {
 
     };
+    fakerOrders[i] = order;
+
     let ticket = {
 
     };
+    fakerTickets[i] = ticket;
+
     let message = {
 
     };
-    fakerLogos[i] = logo;
-    fakerShops[i] = shop;
-    fakerProducts[i] = product;
-    fakerUsers[i] = user;
-    fakerOrders[i] = order;
-    fakerTickets[i] = ticket;
     fakerMessages[i] = message;
 }
 fakerRoles = [

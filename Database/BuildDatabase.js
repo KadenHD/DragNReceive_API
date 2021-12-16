@@ -29,7 +29,7 @@ sequelize
             Shop.create(shops[8]),
             Shop.create(shops[9]),
             Shop.create(shops[10]),
-            /*
+
             Product.create(products[1]),
             Product.create(products[2]),
             Product.create(products[3]),
@@ -40,7 +40,7 @@ sequelize
             Product.create(products[8]),
             Product.create(products[9]),
             Product.create(products[10]),
-            */
+
             Role.create(roles[0]),
             Role.create(roles[1]),
             Role.create(roles[2]),

@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "nodemon app.js",
-    "buildDB": "node ./Database/BuildDatabase.js"
+    "buildDB": "node ./Database/BuildDatabase.js",
+    "DataTest": "node ./Database/DataTest.js"
   },
   "repository": {
     "type": "git",
