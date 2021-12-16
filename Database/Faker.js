@@ -1,12 +1,24 @@
+import faker from 'faker';
 import bcrypt from 'bcrypt';
 
 export const logos = [
     {},
 ];
 
-export const shops = [
-    { id: "1", name: "TurboShop", phone:"0344856991", city:"Compiègne", street:"8 rue de ta soeur l'andouille", postal:"60200", logoId: null},
-];
+let fakerShops = [];
+for (let i = 1; i < 11; i++) {
+    let j = { 
+        id: i, 
+        name: faker.company.companyName(), 
+        phone: faker.phone.phoneFormats(), 
+        city:"Compiègne", 
+        street:"8 rue de ta soeur l'andouille", 
+        postal:"60200", 
+        logoId: null
+    };
+    fakerShops[i] = j;
+}
+export const shops = fakerShops;
 
 export const products = [
     {},

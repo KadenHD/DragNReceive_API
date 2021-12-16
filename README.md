@@ -64,6 +64,7 @@
 
 # To-do
 
+- voir pour le format téléphone faker
 - Dans le user controller et Auth réadapter les fonctions en rajoutant par exemple dans la création de user le shopId etc...
 - Dans le BuildDatabase, rajouter des "fakes values" des autres tab en lien avec d'autres entités
 - Faire le controller de tous les models

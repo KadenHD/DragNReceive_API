@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/KadenHD/DragNReceive_API#readme",
   "devDependencies": {
+    "faker": "^5.5.3",
     "nodemon": "^2.0.14"
   },
   "dependencies": {

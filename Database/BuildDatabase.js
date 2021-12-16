@@ -9,7 +9,16 @@ sequelize
         return (
             //Logo.create(),
             
-            Shop.create(shops[0]),
+            Shop.create(shops[1]),
+            Shop.create(shops[2]),
+            Shop.create(shops[3]),
+            Shop.create(shops[4]),
+            Shop.create(shops[5]),
+            Shop.create(shops[6]),
+            Shop.create(shops[7]),
+            Shop.create(shops[8]),
+            Shop.create(shops[9]),
+            Shop.create(shops[10]),
 
             //Product.create(),
 
