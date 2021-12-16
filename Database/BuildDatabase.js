@@ -1,13 +1,18 @@
 import sequelize from './DBConfig.js';
 
-import { User, Role, Ticket, Message, Shop, Product, Logo, Order } from '../Models/Models.js';
-
-import { roles, users, tickets, messages, shops, products, logos, orders } from './Faker.js'
+import { Logo, Shop, Product, Role, User, Order, Ticket, Message } from '../Models/Models.js';
+import { logos, shops, products, roles, users, orders, tickets, messages } from './Faker.js';
 
 sequelize
     .sync({ force: true })
     .then(result => {
         return (
+            //Logo.create(),
+            
+            Shop.create(shops[0]),
+
+            //Product.create(),
+
             Role.create(roles[0]),
             Role.create(roles[1]),
             Role.create(roles[2]),
@@ -17,6 +22,12 @@ sequelize
             User.create(users[1]),
             User.create(users[2]),
             User.create(users[3])
+            
+            //Order.create(),
+            
+            //Ticket.create(),
+            
+            //Message.create()
         );
     })
     .then(created => {
