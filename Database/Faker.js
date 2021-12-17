@@ -7,11 +7,16 @@ import { Logo, Shop, Product, Role, User, Order, Ticket, Message } from '../Mode
 faker.locale = "fr";
 
 try {
-    defaultUsers();
+    fakeInit();
 } catch (error) {
     console.log(error);
 } finally {
     console.log("DataBase instance and fake values created !");
+}
+
+async function fakeInit() {
+    //Mettre l'algo d'appelle des fonctions de créations
+    defaultUsers();
 }
 
 //Create the fakes standards users
@@ -93,18 +98,24 @@ async function fakeOrder(userId, productId) {
     return orderId;
 }
 
-async function fakeTicket() {
+async function fakeTicket(userId) {
     const ticketId = uuidv4();
     Ticket.create({
-
+        id: ticketId,
+        title: faker.lorem.sentence(),
+        content:faker.lorem.text(),
+        userId: userId
     });
     return ticketId;
 }
 
-async function fakeMessage() {
+async function fakeMessage(userId, ticketId) {
     const messageId = uuidv4();
     Message.create({
-
+        id: messageId,
+        content: faker.lorem.text(),
+        userId: userId,
+        ticketId: ticketId
     });
     return messageId;
 }
