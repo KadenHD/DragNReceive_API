@@ -60,11 +60,11 @@ SECRET_TOKEN=
 ###< API Server parameters ###
 ```
 - To create the tables, fk and constraints :
-````
+```
 npm run BuildDB
 ```
 - To create the Faker entities :
-````
+```
 npm run FakeDB :
 ```
 - To start the API :
