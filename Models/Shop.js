@@ -11,6 +11,10 @@ const Shop = sequelize.define("shop", {
         type: Sequelize.STRING,
         allowNull: false
     },
+    email: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     phone: {
         type: Sequelize.STRING(10)
     },

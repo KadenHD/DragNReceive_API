@@ -64,6 +64,7 @@
 
 # To-do
 
+- Pour envoyer une image il faut res.sendFile(filepath);
 - Faire démarrer dans l'odre chaqune des créations de base pour les FK
 - voir pour le format téléphone faker
 - Dans le user controller et Auth réadapter les fonctions en rajoutant par exemple dans la création de user le shopId etc...

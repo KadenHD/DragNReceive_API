@@ -17,20 +17,30 @@ try {
 async function fakeInit() {
     await defaultUsers();
     for(let i = 0; i<10 ; i++) {
-        const logoId = null
-        /*uuidv4();
+        const logos = [
+            "android.png",
+            "burger.png",
+            "camera.png",
+            "coffee.png",
+            "email.png",
+            "hella.png",
+            "instagram.png",
+            "python.png",
+            "twitter.png",
+            "windows.png"
+        ]
+        const logoId = uuidv4();
         Logo.create({
             id: logoId,
-            name: "",
-            size: "",
-            type: "",
-            bin: ""
+            path: "../Store/Logo/"+logos[i]
         });
-        */
         const shopId = uuidv4();
+        const n1 = faker.company.catchPhraseAdjective();
+        const n2 = faker.company.bsNoun();
         await Shop.create({
             id: shopId, 
-            name: faker.company.companyName(), 
+            name: n1+" "+n2,
+            email: "service@"+n1+"-"+n2+".fr", 
             phone: faker.phone.phoneNumberFormat(), 
             city: faker.address.cityName(), 
             street: faker.address.streetAddress(), 
@@ -49,11 +59,13 @@ async function fakeInit() {
         const roleId = faker.datatype.number({min: 1, max: 4}).toString();
         const userId = uuidv4();
         const hashPassword = await bcrypt.hash("test", 10);
+        const ln = faker.name.lastName();
+        const fn = faker.name.firstName();
         await User.create({ 
             id: userId,
-            lastname: faker.name.lastName(),
-            firstname: faker.name.firstName(),
-            email: faker.internet.email(),
+            lastname: ln,
+            firstname: fn,
+            email: faker.internet.email(fn, ln),
             password: hashPassword,
             roleId: roleId,
             shopId: shopId 

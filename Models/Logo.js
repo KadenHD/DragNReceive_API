@@ -7,20 +7,8 @@ const Logo = sequelize.define("logo", {
         type: Sequelize.STRING,
         primaryKey: true
     },
-    name: {
-        type: Sequelize.STRING(100),
-        allowNull: false
-    },
-    size: {
-        type: Sequelize.INTEGER(11),
-        allowNull: false
-    },
-    type: {
-        type: Sequelize.STRING(20),
-        allowNull: false
-    },
-    bin: {
-        type: Sequelize.BLOB,
+    path: {
+        type: Sequelize.STRING(255),
         allowNull: false
     }
 });
