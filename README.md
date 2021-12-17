@@ -43,7 +43,7 @@
 
 - create database in phpmyadmin
 - create at the root of the project the folder 'Store' and inside it create 'Logo'
-- create at the root of the project an .env file and edit it like that:
+- create at the root of the project a .env file and edit it like that:
 ```
 ###> DataBase parameters ###
 DB_NAME=
