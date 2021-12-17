@@ -42,7 +42,7 @@
 ### Mise en place du projet
 
 - create database in phpmyadmin
-- create at the root of the project the folders : 'Store/Logo'
+- create at the root of the project the folder 'Store' and inside it create 'Logo'
 - create at the root of the project an .env file and edit it like that:
 ```
 ###> DataBase parameters ###
@@ -59,9 +59,18 @@ BASE_URL=
 SECRET_TOKEN=
 ###< API Server parameters ###
 ```
-- npm run BuildDB to create the tables, fk and constraints
-- npm run FakeDB to create the Faker entities
-- npm start
+- To create the tables, fk and constraints :
+````
+npm run BuildDB
+```
+- To create the Faker entities :
+````
+npm run FakeDB :
+```
+- To start the API :
+```
+npm start
+```
     
 # Technologies
 
