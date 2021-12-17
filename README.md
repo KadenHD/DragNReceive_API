@@ -83,6 +83,7 @@ SECRET_TOKEN=
 
 
 - Dans le user controller et Auth réadapter les fonctions en rajoutant par exemple dans la création de user le shopId etc...
+- Optimiser et modifier les fonctions du controller
 - Faire le controller de tous les models
 - Définir les caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule.... (contraintes)
 
