@@ -90,7 +90,8 @@ npm start
 
 # To-do
 
-
+- Rajouter une image dans le model des produits
+- Rajouter un dossier pour les images de produits, et changer la route vers un dossier avec un shopName
 - Dans le user controller et Auth réadapter les fonctions en rajoutant par exemple dans la création de user le shopId etc...
 - Optimiser et modifier les functions du controller
 - Faire le controller de tous les models
