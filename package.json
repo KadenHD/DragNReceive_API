@@ -7,7 +7,8 @@
   "scripts": {
     "start": "nodemon app.js",
     "BuildDB": "node ./Database/BuildDatabase.js",
-    "FakeDB": "node ./Database/Faker.js"
+    "FakeDB": "node ./Database/Faker.js",
+    "testJS": "node ./Test.js"
   },
   "repository": {
     "type": "git",
