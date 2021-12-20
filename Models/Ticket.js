@@ -4,15 +4,19 @@ import sequelize from "../Database/DBConfig.js";
 
 const Ticket = sequelize.define("ticket", {
     id: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(),
         primaryKey: true
     },
     title: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(),
         allowNull: false
     },
     content: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(),
+        allowNull: false
+    },
+    inProgress: {
+        type: Sequelize.BOOLEAN(),
         allowNull: false
     }
 });

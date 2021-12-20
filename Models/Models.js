@@ -6,12 +6,14 @@ import Shop from '../Models/Shop.js';
 import Product from '../Models/Product.js';
 import Logo from '../Models/Logo.js';
 import Order from '../Models/Order.js';
+import OrderStatus from '../Models/OrderStatus.js';
+import TicketStatus from '../Models/TicketStatus.js';
 
 // User <-> Role
 User.belongsTo(Role, {
-    foreignKey: {       
+    foreignKey: {
         allowNull: false
-    }       
+    }
 });
 Role.hasMany(User);
 
@@ -78,4 +80,20 @@ Order.belongsTo(Product, {
 });
 Product.hasMany(Order);
 
-export { User, Role, Ticket, Message, Shop, Product, Logo, Order };
+// Order <-> OrderStatus
+Order.belongsTo(OrderStatus, {
+    foreignKey: {
+        allowNull: false
+    }
+});
+OrderStatus.hasMany(Order);
+
+// Ticket <-> TicketStatus
+Ticket.belongsTo(TicketStatus, {
+    foreignKey: {
+        allowNull: false
+    }
+});
+TicketStatus.hasMany(Ticket);
+
+export { User, Role, Ticket, Message, Shop, Product, Logo, Order, OrderStatus, TicketStatus };

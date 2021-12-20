@@ -4,25 +4,25 @@ import sequelize from "../Database/DBConfig.js";
 
 const Shop = sequelize.define("shop", {
     id: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(),
         primaryKey: true
     },
     name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(),
         allowNull: false
     },
     email: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(),
         allowNull: false
     },
     phone: {
         type: Sequelize.STRING(10)
     },
     city: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING()
     },
     street: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING()
     },
     postal: {
         type: Sequelize.INTEGER(5)

@@ -4,23 +4,27 @@ import sequelize from "../Database/DBConfig.js";
 
 const Product = sequelize.define("product", {
     id: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(),
         primaryKey: true
     },
     name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(),
         allowNull: false
     },
     description: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(),
         allowNull: false
     },
     price: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.FLOAT(),
         allowNull: false
     },
     stock: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(),
+        allowNull: false
+    },
+    path: {
+        type: Sequelize.STRING(255),
         allowNull: false
     }
 });

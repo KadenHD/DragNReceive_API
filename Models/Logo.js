@@ -4,7 +4,7 @@ import sequelize from "../Database/DBConfig.js";
 
 const Logo = sequelize.define("logo", {
     id: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(),
         primaryKey: true
     },
     path: {

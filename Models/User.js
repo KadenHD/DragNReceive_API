@@ -4,23 +4,23 @@ import sequelize from "../Database/DBConfig.js";
 
 const User = sequelize.define("user", {
     id: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(),
         primaryKey: true
     },
     lastname: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(),
         allowNull: false
     },
     firstname: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(),
         allowNull: false
     },
     email: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(),
         allowNull: false
     },
     password: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(),
         allowNull: false
     }
 });

@@ -4,11 +4,9 @@ import { Logo, Shop, Product, Role, User, Order, Ticket, Message } from '../Mode
 
 sequelize
     .sync({ force: true })
-    .then(result => {
-        console.log("result");
-    })
     .then(created => {
         console.log("Database Successfully Created !!!")
+        process.exit();
     })
     .catch(err => {
         console.log(err);

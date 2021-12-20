@@ -90,8 +90,8 @@ npm start
 
 # To-do
 
-- Rajouter une image dans le model des produits
-- Rajouter un dossier pour les images de produits, et changer la route vers un dossier avec un shopName
+- En dessous des Store Users et Companies, il faut qu'a la création d'un shop ou user, il y ai un sous dossier portant son id
+- Rajouter dans le faker des boucles etc pour bien créer les entities aux bons user etc...
 - Dans le user controller et Auth réadapter les fonctions en rajoutant par exemple dans la création de user le shopId etc...
 - Optimiser et modifier les functions du controller
 - Faire le controller de tous les models
