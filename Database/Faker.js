@@ -77,7 +77,6 @@ async function fakeInit() {
             id: ticketId,
             title: faker.lorem.sentence(),
             content: faker.lorem.sentence(),
-            inProgress: faker.datatype.boolean(),
             userId: userId,
             ticketStatusId: faker.datatype.number({ min: 1, max: 2 })
         });
@@ -102,7 +101,7 @@ async function defaultDatas() {
                 const hashedSadmin = await bcrypt.hash("sadmin", 10);
                 await Role.create({ id: i, label: "SUPERADMIN" });
                 await User.create({ id: i, lastname: "sadmin", firstname: "sadmin", email: "sadmin@sadmin.sadmin", password: hashedSadmin, roleId: i, shopId: null });
-                await TicketStatus.create({ id: i, label: "In progress" });
+                await TicketStatus.create({ id: i, label: "Open" });
                 await OrderStatus.create({ id: i, label: "In progress" });
                 break;
             case 2:

@@ -14,10 +14,6 @@ const Ticket = sequelize.define("ticket", {
     content: {
         type: Sequelize.STRING(),
         allowNull: false
-    },
-    inProgress: {
-        type: Sequelize.BOOLEAN(),
-        allowNull: false
     }
 });
 
