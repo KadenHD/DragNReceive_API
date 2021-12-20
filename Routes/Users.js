@@ -4,15 +4,10 @@ import { findAllUsers, createUser, findOneUser, deleteUser, updateUser } from '.
 
 const router = express.Router();
 
-// all routes in here are starting with '/users'
 router.get('/', findAllUsers);
-
 router.post('/', createUser);
-
 router.get('/:id', findOneUser);
-
 router.delete('/:id', deleteUser);
-
 router.put('/:id', updateUser);
 
 export default router;
