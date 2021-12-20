@@ -78,7 +78,7 @@ npm start
 
 # To-do
 
-- Création des dossiers dans le Store (géré dans les controller.create)
+- Réussir a enregistrer des images reçu et définir les bonnes routes pour les paths
 - Faire des middlewares qui check les permissions
 - Faire les permissions pour savoir si l'utilisateur peut crud ou non (role ou propre) (et la vérification se ferra dans le token ?)
 - Définir les contraintes de caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule...
