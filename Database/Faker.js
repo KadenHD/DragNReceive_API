@@ -121,6 +121,7 @@ async function defaultDatas() {
                 const hashedUser = await bcrypt.hash("user", 10);
                 await Role.create({ id: i, label: "USER" });
                 await User.create({ id: i, lastname: "user", firstname: "user", email: "user@user.user", password: hashedUser, roleId: i, shopId: null });
+                await OrderStatus.create({ id: i, label: "Canceled" });
                 break;
         }
     }
