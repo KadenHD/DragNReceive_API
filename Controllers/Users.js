@@ -58,7 +58,15 @@ export const createUser = async (req, res) => {
 
     User.create(user)
         .then(data => {
-            const dir = 'Store/Users/' + user.id;
+            dir = 'Store/Users/' + user.id;
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir, { recursive: true });
+            }
+            dir = 'Store/Users/' + user.id + '/Picture/';
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir, { recursive: true });
+            }
+            dir = 'Store/Users/' + user.id + '/Invoices/';
             if (!fs.existsSync(dir)) {
                 fs.mkdirSync(dir, { recursive: true });
             }

@@ -44,7 +44,7 @@ export const updateLogo = async (req, res) => {
     const id = req.params.id;
     const logo = Logo.findByPk(id);
 
-    const path = ""; //Le nom de l'image format etc : "../Store/:idShop/Logo/logo.png"
+    const path = ''; //Le nom de l'image format etc : "../Store/:idShop/Logo/logo.png"
     logo.path = path;
 
     Logo.update(logo, { where: { id: logo.id } })

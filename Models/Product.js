@@ -25,7 +25,7 @@ const Product = sequelize.define("product", {
     },
     path: {
         type: Sequelize.STRING(255),
-        allowNull: false
+        allowNull: true
     }
 });
 

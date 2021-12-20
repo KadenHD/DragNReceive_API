@@ -44,6 +44,14 @@ export const createShop = async (req, res) => {
 
     Shop.create(shop)
         .then(data => {
+            dir = 'Store/Companies/' + shopId + '/Products/';
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir, { recursive: true });
+            }
+            dir = 'Store/Companies/' + shopId + '/Logo/' + logoId;
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir, { recursive: true });
+            }
             res.status(200).json({
                 success: `L'utilisateur a bien été créé.`
             });

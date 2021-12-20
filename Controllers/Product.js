@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { Product } from '../Models/Models.js';
+import { Product, Shop } from '../Models/Models.js';
 
 export const findAllProducts = (req, res) => {
 
@@ -28,7 +28,7 @@ export const createProduct = async (req, res) => {
     //vérifier que l'image soit valide
     // Sauvegarder l'image dans la bonne route
 
-    const path = ""; //Le nom de l'image format etc : "../Store/:idShop/Product/product.png"
+    const path = ''; //Le nom de l'image format etc : "../Store/:idShop/Product/product.png"
     const product = {
         id: uuidv4(),
         name: req.body.name,
@@ -41,6 +41,10 @@ export const createProduct = async (req, res) => {
 
     Product.create(product)
         .then(data => {
+            dir = 'Store/Companies/' + shopId + '/Products/' + product.id;
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir, { recursive: true });
+            }
             res.status(200).json({
                 success: `Le produit a bien été créé.`
             });
@@ -78,10 +82,16 @@ export const findOneProduct = (req, res) => {
 export const deleteProduct = (req, res) => {
 
     const id = req.params.id;
+    const product = Product.findByPk(id);
+    const shop = Shop.findByPk(product.shopId);
 
     Product.destroy({ where: { id: id } })
         .then(num => {
             if (num == 1) {
+                const dir = 'Store/Companies/' + shop.id + '/Products/' + id;
+                if (fs.existsSync(dir)) {
+                    fs.rmSync(dir, { recursive: true })
+                }
                 res.status(200).json({
                     success: `Le produit a bien été supprimé.`
                 });

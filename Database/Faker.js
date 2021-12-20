@@ -1,10 +1,13 @@
 import faker from 'faker';
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
+import fs from 'fs';
 
 import { Logo, Shop, Product, Role, User, Order, Ticket, Message, OrderStatus, TicketStatus } from '../Models/Models.js';
 
 faker.locale = "fr";
+
+let dir = '';
 
 try {
     fakeInit();
@@ -18,7 +21,7 @@ async function fakeInit() {
         const logoId = uuidv4();
         Logo.create({
             id: logoId,
-            path: "../Store/Default/Companies/Logo/" + "default.png"
+            path: null
         });
         var shopId = uuidv4();
         const n1 = faker.company.catchPhraseAdjective();
@@ -41,9 +44,19 @@ async function fakeInit() {
             description: faker.commerce.productDescription(),
             price: productPrice,
             stock: faker.datatype.number({ min: 1, max: 100 }),
-            path: "../Store/Default/Companies/Products/" + "default.png",
+            path: null,
             shopId: shopId,
-        });
+        })
+            .then(store => {
+                dir = 'Store/Companies/' + shopId + '/Products/' + productId;
+                if (!fs.existsSync(dir)) {
+                    fs.mkdirSync(dir, { recursive: true });
+                }
+                dir = 'Store/Companies/' + shopId + '/Logo/' + logoId;
+                if (!fs.existsSync(dir)) {
+                    fs.mkdirSync(dir, { recursive: true });
+                }
+            });
         const roleId = faker.datatype.number({ min: 1, max: 4 }).toString();
         if (roleId != 3) {
             shopId = null;
@@ -60,7 +73,22 @@ async function fakeInit() {
             password: hashPassword,
             roleId: roleId,
             shopId: shopId
-        });
+        })
+            .then(store => {
+                dir = 'Store/Users/' + userId;
+                if (!fs.existsSync(dir)) {
+                    fs.mkdirSync(dir, { recursive: true });
+                }
+                dir = 'Store/Users/' + userId + '/Picture/';
+                if (!fs.existsSync(dir)) {
+                    fs.mkdirSync(dir, { recursive: true });
+                }
+                dir = 'Store/Users/' + userId + '/Invoices/';
+                if (!fs.existsSync(dir)) {
+                    fs.mkdirSync(dir, { recursive: true });
+                }
+            });
+
         const orderId = uuidv4();
         const orderQuantities = faker.datatype.number({ min: 1, max: 20 });
         await Order.create({
@@ -89,6 +117,7 @@ async function fakeInit() {
                 ticketId: ticketId
             });
         }
+
     }
     process.exit();
 }

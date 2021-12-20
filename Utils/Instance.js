@@ -16,11 +16,6 @@ envContent += "BASE_URL=http://localhost\n"
 envContent += "SECRET_TOKEN=T0k3nD3G4m3r\n"
 envContent += "###< API Server parameters ###\n"
 
-fs.appendFile('.env', envContent, function (err) {
-    if (err) throw err;
-    console.log(".env file created !");
-});
-
 dir = 'Store/Users/';
 if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
@@ -33,7 +28,11 @@ if (!fs.existsSync(dir)) {
     console.log("Folders : " + dir + " created !");
 }
 
-
+dir = '.env';
+fs.writeFile(dir, envContent, function (err) {
+    if (err) throw err;
+    console.log("File : " + dir + " created !");
+});
 
 
 

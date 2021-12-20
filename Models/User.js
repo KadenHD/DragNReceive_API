@@ -22,6 +22,10 @@ const User = sequelize.define("user", {
     password: {
         type: Sequelize.STRING(),
         allowNull: false
+    },
+    path: {
+        type: Sequelize.STRING(255),
+        allowNull: true
     }
 });
 
