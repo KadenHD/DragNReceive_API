@@ -62,6 +62,7 @@ export const createUser = async (req, res) => {
             });
         });
 
+    // Créer les dossiers dans le Store, par défault : ../Store/Users/:userId/
 }
 
 export const findOneUser = (req, res) => {

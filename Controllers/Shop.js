@@ -55,6 +55,7 @@ export const createShop = async (req, res) => {
         });
 
     await Logo.create({ id: shop.logoId });
+    // Créer les dossiers dans le Store, par défault : ../Store/Companies/:idShop/Logo et ../Store/Companies/:idShop/Products
 
 }
 
