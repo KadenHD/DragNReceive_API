@@ -41,9 +41,11 @@ export const updateLogo = async (req, res) => {
     // Supprimer l'ancienne image et remplacer par la nouvelle
     //vérifier que l'image soit valide
 
-    const logo = Logo.findByPk(req.body.logoId);
+    const id = req.params.id;
+    const logo = Logo.findByPk(id);
 
-    logo.path = ""; //Le nom de l'image format etc : "../Store/idShop/Logo/logo.png"
+    const path = ""; //Le nom de l'image format etc : "../Store/idShop/Logo/logo.png"
+    logo.path = path;
 
     Logo.update(logo, { where: { id: logo.id } })
         .then(num => {

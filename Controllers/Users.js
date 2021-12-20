@@ -119,7 +119,8 @@ export const updateUser = async (req, res) => {
         return;
     }
 
-    const { id, firstname, lastname, email, password, roleId, shopId } = req.body;
+    const id = req.params.id;
+    const { firstname, lastname, email, password, roleId, shopId } = req.body;
     const user = User.findByPk(id);
 
     // Own User, Admin and Sadmin only
