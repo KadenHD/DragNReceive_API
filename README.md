@@ -90,13 +90,13 @@ npm start
 
 # To-do
 
-- Faut-il vraiment avoir un controller pour les logos et message ou faut-il les mettre dans les controller shop et ticket ?
-- En dessous des Store Users et Companies, il faut qu'a la création d'un shop ou user, il y ai un sous dossier portant son id (rajouter dans les controllers)
+- Création des dossiers dans le Store (géré dans les controller.create)
 - Faire le controller de tous les models
 - Définir les contraintes de caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule...
 
-- Faire le système de reset de mot de pass par email + token mais aussi le relier à un mail trap
-- Faire un système de permissions en fonction du rôle de l'utilisateur en session pour faire ou non certain crud et en fonction de ce qu'il veut modifier genre un admin ne modifie pas un sadmin (donc dans son token ?)
+- Faire les permissions pour savoir si l'utilisateur peut crud ou non (role ou propre) (et la vérification se ferra dans le token ?)
+
+- Faire le système de reset de mot de pass par email + token mais aussi le relier à un mailer (mail trap)
 - Faire le refresh du token en back-end (optionnel)
 
 - Pour envoyer une image il faut res.sendFile(filepath);
