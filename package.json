@@ -6,9 +6,10 @@
   "type": "module",
   "scripts": {
     "start": "nodemon app.js",
+    "Instance": "node ./Utils/Instance.js",
     "BuildDB": "node ./Database/BuildDatabase.js",
     "FakeDB": "node ./Database/Faker.js",
-    "testJS": "node ./Test.js"
+    "Test": "node ./Utils/Test.js"
   },
   "repository": {
     "type": "git",

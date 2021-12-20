@@ -43,21 +43,9 @@
 
 - create database in phpmyadmin
 - create at the root of the project the folder 'Store' and inside it create 'Logo'
-- create at the root of the project a .env file and edit it like that:
+- To create at the root of the project a .env file and create Store folders :
 ```
-###> DataBase parameters ###
-DB_NAME=dragnreceive
-DB_USER=root
-DB_PASS=
-DB_DIAL=mysql
-DB_HOST=localhost
-###< DataBase parameters ###
-
-###> API Server parameters ###
-PORT=3000
-BASE_URL=http://localhost
-SECRET_TOKEN=T0k3nD3G4m3r
-###< API Server parameters ###
+npm run Instance
 ```
 - To create the tables, fk and constraints :
 ```

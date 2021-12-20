@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
+import fs from 'fs'
 
-import { User } from '../Models/Models.js';
+import { User, Shop } from '../Models/Models.js';
 
 export const findAllUsers = (req, res) => {
 
@@ -26,7 +27,7 @@ export const createUser = async (req, res) => {
         return;
     }
 
-    if (req.body.roleId === 3 && !req.body.shopId) return res.status(400).json({
+    if (req.body.roleId == 3 && !req.body.shopId) return res.status(400).json({
         error: `Un partenaire doit appartenir à une boutique.`
     });
 
@@ -37,6 +38,11 @@ export const createUser = async (req, res) => {
     const userExist = await User.findOne({ where: { email: req.body.email } })
     if (userExist) return res.status(400).json({
         error: `L'email ${req.body.email} est déjà utilisée.`
+    });
+
+    const shopExist = await Shop.findByPk(req.body.shopId)
+    if (!shopExist && req.body.roleId == 3) return res.status(400).json({
+        error: `La boutique n'existe pas.`
     });
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -52,6 +58,10 @@ export const createUser = async (req, res) => {
 
     User.create(user)
         .then(data => {
+            const dir = 'Store/Users/' + user.id;
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir, { recursive: true });
+            }
             res.status(200).json({
                 success: `L'utilisateur a bien été créé.`
             });
@@ -62,7 +72,6 @@ export const createUser = async (req, res) => {
             });
         });
 
-    // Créer les dossiers dans le Store, par défault : ../Store/Users/:userId/
 }
 
 export const findOneUser = (req, res) => {
@@ -94,6 +103,10 @@ export const deleteUser = (req, res) => {
     User.destroy({ where: { id: id } })
         .then(num => {
             if (num == 1) {
+                const dir = 'Store/Users/' + id;
+                if (fs.existsSync(dir)) {
+                    fs.rmSync(dir, { recursive: true })
+                }
                 res.status(200).json({
                     success: `L'utilisateur a bien été supprimé.`
                 });
