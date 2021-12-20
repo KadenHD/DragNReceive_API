@@ -91,7 +91,6 @@ npm start
 # To-do
 
 - Création des dossiers dans le Store (géré dans les controller.create)
-- Faire le controller de tous les models
 - Définir les contraintes de caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule...
 
 - Faire les permissions pour savoir si l'utilisateur peut crud ou non (role ou propre) (et la vérification se ferra dans le token ?)
