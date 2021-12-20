@@ -9,7 +9,7 @@ const Logo = sequelize.define("logo", {
     },
     path: {
         type: Sequelize.STRING(255),
-        allowNull: false
+        allowNull: true
     }
 });
 

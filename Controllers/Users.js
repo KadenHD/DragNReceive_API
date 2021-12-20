@@ -11,7 +11,7 @@ export const findAllUsers = (req, res) => {
         })
         .catch(err => {
             res.status(500).json({
-                error: `Une erreur est survenue lors de la recherche d'utilisateurs : ${err}.`
+                error: `Une erreur est survenue lors de la recherche d'utilisateurs.`
             });
         });
 
@@ -53,12 +53,12 @@ export const createUser = async (req, res) => {
     User.create(user)
         .then(data => {
             res.status(200).json({
-                success: `L'utilisateur du nom de ${user.firstname} ${user.lastname} a bien été créé.`
+                success: `L'utilisateur a bien été créé.`
             });
         })
         .catch(err => {
             res.status(500).json({
-                error: `Une erreur est survenue lors de la création de l'utilisateur : ${err}.`
+                error: `Une erreur est survenue lors de la création de l'utilisateur.`
             });
         });
 
@@ -74,13 +74,13 @@ export const findOneUser = (req, res) => {
                 res.status(200).json(data);
             } else {
                 res.status(404).json({
-                    error: `L'utilisateur avec l'id ${id} n'existe pas.`
+                    error: `L'utilisateur n'existe pas.`
                 });
             }
         })
         .catch(err => {
             res.status(500).json({
-                error: `Une erreur est survenue lors de la recherche de l'utilisateur d'id ${id} : ${err}.`
+                error: `Une erreur est survenue lors de la recherche de l'utilisateur.`
             });
         });
 
@@ -94,17 +94,17 @@ export const deleteUser = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.status(200).json({
-                    success: `L'utilisateur avec l'identifiant ${id} a bien été supprimé.`
+                    success: `L'utilisateur a bien été supprimé.`
                 });
             } else {
                 res.json({
-                    error: `Impossible de supprimer l'utilisateur d'id ${id}. Peut-être que l'utilisateur n'existe pas.`
+                    error: `Impossible de supprimer l'utilisateur. Peut-être que l'utilisateur n'existe pas.`
                 });
             }
         })
         .catch(err => {
             res.status(500).json({
-                error: `Une erreur est survenue de lors de la suppression de l'utilisateur d'id ${id} : ${err}.`
+                error: `Une erreur est survenue de lors de la suppression de l'utilisateur.`
             });
         });
 
@@ -141,17 +141,17 @@ export const updateUser = async (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.status(200).json({
-                    success: `L'utilisateur d'id ${id} a bien été modifié`
+                    success: `L'utilisateur a bien été modifié`
                 });
             } else {
                 res.json({
-                    error: `Impossible de modifier l'utilisateur d'id ${id}. Peut-être que l'utilisateur n'existe pas.`
+                    error: `Impossible de modifier l'utilisateur. Peut-être que l'utilisateur n'existe pas.`
                 });
             }
         })
         .catch(err => {
             res.status(500).json({
-                error: `Une erreur est survenue de lors de la modification de l'utilisateur d'id ${id} : ${err}.`
+                error: `Une erreur est survenue de lors de la modification de l'utilisateur.`
             });
         })
 
