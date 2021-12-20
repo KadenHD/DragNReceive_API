@@ -28,7 +28,8 @@ export const createProduct = async (req, res) => {
     //vérifier que l'image soit valide
     // Sauvegarder l'image dans la bonne route
 
-    const path = ''; //Le nom de l'image format etc : "../Store/:idShop/Product/product.png"
+    const path = null; //Traiter les images pour les sauvegarder au bon endroit puis mettre le path ici
+
     const product = {
         id: uuidv4(),
         name: req.body.name,
@@ -111,7 +112,7 @@ export const deleteProduct = (req, res) => {
 
 export const updateProduct = async (req, res) => {
 
-    if (!req.body.name && !req.body.description && !req.body.price && !req.body.stock && !req.body.path) {
+    if (!req.body.name && !req.body.description && !req.body.price && !req.body.stock) {
         res.status(400).json({
             error: "Requête non-valide."
         });
@@ -119,14 +120,15 @@ export const updateProduct = async (req, res) => {
     }
 
     const id = req.params.id;
-    const { name, description, price, stock, path } = req.body;
+    const { name, description, price, stock } = req.body;
     const product = Product.findByPk(id);
 
     if (name) product.name = name;
     if (description) product.description = description;
     if (price) product.price = price;
     if (stock) product.stock = stock;
-    if (path) { }; // Traitement soit de la suppression soit de l'ajout d'une nouvelle image produit
+
+    const path = null; //Traiter les images pour les sauvegarder au bon endroit puis mettre le path ici
 
     Product.update(product, { where: { id: id } })
         .then(num => {

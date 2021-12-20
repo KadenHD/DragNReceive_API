@@ -45,6 +45,8 @@ export const createUser = async (req, res) => {
         error: `La boutique n'existe pas.`
     });
 
+    const path = null; //Traiter les images pour les sauvegarder au bon endroit puis mettre le path ici
+
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = {
         id: uuidv4(),
@@ -52,6 +54,7 @@ export const createUser = async (req, res) => {
         firstname: req.body.firstname,
         email: req.body.email,
         password: hashedPassword,
+        path: path,
         roleId: req.body.roleId,
         shopId: req.body.shopId
     }
@@ -159,6 +162,8 @@ export const updateUser = async (req, res) => {
         user.roleId = roleId;
     }
     if (shopId && user.roleId === 3) user.shopId = shopId;
+
+    const path = null; //Traiter les images pour les sauvegarder au bon endroit puis mettre le path ici
 
     User.update(user, { where: { id: id } })
         .then(num => {

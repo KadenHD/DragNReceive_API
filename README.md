@@ -81,8 +81,8 @@ npm start
 - Réussir a enregistrer des images reçu et définir les bonnes routes pour les paths
 - Faire des middlewares qui check les permissions
 - Faire les permissions pour savoir si l'utilisateur peut crud ou non (role ou propre) (et la vérification se ferra dans le token ?)
-- Définir les contraintes de caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule...
 
+- Définir les contraintes de caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule...
 - Faire le système de reset de mot de pass par email + token mais aussi le relier à un mailer (mail trap)
 - Faire le refresh du token en back-end (optionnel)
 
