@@ -46,17 +46,17 @@
 - create at the root of the project a .env file and edit it like that:
 ```
 ###> DataBase parameters ###
-DB_NAME=
-DB_USER=
+DB_NAME=dragnreceive
+DB_USER=root
 DB_PASS=
-DB_DIAL=
-DB_HOST=
+DB_DIAL=mysql
+DB_HOST=localhost
 ###< DataBase parameters ###
 
 ###> API Server parameters ###
-PORT=
-BASE_URL=
-SECRET_TOKEN=
+PORT=3000
+BASE_URL=http://localhost
+SECRET_TOKEN=T0k3nD3G4m3r
 ###< API Server parameters ###
 ```
 - To create the tables, fk and constraints :
