@@ -8,7 +8,7 @@
     "start": "nodemon app.js",
     "Instance": "node ./Utils/Instance.js",
     "BuildDB": "node ./Database/BuildDatabase.js",
-    "FakeDB": "node ./Database/Faker.js",
+    "FakeDB": "node ./Utils/Faker.js",
     "Test": "node ./Utils/Test.js"
   },
   "repository": {
