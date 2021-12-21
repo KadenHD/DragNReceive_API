@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-export const CheckToken = (req, res, next) => {
+export const isValidToken = (req, res, next) => {
     const token = req.headers.authorization && extractBearerToken(req.headers.authorization);
     if (!token) return res.status(401).json({ error: `Vous avez besoin d'un token.` });
 

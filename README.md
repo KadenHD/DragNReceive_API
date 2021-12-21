@@ -78,7 +78,7 @@ npm start
 
 # To-do
 
-- Faire sur Postman toute les requests
+- Sur Postman, définir les params des find delete et patch par une variable id
 - Réussir a enregistrer des images reçu et définir les bonnes routes pour les paths
 - Faire des middlewares qui check les permissions
 - Faire les permissions pour savoir si l'utilisateur peut crud ou non (role ou propre) (et la vérification se ferra dans le token ?)
