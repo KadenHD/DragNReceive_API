@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 
-import router from './Routes/index.js';
+import router from './Routes/Routes.js';
 
 dotenv.config(); // add the variables from .env to process.env
 
