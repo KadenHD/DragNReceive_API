@@ -53,7 +53,7 @@ npm run BuildDB
 ```
 - To create the Faker entities :
 ```
-npm run FakeDB :
+npm run FakeDB
 ```
 - To start the API :
 ```
