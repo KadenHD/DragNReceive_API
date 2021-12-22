@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
 
-import { Logo, Shop, Product, Role, User, Order, Ticket, Message, OrderStatus, TicketStatus } from '../Models/Models.js';
+import { Shop, Product, Role, User, Order, Ticket, Message, OrderStatus, TicketStatus } from '../Models/Models.js';
 
 faker.locale = "fr";
 
@@ -18,11 +18,6 @@ try {
 async function fakeInit() {
     await defaultDatas();
     for (let i = 0; i < 10; i++) {
-        const logoId = uuidv4();
-        Logo.create({
-            id: logoId,
-            path: null
-        });
         var shopId = uuidv4();
         const n1 = faker.company.catchPhraseAdjective();
         const n2 = faker.company.bsNoun();
@@ -34,7 +29,7 @@ async function fakeInit() {
             city: faker.address.cityName(),
             street: faker.address.streetAddress(),
             postal: faker.address.zipCode(),
-            logoId: logoId
+            path: null
         });
         const productId = uuidv4();
         const productPrice = faker.datatype.float();
@@ -52,7 +47,7 @@ async function fakeInit() {
                 if (!fs.existsSync(dir)) {
                     fs.mkdirSync(dir, { recursive: true });
                 }
-                dir = 'Store/Companies/' + shopId + '/Logo/' + logoId;
+                dir = 'Store/Companies/' + shopId + '/Logo/';
                 if (!fs.existsSync(dir)) {
                     fs.mkdirSync(dir, { recursive: true });
                 }

@@ -26,6 +26,9 @@ const Shop = sequelize.define("shop", {
     },
     postal: {
         type: Sequelize.INTEGER(5)
+    },
+    path: {
+        type: Sequelize.STRING(255)
     }
 });
 

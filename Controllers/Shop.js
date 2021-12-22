@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
+import fs from 'fs';
 
-import { Shop, Logo } from '../Models/Models.js';
+import { Shop } from '../Models/Models.js';
 
 export const findAllShops = (req, res) => {
 
@@ -25,12 +26,12 @@ export const createShop = async (req, res) => {
         return;
     }
 
-    const shopNameExist = await Shop.findOne({ where: { name: req.body.name } })
+    const shopNameExist = await Shop.findOne({ where: { name: req.body.name } });
     if (shopNameExist) return res.status(400).json({
         error: `Le nom ${req.body.name} est déjà utilisée.`
     });
 
-    const shopEmailExist = await Shop.findOne({ where: { email: req.body.email } })
+    const shopEmailExist = await Shop.findOne({ where: { email: req.body.email } });
     if (shopEmailExist) return res.status(400).json({
         error: `L'email ${req.body.email} est déjà utilisée.`
     });
@@ -39,16 +40,15 @@ export const createShop = async (req, res) => {
         id: uuidv4(),
         name: req.body.name,
         email: req.body.email,
-        logoId: uuidv4()
     }
 
     Shop.create(shop)
         .then(data => {
-            dir = 'Store/Companies/' + shop.id + '/Products/';
+            let dir = 'Store/Companies/' + shop.id + '/Products/';
             if (!fs.existsSync(dir)) {
                 fs.mkdirSync(dir, { recursive: true });
             }
-            dir = 'Store/Companies/' + shop.id + '/Logo/' + shop.logoId;
+            dir = 'Store/Companies/' + shop.id + '/Logo/';
             if (!fs.existsSync(dir)) {
                 fs.mkdirSync(dir, { recursive: true });
             }
@@ -61,8 +61,6 @@ export const createShop = async (req, res) => {
                 error: `Une erreur est survenue lors de la création de l'utilisateur.`
             });
         });
-
-    await Logo.create({ id: shop.logoId });
 
 }
 
@@ -118,7 +116,7 @@ export const deleteShop = (req, res) => {
 
 export const updateShop = async (req, res) => {
 
-    if (!req.body.name && !req.body.email && !req.body.phone && !req.body.city && !req.body.street && !req.body.postal) {
+    if (!req.body.name && !req.body.email && !req.body.phone && !req.body.city && !req.body.street && !req.body.postal && !req.files) {
         res.status(400).json({
             error: "Requête non-valide."
         });
@@ -136,9 +134,29 @@ export const updateShop = async (req, res) => {
     if (street) shop.street = street;
     if (postal) shop.postal = postal;
 
+    let dir = '';
+    let img = {};
+    if (req.files) {
+        img = req.files.logo;
+        shop.path = img.name;
+    }
+
     Shop.update(shop, { where: { id: id } })
         .then(num => {
             if (num == 1) {
+                if (req.files) {
+                    dir = 'Store/Companies/' + id + '/Logo/';
+                    if (fs.existsSync(dir)) {
+                        fs.rmSync(dir, { recursive: true })
+                    }
+                    if (!fs.existsSync(dir)) {
+                        fs.mkdirSync(dir, { recursive: true });
+                    }
+                    fs.writeFile(dir + shop.path, img.data, function (err) {
+                        if (err) throw err;
+                        console.log("Image : " + dir + shop.path + " saved !");
+                    });
+                }
                 res.status(200).json({
                     success: `La boutique a bien été modifiée`
                 });

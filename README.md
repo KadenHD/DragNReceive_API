@@ -77,9 +77,10 @@ npm start
 
 # To-do
 
-- Ptet voir pour enlever toute la partie logo du controller/Model/DB pour le mettre dans le shop
-- Rename middlewares en tools ou fonction
 - Réussir a enregistrer des images pour les produits
+- Donner les droits admin à vscode pour le pckg fs
+- Rename middlewares en tools ou fonction
+- Séparer les fonctions fs du reste en les mettants dans des export func, et les appeler avec des parametres
 - Réussir à envoyer les images pour les produits et shop => res.sendFile(filepath);
 - Faire des middlewares qui check les roles, connecté, sa propre entities etc
 

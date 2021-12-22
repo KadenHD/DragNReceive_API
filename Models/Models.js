@@ -4,7 +4,6 @@ import Ticket from '../Models/Ticket.js';
 import Message from '../Models/Message.js';
 import Shop from '../Models/Shop.js';
 import Product from '../Models/Product.js';
-import Logo from '../Models/Logo.js';
 import Order from '../Models/Order.js';
 import OrderStatus from '../Models/OrderStatus.js';
 import TicketStatus from '../Models/TicketStatus.js';
@@ -51,10 +50,6 @@ Message.belongsTo(Ticket, {
 });
 Ticket.hasMany(Message);
 
-// Shop <-> Logo
-Shop.belongsTo(Logo);
-Logo.hasOne(Shop);
-
 // Product <-> Shop
 Product.belongsTo(Shop, {
     foreignKey: {
@@ -96,4 +91,4 @@ Ticket.belongsTo(TicketStatus, {
 });
 TicketStatus.hasMany(Ticket);
 
-export { User, Role, Ticket, Message, Shop, Product, Logo, Order, OrderStatus, TicketStatus };
+export { User, Role, Ticket, Message, Shop, Product, Order, OrderStatus, TicketStatus };
