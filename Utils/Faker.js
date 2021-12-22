@@ -117,7 +117,6 @@ async function fakeInit() {
                 ticketId: ticketId
             });
         }
-
     }
     process.exit();
 }

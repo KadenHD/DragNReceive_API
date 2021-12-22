@@ -27,6 +27,8 @@ export const createOrder = async (req, res) => {
 
     const orders = req.body.orders //Req Orders should be like this : [{},{}]
 
+    // Surveiller que les stocks soient disponibles etc...
+
     const number = uuidv4();
     for (let i = 0; i < orders.length; i++) {
         const { quantities, price, userId, productId } = orders[i];

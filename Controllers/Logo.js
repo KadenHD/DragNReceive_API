@@ -4,7 +4,7 @@ export const findAllLogos = (req, res) => {
 
     Logo.findAll()
         .then(data => {
-            res.status(200).json(data); // Remplacer par l'envoie de l'image
+            res.status(200).json(data); // Ajouter l'envoie de l'image
         })
         .catch(err => {
             res.status(500).json({
@@ -21,7 +21,7 @@ export const findOneLogo = (req, res) => {
     Logo.findByPk(id)
         .then(data => {
             if (data) {
-                res.status(200).json(data); // Remplacer par l'envoie de l'image
+                res.status(200).json(data); // Ajouter l'envoie de l'image
             } else {
                 res.status(404).json({
                     error: `Le logo n'existe pas.`

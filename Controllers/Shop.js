@@ -44,11 +44,11 @@ export const createShop = async (req, res) => {
 
     Shop.create(shop)
         .then(data => {
-            dir = 'Store/Companies/' + shopId + '/Products/';
+            dir = 'Store/Companies/' + shop.id + '/Products/';
             if (!fs.existsSync(dir)) {
                 fs.mkdirSync(dir, { recursive: true });
             }
-            dir = 'Store/Companies/' + shopId + '/Logo/' + logoId;
+            dir = 'Store/Companies/' + shop.id + '/Logo/' + shop.logoId;
             if (!fs.existsSync(dir)) {
                 fs.mkdirSync(dir, { recursive: true });
             }
@@ -63,7 +63,6 @@ export const createShop = async (req, res) => {
         });
 
     await Logo.create({ id: shop.logoId });
-    // Créer les dossiers dans le Store, par défault : ../Store/Companies/:idShop/Logo et ../Store/Companies/:idShop/Products
 
 }
 
@@ -96,6 +95,10 @@ export const deleteShop = (req, res) => {
     Shop.destroy({ where: { id: id } })
         .then(num => {
             if (num == 1) {
+                const dir = 'Store/Companies/' + id;
+                if (fs.existsSync(dir)) {
+                    fs.rmSync(dir, { recursive: true })
+                }
                 res.status(200).json({
                     success: `La boutique a bien été supprimée.`
                 });

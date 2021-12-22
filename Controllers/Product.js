@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { Product, Shop } from '../Models/Models.js';
+import { Product } from '../Models/Models.js';
 
 export const findAllProducts = (req, res) => {
 
@@ -42,7 +42,7 @@ export const createProduct = async (req, res) => {
 
     Product.create(product)
         .then(data => {
-            dir = 'Store/Companies/' + shopId + '/Products/' + product.id;
+            dir = 'Store/Companies/' + product.shopId + '/Products/' + product.id;
             if (!fs.existsSync(dir)) {
                 fs.mkdirSync(dir, { recursive: true });
             }
@@ -84,12 +84,11 @@ export const deleteProduct = (req, res) => {
 
     const id = req.params.id;
     const product = Product.findByPk(id);
-    const shop = Shop.findByPk(product.shopId);
 
     Product.destroy({ where: { id: id } })
         .then(num => {
             if (num == 1) {
-                const dir = 'Store/Companies/' + shop.id + '/Products/' + id;
+                const dir = 'Store/Companies/' + product.shopId + '/Products/' + id;
                 if (fs.existsSync(dir)) {
                     fs.rmSync(dir, { recursive: true })
                 }

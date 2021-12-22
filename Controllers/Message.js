@@ -18,7 +18,7 @@ export const findAllMessages = (req, res) => {
 
 export const createMessage = async (req, res) => {
 
-    if (!req.body.content && !req.body.userId && !req.body.ticketId) { // Voir comment gérer le userId et ticketId
+    if (!req.body.content && !req.body.userId && !req.body.ticketId) {
         res.status(400).json({
             error: `Requête non-valide.`
         });
