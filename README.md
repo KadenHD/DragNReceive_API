@@ -77,10 +77,10 @@ npm start
 
 # To-do
 
+- Ptet voir pour enlever toute la partie logo du controller/Model/DB pour le mettre dans le shop
 - Rename middlewares en tools ou fonction
 - Réussir a enregistrer des images pour les produits
-- Ptet voir pour enlever toute la partie logo du controller/Model/DB pour le mettre dans le shop
-- Réussir à envoyer les images pour les produits et logos => res.sendFile(filepath);
+- Réussir à envoyer les images pour les produits et shop => res.sendFile(filepath);
 - Faire des middlewares qui check les roles, connecté, sa propre entities etc
 
 - Sur Postman, définir les params des find delete et patch par une variable id (pour gagner du temps)
