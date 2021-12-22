@@ -45,7 +45,7 @@ async function fakeInit() {
             price: productPrice,
             stock: faker.datatype.number({ min: 1, max: 100 }),
             path: null,
-            shopId: shopId,
+            shopId: shopId
         })
             .then(store => {
                 dir = 'Store/Companies/' + shopId + '/Products/' + productId;
@@ -76,10 +76,6 @@ async function fakeInit() {
         })
             .then(store => {
                 dir = 'Store/Users/' + userId;
-                if (!fs.existsSync(dir)) {
-                    fs.mkdirSync(dir, { recursive: true });
-                }
-                dir = 'Store/Users/' + userId + '/Picture/';
                 if (!fs.existsSync(dir)) {
                     fs.mkdirSync(dir, { recursive: true });
                 }
@@ -124,6 +120,14 @@ async function fakeInit() {
 //Create the fakes standards users
 async function defaultDatas() {
     for (let i = 1; i < 5; i++) {
+        dir = 'Store/Users/' + i;
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+        dir = 'Store/Users/' + i + '/Invoices/';
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
         switch (i) {
             case 1:
                 const hashedSadmin = await bcrypt.hash("sadmin", 10);

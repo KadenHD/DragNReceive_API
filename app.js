@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
+import fileUpload from 'express-fileupload'
 import cors from 'cors';
 
 import router from './Routes/Routes.js';

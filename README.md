@@ -83,6 +83,7 @@ npm start
 
 - Sur Postman, définir les params des find delete et patch par une variable id (pour gagner du temps)
 - Définir les contraintes de caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule...
+- Création de fausses factures une fois commandé
 - Faire le système de reset de mot de pass par email + token mais aussi le relier à un mailer (mail trap)
 - Faire le refresh du token en back-end (optionnel)
 

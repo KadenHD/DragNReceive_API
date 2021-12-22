@@ -2,6 +2,7 @@ import fs from 'fs';
 
 let dir = '';
 
+// Penser à supprimer les valeurs une fois mis en prod
 let envContent = "";
 envContent += "###> DataBase parameters ###\n";
 envContent += "DB_NAME=dragnreceive\n";

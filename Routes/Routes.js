@@ -14,7 +14,7 @@ import { isValidToken } from '../Middlewares/TokenJWT.js';
 const router = express.Router();
 
 router.use('/', authsRouter);
-router.use('/logos', isValidToken, logosRouter);
+router.use('/logos', logosRouter);
 router.use('/messages', isValidToken, messagesRouter);
 router.use('/orders', isValidToken, ordersRouter);
 router.use('/products', isValidToken, productsRouter);
