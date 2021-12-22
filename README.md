@@ -41,8 +41,7 @@
 
 ### Mise en place du projet
 
-- create database in phpmyadmin
-- create at the root of the project the folder 'Store' and inside it create 'Logo'
+- create mysql database in phpmyadmin
 - To create at the root of the project a .env file and create Store folders :
 ```
 npm run Instance
@@ -78,15 +77,14 @@ npm start
 
 # To-do
 
-- Réussir a enregistrer des images reçu et définir les bonnes routes pour les paths
+- Réussir a enregistrer des images reçu via requête et définir les bonnes routes pour les paths
+- Pour envoyer une image il faut res.sendFile(filepath);
 - Faire des middlewares qui check les roles, connecté, sa propre entities etc
 
 - Sur Postman, définir les params des find delete et patch par une variable id (pour gagner du temps)
 - Définir les contraintes de caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule...
 - Faire le système de reset de mot de pass par email + token mais aussi le relier à un mailer (mail trap)
 - Faire le refresh du token en back-end (optionnel)
-
-- Pour envoyer une image il faut res.sendFile(filepath);
 
 # Sources
 
