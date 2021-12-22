@@ -86,6 +86,7 @@ npm start
 - Définir les contraintes de caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule...
 - Création de fausses factures une fois commandé
 - Faire le système de reset de mot de pass par email + token mais aussi le relier à un mailer (mail trap)
+- Faire des fonctions à part pour l'utilisation de fs ?
 - Faire le refresh du token en back-end (optionnel)
 
 # Sources
