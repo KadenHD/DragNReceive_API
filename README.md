@@ -77,6 +77,7 @@ npm start
 
 # To-do
 
+- Rename middlewares en tools ou fonction
 - Réussir a enregistrer des images pour les produits
 - Ptet voir pour enlever toute la partie logo du controller/Model/DB pour le mettre dans le shop
 - Réussir à envoyer les images pour les produits et logos => res.sendFile(filepath);
