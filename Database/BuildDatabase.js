@@ -1,6 +1,6 @@
 import sequelize from './DBConfig.js';
 
-import { Shop, Product, Role, User, Order, Ticket, Message } from '../Models/Models.js';
+import { Shop, Product, Role, User, Order, Ticket, Message } from '../Models/Models.js'; //Keep It
 
 sequelize
     .sync({ force: true })
@@ -11,4 +11,4 @@ sequelize
     .catch(err => {
         console.log(err);
         process.exit();
-    })
+    });

@@ -34,13 +34,3 @@ fs.writeFile(dir, envContent, function (err) {
     if (err) throw err;
     console.log("File : " + dir + " created !");
 });
-
-
-
-
-
-
-
-
-
-
