@@ -1,4 +1,6 @@
-import { Logo } from '../Models/Models.js';
+import fs from 'fs';
+
+import { Logo, Shop } from '../Models/Models.js';
 
 export const findAllLogos = (req, res) => {
 
@@ -38,19 +40,37 @@ export const findOneLogo = (req, res) => {
 
 export const updateLogo = async (req, res) => {
 
+    if (!req.files) {
+        res.status(400).json({
+            error: "Requête non-valide."
+        });
+        return;
+    }
+
+    const img = req.files.logo;
+
     //vérifier que l'image soit valide
-    // Supprimer l'ancienne image et remplacer par la nouvelle
-    console.log(req.body);
 
     const id = req.params.id;
     const logo = Logo.findByPk(id);
+    const shop = await Shop.findAll({ where: { logoId: id } });
+    const dir = 'Store/Companies/' + shop[0].id + '/Logo/' + id + '/';
 
-    const path = null; //Traiter les images pour les sauvegarder au bon endroit puis mettre le path ici
-    logo.path = path;
+    logo.path = img.name;
 
-    Logo.update(logo, { where: { id: id } })
+    await Logo.update(logo, { where: { id: id } })
         .then(num => {
             if (num == 1) {
+                if (fs.existsSync(dir)) {
+                    fs.rmSync(dir, { recursive: true })
+                }
+                if (!fs.existsSync(dir)) {
+                    fs.mkdirSync(dir, { recursive: true });
+                }
+                fs.writeFile(dir + logo.path, img.data, function (err) {
+                    if (err) throw err;
+                    console.log("Image : " + dir + logo.path + " saved !");
+                });
                 res.status(200).json({
                     success: `Le logo a bien été modifié`
                 });

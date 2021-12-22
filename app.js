@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import fileUpload from 'express-fileupload'
+import fileUpload from 'express-fileupload';
 import cors from 'cors';
 
 import router from './Routes/Routes.js';
@@ -11,6 +11,7 @@ const app = express();
 
 app.use(express.json()); //For JSON requests
 app.use(express.urlencoded({ extended: true }));
+app.use(fileUpload());
 app.use(cors());
 
 app.use('/api', router);
