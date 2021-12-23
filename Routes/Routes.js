@@ -13,11 +13,11 @@ import { isValidToken } from '../Middlewares/TokenJWT.js';
 const router = express.Router();
 
 router.use('/', authsRouter);
-router.use('/messages', isValidToken, messagesRouter);
-router.use('/orders', isValidToken, ordersRouter);
-router.use('/products', isValidToken, productsRouter);
-router.use('/shops', isValidToken, shopsRouter);
-router.use('/tickets', isValidToken, ticketsRouter);
-router.use('/users', isValidToken, usersRouter);
+router.use('/messages', messagesRouter);
+router.use('/orders', ordersRouter);
+router.use('/products', productsRouter);
+router.use('/shops', shopsRouter);
+router.use('/tickets', ticketsRouter);
+router.use('/users', usersRouter);
 
 export default router;

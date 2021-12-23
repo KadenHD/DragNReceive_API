@@ -18,17 +18,15 @@ export const findAllProducts = (req, res) => {
 
 export const createProduct = async (req, res) => {
 
-    if (!req.body.name || !req.body.description || !req.body.price || !req.body.stock || !req.body.shopId) {
+    if (!req.body.name || !req.body.description || !req.body.price || !req.body.stock || !req.body.shopId || !req.files) {
         res.status(400).json({
             error: `Requête non-valide.`
         });
         return;
     }
 
-    //vérifier que l'image soit valide
-    // Sauvegarder l'image dans la bonne route
-
-    const path = null; //Traiter les images pour les sauvegarder au bon endroit puis mettre le path ici
+    const img = req.files.image
+    const path = img.name;
 
     const product = {
         id: uuidv4(),
@@ -42,10 +40,14 @@ export const createProduct = async (req, res) => {
 
     Product.create(product)
         .then(data => {
-            dir = 'Store/Companies/' + product.shopId + '/Products/' + product.id;
+            let dir = 'Store/Companies/' + product.shopId + '/Products/' + product.id;
             if (!fs.existsSync(dir)) {
                 fs.mkdirSync(dir, { recursive: true });
             }
+            fs.writeFile(dir + product.path, img.data, function (err) {
+                if (err) throw err;
+                console.log("Image : " + dir + product.path + " saved !");
+            });
             res.status(200).json({
                 success: `Le produit a bien été créé.`
             });
@@ -82,13 +84,12 @@ export const findOneProduct = (req, res) => {
 
 export const deleteProduct = (req, res) => {
 
-    const id = req.params.id;
-    const product = Product.findByPk(id);
+    const product = Product.findByPk(req.params.id);
 
-    Product.destroy({ where: { id: id } })
+    Product.destroy({ where: { id: product.id } })
         .then(num => {
             if (num == 1) {
-                const dir = 'Store/Companies/' + product.shopId + '/Products/' + id;
+                const dir = 'Store/Companies/' + product.shopId + '/Products/' + product.id;
                 if (fs.existsSync(dir)) {
                     fs.rmSync(dir, { recursive: true })
                 }
@@ -111,27 +112,44 @@ export const deleteProduct = (req, res) => {
 
 export const updateProduct = async (req, res) => {
 
-    if (!req.body.name && !req.body.description && !req.body.price && !req.body.stock) {
+    if (!req.body.name && !req.body.description && !req.body.price && !req.body.stock && !req.files.image) {
         res.status(400).json({
             error: "Requête non-valide."
         });
         return;
     }
 
-    const id = req.params.id;
     const { name, description, price, stock } = req.body;
-    const product = Product.findByPk(id);
+    const product = await Product.findByPk(req.params.id)
 
     if (name) product.name = name;
     if (description) product.description = description;
     if (price) product.price = price;
     if (stock) product.stock = stock;
 
-    const path = null; //Traiter les images pour les sauvegarder au bon endroit puis mettre le path ici
+    let dir = '';
+    let img = {};
+    if (req.files.image) {
+        img = req.files.image;
+        product.path = img.name;
+    }
 
-    Product.update(product, { where: { id: id } })
+    Product.update(product, { where: { id: product.id } })
         .then(num => {
             if (num == 1) {
+                if (req.files.image) {
+                    dir = 'Store/Companies/' + product.shopId + '/Products/' + product.id;
+                    if (fs.existsSync(dir)) {
+                        fs.rmSync(dir, { recursive: true })
+                    }
+                    if (!fs.existsSync(dir)) {
+                        fs.mkdirSync(dir, { recursive: true });
+                    }
+                    fs.writeFile(dir + product.path, img.data, function (err) {
+                        if (err) throw err;
+                        console.log("Image : " + dir + product.path + " saved !");
+                    });
+                }
                 res.status(200).json({
                     success: `Le produit a bien été modifié`
                 });
@@ -145,6 +163,5 @@ export const updateProduct = async (req, res) => {
             res.status(500).json({
                 error: `Une erreur est survenue de lors de la modification du produit.`
             });
-        })
-
+        });
 }

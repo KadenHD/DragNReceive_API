@@ -39,7 +39,7 @@ async function fakeInit() {
             description: faker.commerce.productDescription(),
             price: productPrice,
             stock: faker.datatype.number({ min: 1, max: 100 }),
-            path: null,
+            path: '',
             shopId: shopId
         })
             .then(store => {

@@ -78,17 +78,15 @@ npm start
 # To-do
 
 - Réussir a enregistrer des images pour les produits
-- Donner les droits admin à vscode pour le pckg fs
 - Rename middlewares en tools ou fonction
 - Séparer les fonctions fs du reste en les mettants dans des export func, et les appeler avec des parametres
 - Réussir à envoyer les images pour les produits et shop => res.sendFile(filepath);
 - Faire des middlewares qui check les roles, connecté, sa propre entities etc
 
-- Sur Postman, définir les params des find delete et patch par une variable id (pour gagner du temps)
 - Définir les contraintes de caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule...
 - Création de fausses factures une fois commandé
 - Faire le système de reset de mot de pass par email + token mais aussi le relier à un mailer (mail trap)
-- Faire des fonctions à part pour l'utilisation de fs ?
+- Donner les droits admin à vscode pour le pckg fs
 - Faire le refresh du token en back-end (optionnel)
 
 # Sources

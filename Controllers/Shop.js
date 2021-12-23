@@ -116,16 +116,15 @@ export const deleteShop = (req, res) => {
 
 export const updateShop = async (req, res) => {
 
-    if (!req.body.name && !req.body.email && !req.body.phone && !req.body.city && !req.body.street && !req.body.postal && !req.files) {
+    if (!req.body.name && !req.body.email && !req.body.phone && !req.body.city && !req.body.street && !req.body.postal && !req.files.logo) {
         res.status(400).json({
             error: "Requête non-valide."
         });
         return;
     }
 
-    const id = req.params.id;
     const { name, email, phone, city, street, postal } = req.body;
-    const shop = Shop.findByPk(id);
+    const shop = await Shop.findByPk(req.params.id);
 
     if (name) shop.name = name;
     if (email) shop.email = email;
@@ -136,16 +135,16 @@ export const updateShop = async (req, res) => {
 
     let dir = '';
     let img = {};
-    if (req.files) {
+    if (req.files.logo) {
         img = req.files.logo;
         shop.path = img.name;
     }
 
-    Shop.update(shop, { where: { id: id } })
+    Shop.update(shop, { where: { id: shop.id } })
         .then(num => {
             if (num == 1) {
-                if (req.files) {
-                    dir = 'Store/Companies/' + id + '/Logo/';
+                if (req.files.logo) {
+                    dir = 'Store/Companies/' + shop.id + '/Logo/';
                     if (fs.existsSync(dir)) {
                         fs.rmSync(dir, { recursive: true })
                     }
