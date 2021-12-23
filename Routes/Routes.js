@@ -9,6 +9,7 @@ import ticketsRouter from './Tickets.js';
 import usersRouter from './Users.js';
 
 import { isValidToken } from '../Middlewares/TokenJWT.js';
+import { authUser, authRole } from '../Middlewares/Authentication.js';
 
 const router = express.Router();
 

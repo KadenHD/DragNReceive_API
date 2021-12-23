@@ -1,4 +1,4 @@
-export const authUser = (req, res, next) => {
+export const authUser = (req, res, next) => { //ptet useless
     if (req.user == null) {
         res.status(403).json({
             error: `Vous devez être connecté !`
