@@ -44,12 +44,12 @@ export const createShop = async (req, res) => {
         .then(data => {
             mkShop(shop.id);
             res.status(200).json({
-                success: `L'utilisateur a bien été créé.`
+                success: `La boutique a bien été créé.`
             });
         })
         .catch(err => {
             res.status(500).json({
-                error: `Une erreur est survenue lors de la création de l'utilisateur.`
+                error: `Une erreur est survenue lors de la création de la boutique.`
             });
         });
 
@@ -88,6 +88,7 @@ export const deleteShop = (req, res) => {
             }
         })
         .catch(err => {
+            console.log(err)
             res.status(500).json({
                 error: `Une erreur est survenue de lors de la suppression de la boutique.`
             });

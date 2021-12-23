@@ -2,6 +2,44 @@ import fs from 'fs';
 
 let dir = '';
 
+export const instanceFiles = (envContent) => {
+    try {
+        dir = 'Store';
+        if (fs.existsSync(dir)) {
+            fs.rmSync(dir, { recursive: true });
+            console.log("Folder : " + dir + " deleted !");
+        }
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+            console.log("Folder : " + dir + " created !");
+        }
+        dir = 'Store/Users';
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+            console.log("Folder : " + dir + " created !");
+        }
+        dir = 'Store/Companies';
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+            console.log("Folder : " + dir + " created !");
+        }
+        dir = '.env';
+        fs.writeFile(dir, envContent, function (err) {
+            if (err) throw err;
+            console.log("File : " + dir + " created !");
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const rmStore = () => {
+    dir = 'Store';
+    if (fs.existsSync(dir)) {
+        fs.rmSync(dir, { recursive: true });
+    }
+}
+
 export const mkUser = (id) => {
     dir = 'Store/Users/' + id + '/Invoices/';
     if (!fs.existsSync(dir)) {
@@ -38,7 +76,7 @@ export const writeShop = (id, img) => {
     dir = 'Store/Companies/' + id + '/Logo/';
     console.log(dir)
     if (fs.existsSync(dir)) {
-        fs.rmSync(dir, { recursive: true })
+        fs.rmdirSync(dir, { recursive: true })
     }
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });

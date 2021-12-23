@@ -1,15 +1,16 @@
 import faker from 'faker';
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
-import fs from 'fs';
 
 import { Shop, Product, Role, User, Order, Ticket, Message, OrderStatus, TicketStatus } from '../Models/Models.js';
+import { rmStore, mkShop, mkUser } from '../Middlewares/FileSystem.js';
 
 faker.locale = "fr";
 
 let dir = '';
 
 try {
+    rmStore();
     fakeInit();
 } catch (error) {
     console.log(error);
@@ -43,14 +44,7 @@ async function fakeInit() {
             shopId: shopId
         })
             .then(store => {
-                dir = 'Store/Companies/' + shopId + '/Products/' + productId;
-                if (!fs.existsSync(dir)) {
-                    fs.mkdirSync(dir, { recursive: true });
-                }
-                dir = 'Store/Companies/' + shopId + '/Logo/';
-                if (!fs.existsSync(dir)) {
-                    fs.mkdirSync(dir, { recursive: true });
-                }
+                mkShop(shopId);
             });
         const roleId = faker.datatype.number({ min: 1, max: 4 }).toString();
         if (roleId != 3) {
@@ -70,14 +64,7 @@ async function fakeInit() {
             shopId: shopId
         })
             .then(store => {
-                dir = 'Store/Users/' + userId;
-                if (!fs.existsSync(dir)) {
-                    fs.mkdirSync(dir, { recursive: true });
-                }
-                dir = 'Store/Users/' + userId + '/Invoices/';
-                if (!fs.existsSync(dir)) {
-                    fs.mkdirSync(dir, { recursive: true });
-                }
+                mkUser(userId);
             });
 
         const orderId = uuidv4();
@@ -115,14 +102,7 @@ async function fakeInit() {
 //Create the fakes standards users
 async function defaultDatas() {
     for (let i = 1; i < 5; i++) {
-        dir = 'Store/Users/' + i;
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, { recursive: true });
-        }
-        dir = 'Store/Users/' + i + '/Invoices/';
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, { recursive: true });
-        }
+        mkUser(i);
         switch (i) {
             case 1:
                 const hashedSadmin = await bcrypt.hash("sadmin", 10);

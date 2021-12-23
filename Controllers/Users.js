@@ -109,11 +109,9 @@ export const deleteUser = (req, res) => {
 }
 
 export const updateUser = async (req, res) => {
-
     if (req.body.password) {
         req.body.password = await bcrypt.hash(req.body.password, 10);
     }
-
     User.update(req.body, { where: { id: req.params.id } })
         .then(num => {
             if (num == 1) {

@@ -9,86 +9,88 @@ import OrderStatus from '../Models/OrderStatus.js';
 import TicketStatus from '../Models/TicketStatus.js';
 
 // User <-> Role
-User.belongsTo(Role, {
+User.belongsTo(Role);
+Role.hasMany(User, {
     foreignKey: {
         allowNull: false
     }
 });
-Role.hasMany(User);
 
 // User <-> Shop
-User.belongsTo(Shop, {
+User.belongsTo(Shop);
+Shop.hasMany(User, {
     foreignKey: {
         allowNull: true
     }
 });
-Shop.hasMany(User);
 
 // Ticket <-> User
-Ticket.belongsTo(User, {
+Ticket.belongsTo(User);
+User.hasMany(Ticket, {
     foreignKey: {
         allowNull: false
     },
     onDelete: 'CASCADE'
 });
-User.hasMany(Ticket);
 
 // Message <-> User
-Message.belongsTo(User, {
+Message.belongsTo(User);
+User.hasMany(Message, {
     foreignKey: {
         allowNull: false
-    }
+    },
+    onDelete: 'CASCADE'
 });
-User.hasMany(Message);
 
 // Message <-> Ticket
-Message.belongsTo(Ticket, {
+Message.belongsTo(Ticket);
+Ticket.hasMany(Message, {
     foreignKey: {
         allowNull: false
     },
     onDelete: 'CASCADE'
 });
-Ticket.hasMany(Message);
 
 // Product <-> Shop
-Product.belongsTo(Shop, {
+Product.belongsTo(Shop);
+Shop.hasMany(Product, {
     foreignKey: {
         allowNull: false
     },
     onDelete: 'CASCADE'
 });
-Shop.hasMany(Product);
 
 // Order <-> User
-Order.belongsTo(User, {
+Order.belongsTo(User);
+User.hasMany(Order, {
     foreignKey: {
         allowNull: false
-    }
+    },
+    onDelete: 'CASCADE'
 });
-User.hasMany(Order);
 
 // Order <-> Product
-Order.belongsTo(Product, {
+Order.belongsTo(Product);
+Product.hasMany(Order, {
     foreignKey: {
         allowNull: false
     }
 });
-Product.hasMany(Order);
 
 // Order <-> OrderStatus
-Order.belongsTo(OrderStatus, {
+Order.belongsTo(OrderStatus);
+OrderStatus.hasMany(Order, {
     foreignKey: {
         allowNull: false
     }
 });
-OrderStatus.hasMany(Order);
 
 // Ticket <-> TicketStatus
-Ticket.belongsTo(TicketStatus, {
+Ticket.belongsTo(TicketStatus);
+TicketStatus.hasMany(Ticket, {
     foreignKey: {
         allowNull: false
     }
 });
-TicketStatus.hasMany(Ticket);
 
 export { User, Role, Ticket, Message, Shop, Product, Order, OrderStatus, TicketStatus };

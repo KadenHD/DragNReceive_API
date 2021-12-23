@@ -78,9 +78,8 @@ npm start
 # To-do
 
 - Réussir a enregistrer des images pour les produits
-- Rename middlewares en tools ou fonction
-- Séparer les fonctions fs du reste en les mettants dans des export func, et les appeler avec des parametres
 - Réussir à envoyer les images pour les produits et shop => res.sendFile(filepath);
+
 - Faire des middlewares qui check les roles, connecté, sa propre entities etc
 
 - Définir les contraintes de caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule...

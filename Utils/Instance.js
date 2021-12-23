@@ -1,6 +1,4 @@
-import fs from 'fs';
-
-let dir = '';
+import { instanceFiles } from '../Middlewares/FileSystem.js';
 
 // Penser à supprimer les valeurs une fois mis en prod
 let envContent = "";
@@ -17,20 +15,4 @@ envContent += "BASE_URL=http://localhost\n";
 envContent += "SECRET_TOKEN=T0k3nD3G4m3r\n";
 envContent += "###< API Server parameters ###\n";
 
-dir = 'Store/Users/';
-if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-    console.log("Folders : " + dir + " created !");
-}
-
-dir = 'Store/Companies/';
-if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-    console.log("Folders : " + dir + " created !");
-}
-
-dir = '.env';
-fs.writeFile(dir, envContent, function (err) {
-    if (err) throw err;
-    console.log("File : " + dir + " created !");
-});
+instanceFiles(envContent);
