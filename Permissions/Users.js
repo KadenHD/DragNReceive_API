@@ -1,4 +1,4 @@
-import User from '../Models/Models.js'
+import { User } from '../Models/Models.js';
 
 export const scopedUsers = (token, users) => { // faudra mettre cette fonction dans le findAllUsers => res.json(scopedUsers(token, users)) à peu près
     if (token.role === 1 || token.role === 2) return users;
@@ -24,6 +24,13 @@ export const canDeleteUser = (token, user) => {
     return token.role === 1;
 }
 
+export const canUpdateUser = (token, user) => {
+    return (
+        token.role === 1 ||
+        (token.role === 2 && user.id != 1 && user.id != 2) ||
+        user.id === token.id
+    )
+}
 
 
 /////// Normalement ce qu'il y a en dessous doit aller dans le router ///////
@@ -43,6 +50,7 @@ export const authCreateUser = (req, res, next) => {
     res.status(401).json({
         error: `Vous n'êtes pas autorisé à faire ceci !`
     });
+    next();
 }
 
 export const authGetUser = (req, res, next) => {
@@ -50,6 +58,7 @@ export const authGetUser = (req, res, next) => {
     res.status(401).json({
         error: `Vous n'êtes pas autorisé à faire ceci !`
     });
+    next();
 }
 
 export const authDeleteUser = (req, res, next) => {
@@ -57,5 +66,13 @@ export const authDeleteUser = (req, res, next) => {
     res.status(401).json({
         error: `Vous n'êtes pas autorisé à faire ceci !`
     });
+    next();
 }
 
+export const authUpdateUser = (req, res, next) => {
+    if (!canUpdateUser(token, req.body));
+    res.status(401).json({
+        error: `Vous n'êtes pas autorisé à faire ceci !`
+    });
+    next();
+}

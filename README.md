@@ -77,8 +77,8 @@ npm start
 
 # To-do
 
-- Faire des middlewares qui check les roles, connecté, sa propre entities etc
-- Bien définir avant d'aller au controller (dans un middleware) le contenue des req.body ainsi que la syntaxe, contraintes, caractères etc...
+- Faire des middlewares qui check les roles, connecté, sa propre entities etc pour toutes les entities
+- Bien définir avant d'aller au controller (dans un middleware) le contenue des req.body ainsi que la syntaxe, contraintes, caractères etc... pour toute les entities
 
 - Réussir à envoyer les images pour les produits et shop => res.sendFile(filepath);
 
@@ -88,6 +88,7 @@ npm start
 
 # Sources
 
-- Video about creation of standard CRUD and routing with Express : [Link](https://youtu.be/l8WPWK9mS5M?list=PLzBCdvbn0AZWnKk55ezv82IwNm7lJcu_N)
-- Video manipulation and creation of tables with ORM Sequelize with MySQL : [Link](https://youtu.be/ExTZYpyAn6s?list=PLzBCdvbn0AZWnKk55ezv82IwNm7lJcu_N)
+- Video about permissions to access differents datas inside controllers : [Link](https://youtu.be/jI4K7L-LI58)
+- Video about creation of standard CRUD and routing with Express : [Link](https://youtu.be/l8WPWK9mS5M)
+- Video manipulation and creation of tables with ORM Sequelize with MySQL : [Link](https://youtu.be/ExTZYpyAn6s)
 - Tutorial about the utilisation of a CRUD with Sequelize models : [Link](https://www.bezkoder.com/node-js-express-sequelize-mysql/)
