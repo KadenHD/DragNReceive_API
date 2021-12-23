@@ -1,11 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
-import fs from 'fs'
 
 import { User, Shop } from '../Models/Models.js';
+import { mkUser, rmUser } from '../Middlewares/FileSystem.js';
 
 export const findAllUsers = (req, res) => {
-
     User.findAll()
         .then(data => {
             res.status(200).json(data);
@@ -15,7 +14,6 @@ export const findAllUsers = (req, res) => {
                 error: `Une erreur est survenue lors de la recherche d'utilisateurs.`
             });
         });
-
 }
 
 export const createUser = async (req, res) => {
@@ -58,14 +56,7 @@ export const createUser = async (req, res) => {
 
     User.create(user)
         .then(data => {
-            dir = 'Store/Users/' + user.id;
-            if (!fs.existsSync(dir)) {
-                fs.mkdirSync(dir, { recursive: true });
-            }
-            dir = 'Store/Users/' + user.id + '/Invoices/';
-            if (!fs.existsSync(dir)) {
-                fs.mkdirSync(dir, { recursive: true });
-            }
+            mkUser(user.id);
             res.status(200).json({
                 success: `L'utilisateur a bien été créé.`
             });
@@ -79,10 +70,7 @@ export const createUser = async (req, res) => {
 }
 
 export const findOneUser = (req, res) => {
-
-    const id = req.params.id;
-
-    User.findByPk(id)
+    User.findByPk(req.params.id)
         .then(data => {
             if (data) {
                 res.status(200).json(data);
@@ -97,20 +85,13 @@ export const findOneUser = (req, res) => {
                 error: `Une erreur est survenue lors de la recherche de l'utilisateur.`
             });
         });
-
 }
 
 export const deleteUser = (req, res) => {
-
-    const id = req.params.id;
-
-    User.destroy({ where: { id: id } })
+    User.destroy({ where: { id: req.params.id } })
         .then(num => {
             if (num == 1) {
-                const dir = 'Store/Users/' + id;
-                if (fs.existsSync(dir)) {
-                    fs.rmSync(dir, { recursive: true })
-                }
+                rmUser(req.params.id);
                 res.status(200).json({
                     success: `L'utilisateur a bien été supprimé.`
                 });
@@ -125,38 +106,15 @@ export const deleteUser = (req, res) => {
                 error: `Une erreur est survenue de lors de la suppression de l'utilisateur.`
             });
         });
-
 }
 
 export const updateUser = async (req, res) => {
 
-    if (!req.body.lastname && !req.body.firstname && !req.body.email && !req.body.password && !req.body.roleId) {
-        res.status(400).json({
-            error: "Requête non-valide."
-        });
-        return;
+    if (req.body.password) {
+        req.body.password = await bcrypt.hash(req.body.password, 10);
     }
 
-    const id = req.params.id;
-    const { firstname, lastname, email, password, roleId, shopId } = req.body;
-    const user = User.findByPk(id);
-
-    // Own User, Admin and Sadmin only
-    if (firstname) user.firstname = firstname;
-    if (lastname) user.lastname = lastname;
-    if (email) user.email = email;
-    // User only
-    if (password) user.password = await bcrypt.hash(password, 10);
-    // Sadmin only
-    if (roleId) {
-        if (user.roleId === 3 && roleId != 3) {
-            shopId = null;
-        }
-        user.roleId = roleId;
-    }
-    if (shopId && user.roleId === 3) user.shopId = shopId;
-
-    User.update(user, { where: { id: id } })
+    User.update(req.body, { where: { id: req.params.id } })
         .then(num => {
             if (num == 1) {
                 res.status(200).json({
@@ -173,5 +131,4 @@ export const updateUser = async (req, res) => {
                 error: `Une erreur est survenue de lors de la modification de l'utilisateur.`
             });
         })
-
 }

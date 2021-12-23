@@ -1,10 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
-import fs from 'fs';
 
 import { Shop } from '../Models/Models.js';
+import { mkShop, rmShop, writeShop } from '../Middlewares/FileSystem.js';
 
 export const findAllShops = (req, res) => {
-
     Shop.findAll()
         .then(data => {
             res.status(200).json(data);
@@ -14,7 +13,6 @@ export const findAllShops = (req, res) => {
                 error: `Une erreur est survenue lors de la recherche de boutiques.`
             });
         });
-
 }
 
 export const createShop = async (req, res) => {
@@ -44,14 +42,7 @@ export const createShop = async (req, res) => {
 
     Shop.create(shop)
         .then(data => {
-            let dir = 'Store/Companies/' + shop.id + '/Products/';
-            if (!fs.existsSync(dir)) {
-                fs.mkdirSync(dir, { recursive: true });
-            }
-            dir = 'Store/Companies/' + shop.id + '/Logo/';
-            if (!fs.existsSync(dir)) {
-                fs.mkdirSync(dir, { recursive: true });
-            }
+            mkShop(shop.id);
             res.status(200).json({
                 success: `L'utilisateur a bien été créé.`
             });
@@ -65,10 +56,7 @@ export const createShop = async (req, res) => {
 }
 
 export const findOneShop = (req, res) => {
-
-    const id = req.params.id;
-
-    Shop.findByPk(id)
+    Shop.findByPk(req.params.id)
         .then(data => {
             if (data) {
                 res.status(200).json(data);
@@ -83,20 +71,13 @@ export const findOneShop = (req, res) => {
                 error: `Une erreur est survenue lors de la recherche de la boutique.`
             });
         });
-
 }
 
 export const deleteShop = (req, res) => {
-
-    const id = req.params.id;
-
-    Shop.destroy({ where: { id: id } })
+    Shop.destroy({ where: { id: req.params.id } })
         .then(num => {
             if (num == 1) {
-                const dir = 'Store/Companies/' + id;
-                if (fs.existsSync(dir)) {
-                    fs.rmSync(dir, { recursive: true })
-                }
+                rmShop(req.params.id);
                 res.status(200).json({
                     success: `La boutique a bien été supprimée.`
                 });
@@ -111,50 +92,20 @@ export const deleteShop = (req, res) => {
                 error: `Une erreur est survenue de lors de la suppression de la boutique.`
             });
         });
-
 }
 
 export const updateShop = async (req, res) => {
-
-    if (!req.body.name && !req.body.email && !req.body.phone && !req.body.city && !req.body.street && !req.body.postal && !req.files.logo) {
-        res.status(400).json({
-            error: "Requête non-valide."
-        });
-        return;
-    }
-
-    const { name, email, phone, city, street, postal } = req.body;
-    const shop = await Shop.findByPk(req.params.id);
-
-    if (name) shop.name = name;
-    if (email) shop.email = email;
-    if (phone) shop.phone = phone;
-    if (city) shop.city = city;
-    if (street) shop.street = street;
-    if (postal) shop.postal = postal;
-
-    let dir = '';
+    const shop = req.body;
     let img = {};
     if (req.files.logo) {
         img = req.files.logo;
         shop.path = img.name;
     }
-
-    Shop.update(shop, { where: { id: shop.id } })
+    Shop.update(shop, { where: { id: req.params.id } })
         .then(num => {
             if (num == 1) {
                 if (req.files.logo) {
-                    dir = 'Store/Companies/' + shop.id + '/Logo/';
-                    if (fs.existsSync(dir)) {
-                        fs.rmSync(dir, { recursive: true })
-                    }
-                    if (!fs.existsSync(dir)) {
-                        fs.mkdirSync(dir, { recursive: true });
-                    }
-                    fs.writeFile(dir + shop.path, img.data, function (err) {
-                        if (err) throw err;
-                        console.log("Image : " + dir + shop.path + " saved !");
-                    });
+                    writeShop(req.params.id, img);
                 }
                 res.status(200).json({
                     success: `La boutique a bien été modifiée`
@@ -169,6 +120,5 @@ export const updateShop = async (req, res) => {
             res.status(500).json({
                 error: `Une erreur est survenue de lors de la modification de la boutique.`
             });
-        })
-
+        });
 }
