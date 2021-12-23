@@ -77,8 +77,8 @@ npm start
 
 # To-do
 
-- Faire des middlewares qui check les roles, connecté, sa propre entities etc pour toutes les entities
-- Bien définir avant d'aller au controller (dans un middleware) le contenue des req.body ainsi que la syntaxe, contraintes, caractères etc... pour toute les entities
+- Faire des middlewares qui check les roles, connecté, sa propre entities etc... (pour toutes les entities)
+- Faire le middleware des req.body valide, syntaxe, contraintes, caractères etc... (pour toute les entities)
 
 - Réussir à envoyer les images pour les produits et shop => res.sendFile(filepath);
 

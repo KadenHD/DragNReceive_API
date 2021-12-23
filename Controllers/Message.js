@@ -15,12 +15,6 @@ export const findAllMessages = (req, res) => {
 }
 
 export const createMessage = async (req, res) => {
-    if (!req.body.content && !req.body.userId && !req.body.ticketId) {
-        res.status(400).json({
-            error: `Requête non-valide.`
-        });
-        return;
-    }
     const message = {
         id: uuidv4(),
         content: req.body.content,
@@ -43,13 +37,7 @@ export const createMessage = async (req, res) => {
 export const findOneMessage = (req, res) => {
     Message.findByPk(req.params.id)
         .then(data => {
-            if (data) {
-                res.status(200).json(data);
-            } else {
-                res.status(404).json({
-                    error: `Le message n'existe pas.`
-                });
-            }
+            res.status(200).json(data);
         })
         .catch(err => {
             res.status(500).json({

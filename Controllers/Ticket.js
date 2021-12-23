@@ -15,12 +15,6 @@ export const findAllTickets = (req, res) => {
 }
 
 export const createTicket = async (req, res) => {
-    if (!req.body.title || !req.body.content) {
-        res.status(400).json({
-            error: `Requête non-valide.`
-        });
-        return;
-    }
     const ticket = {
         id: uuidv4(),
         title: req.body.title,
@@ -43,13 +37,7 @@ export const createTicket = async (req, res) => {
 export const findOneTicket = (req, res) => {
     Ticket.findByPk(req.params.id)
         .then(data => {
-            if (data) {
-                res.status(200).json(data);
-            } else {
-                res.status(404).json({
-                    error: `Le ticket n'existe pas.`
-                });
-            }
+            res.status(200).json(data);
         })
         .catch(err => {
             res.status(500).json({
@@ -61,15 +49,9 @@ export const findOneTicket = (req, res) => {
 export const updateTicket = async (req, res) => {
     Ticket.update(req.body, { where: { id: req.params.id } })
         .then(num => {
-            if (num == 1) {
-                res.status(200).json({
-                    success: `Le ticket a bien été modifié`
-                });
-            } else {
-                res.json({
-                    error: `Impossible de modifier le ticket. Peut-être que le ticket n'existe pas.`
-                });
-            }
+            res.status(200).json({
+                success: `Le ticket a bien été modifié`
+            });
         })
         .catch(err => {
             res.status(500).json({
