@@ -1,4 +1,4 @@
-export const authUser = (req, res, next) => { //ptet useless
+export const authUser = (req, res, next) => { //ptet useless car le isValidToken le fais déjà
     if (req.user == null) {
         res.status(403).json({
             error: `Vous devez être connecté !`
