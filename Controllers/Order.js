@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { Order } from '../Models/Models.js';
 
 export const findAllOrder = (req, res) => {
-
     Order.findAll()
         .then(data => {
             res.status(200).json(data);
@@ -13,22 +12,17 @@ export const findAllOrder = (req, res) => {
                 error: `Une erreur est survenue lors de la recherche de commandes.`
             });
         });
-
 }
 
 export const createOrder = async (req, res) => {
-
     if (!req.body.orders) {
         res.status(400).json({
             error: `Requête non-valide.`
         });
         return;
     }
-
     const orders = req.body.orders //Req Orders should be like this : [{},{}]
-
     // Surveiller que les stocks soient disponibles etc...
-
     const number = uuidv4();
     for (let i = 0; i < orders.length; i++) {
         const { quantities, price, userId, productId } = orders[i];
@@ -42,9 +36,7 @@ export const createOrder = async (req, res) => {
             orderStatusId: 1
         })
             .then(data => {
-                res.status(200).json({
-                    success: `La commande a bien été créée.`
-                });
+                console.log("Commande créée")
             })
             .catch(err => {
                 res.status(500).json({
@@ -52,14 +44,13 @@ export const createOrder = async (req, res) => {
                 });
             });
     }
-
+    res.status(200).json({
+        success: `La commande a bien été créée.`
+    });
 }
 
 export const findOneOrder = (req, res) => {
-
-    const id = req.params.id;
-
-    Order.findByPk(id)
+    Order.findByPk(req.params.id)
         .then(data => {
             if (data) {
                 res.status(200).json(data);
@@ -74,24 +65,10 @@ export const findOneOrder = (req, res) => {
                 error: `Une erreur est survenue lors de la recherche de la commande.`
             });
         });
-
 }
 
 export const updateOrder = async (req, res) => {
-
-    if (!orderStatusId) {
-        res.status(400).json({
-            error: "Requête non-valide."
-        });
-        return;
-    }
-
-    const id = req.params.id;
-    const order = Order.findByPk(id);
-
-    if (orderStatusId) order.orderStatusId = orderStatusId;
-
-    Order.update(order, { where: { id: id } })
+    Order.update(req.body, { where: { id: req.params.id } })
         .then(num => {
             if (num == 1) {
                 res.status(200).json({
@@ -107,6 +84,5 @@ export const updateOrder = async (req, res) => {
             res.status(500).json({
                 error: `Une erreur est survenue de lors de la modification de la commande.`
             });
-        })
-
+        });
 }

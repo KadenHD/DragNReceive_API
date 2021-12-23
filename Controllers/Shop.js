@@ -16,30 +16,25 @@ export const findAllShops = (req, res) => {
 }
 
 export const createShop = async (req, res) => {
-
     if (!req.body.name || !req.body.email) {
         res.status(400).json({
             error: `Requête non-valide.`
         });
         return;
     }
-
     const shopNameExist = await Shop.findOne({ where: { name: req.body.name } });
     if (shopNameExist) return res.status(400).json({
         error: `Le nom ${req.body.name} est déjà utilisée.`
     });
-
     const shopEmailExist = await Shop.findOne({ where: { email: req.body.email } });
     if (shopEmailExist) return res.status(400).json({
         error: `L'email ${req.body.email} est déjà utilisée.`
     });
-
     const shop = {
         id: uuidv4(),
         name: req.body.name,
         email: req.body.email,
     }
-
     Shop.create(shop)
         .then(data => {
             mkShop(shop.id);
@@ -52,7 +47,6 @@ export const createShop = async (req, res) => {
                 error: `Une erreur est survenue lors de la création de la boutique.`
             });
         });
-
 }
 
 export const findOneShop = (req, res) => {
@@ -96,7 +90,7 @@ export const deleteShop = (req, res) => {
 }
 
 export const updateShop = async (req, res) => {
-    const shop = req.body;
+    let shop = req.body;
     let img = {};
     if (req.files.logo) {
         img = req.files.logo;

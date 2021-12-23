@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { Ticket } from '../Models/Models.js';
 
 export const findAllTickets = (req, res) => {
-
     Ticket.findAll()
         .then(data => {
             res.status(200).json(data);
@@ -13,25 +12,21 @@ export const findAllTickets = (req, res) => {
                 error: `Une erreur est survenue lors de la recherche de tickets.`
             });
         });
-
 }
 
 export const createTicket = async (req, res) => {
-
     if (!req.body.title || !req.body.content) {
         res.status(400).json({
             error: `Requête non-valide.`
         });
         return;
     }
-
     const ticket = {
         id: uuidv4(),
         title: req.body.title,
         content: req.body.content,
         ticketStatusId: 1
     }
-
     Ticket.create(ticket)
         .then(data => {
             res.status(200).json({
@@ -43,14 +38,10 @@ export const createTicket = async (req, res) => {
                 error: `Une erreur est survenue lors de la création du ticket.`
             });
         });
-
 }
 
 export const findOneTicket = (req, res) => {
-
-    const id = req.params.id;
-
-    Ticket.findByPk(id)
+    Ticket.findByPk(req.params.id)
         .then(data => {
             if (data) {
                 res.status(200).json(data);
@@ -65,25 +56,10 @@ export const findOneTicket = (req, res) => {
                 error: `Une erreur est survenue lors de la recherche du ticket.`
             });
         });
-
 }
 
 export const updateTicket = async (req, res) => {
-
-    if (!req.body.ticketStatusId) {
-        res.status(400).json({
-            error: "Requête non-valide."
-        });
-        return;
-    }
-
-    const id = req.params.id;
-    const { ticketStatusId } = req.body;
-    const ticket = Ticket.findByPk(id);
-
-    if (ticketStatusId) ticket.ticketStatusId = ticketStatusId;
-
-    Ticket.update(ticket, { where: { id: id } })
+    Ticket.update(req.body, { where: { id: req.params.id } })
         .then(num => {
             if (num == 1) {
                 res.status(200).json({
@@ -99,6 +75,5 @@ export const updateTicket = async (req, res) => {
             res.status(500).json({
                 error: `Une erreur est survenue de lors de la modification du ticket.`
             });
-        })
-
+        });
 }

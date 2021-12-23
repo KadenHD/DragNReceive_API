@@ -3,11 +3,9 @@ import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Shop, Product, Role, User, Order, Ticket, Message, OrderStatus, TicketStatus } from '../Models/Models.js';
-import { rmStore, mkShop, mkUser } from '../Middlewares/FileSystem.js';
+import { rmStore, mkShop, mkUser, mkProduct } from '../Middlewares/FileSystem.js';
 
 faker.locale = "fr";
-
-let dir = '';
 
 try {
     rmStore();
@@ -45,6 +43,7 @@ async function fakeInit() {
         })
             .then(store => {
                 mkShop(shopId);
+                mkProduct(productId, shopId);
             });
         const roleId = faker.datatype.number({ min: 1, max: 4 }).toString();
         if (roleId != 3) {

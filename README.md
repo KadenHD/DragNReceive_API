@@ -77,15 +77,13 @@ npm start
 
 # To-do
 
-- Réussir a enregistrer des images pour les produits
+- Faire des middlewares qui check les roles, connecté, sa propre entities etc
+- Bien définir avant d'aller au controller (dans un middleware) le contenue des req.body ainsi que la syntaxe, contraintes, caractères etc...
+
 - Réussir à envoyer les images pour les produits et shop => res.sendFile(filepath);
 
-- Faire des middlewares qui check les roles, connecté, sa propre entities etc
-
-- Définir les contraintes de caractères etc pour la création de chaques entités ex: addresse mail (@ . etc), mdp de x caractères + majuscule...
 - Création de fausses factures une fois commandé
 - Faire le système de reset de mot de pass par email + token mais aussi le relier à un mailer (mail trap)
-- Donner les droits admin à vscode pour le pckg fs
 - Faire le refresh du token en back-end (optionnel)
 
 # Sources
