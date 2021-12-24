@@ -6,6 +6,7 @@ export const scopedUsers = (token, users) => { // faudra mettre cette fonction d
     return users.filter(user => user.id === token.id);
 }
 
+// Elles ne se font appelé uniquement dans les middlewares de authUser
 export const canCreateUser = (token, user) => {
     return (
         token.role === 1 ||
