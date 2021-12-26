@@ -9,16 +9,15 @@ import ticketsRouter from './Tickets.js';
 import usersRouter from './Users.js';
 
 import { isValidToken } from '../Middlewares/TokenJWT.js';
-import { authUser, authRole } from '../Middlewares/Authentication.js';
 
 const router = express.Router();
 
 router.use('/', authsRouter);
-router.use('/messages', messagesRouter);
-router.use('/orders', ordersRouter);
-router.use('/products', productsRouter);
-router.use('/shops', shopsRouter);
-router.use('/tickets', ticketsRouter);
-router.use('/users', usersRouter);
+router.use('/messages', isValidToken, messagesRouter);
+router.use('/orders', isValidToken, ordersRouter);
+router.use('/products', isValidToken, productsRouter);
+router.use('/shops', isValidToken, shopsRouter);
+router.use('/tickets', isValidToken, ticketsRouter);
+router.use('/users', isValidToken, usersRouter);
 
 export default router;

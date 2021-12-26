@@ -1,12 +1,15 @@
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 
-import { User, Shop } from '../Models/Models.js';
+import { User } from '../Models/Models.js';
+
+import { scopedUsers } from '../Permissions/Users.js';
 import { mkUser, rmUser } from '../Middlewares/FileSystem.js';
 
 export const findAllUsers = (req, res) => {
     User.findAll()
         .then(data => {
+            data = scopedUsers(req.currentUser, data); //fetch
             res.status(200).json(data);
         })
         .catch(err => {

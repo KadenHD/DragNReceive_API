@@ -1,80 +1,75 @@
 import { User } from '../Models/Models.js';
 
-//token = user from the token header, just receive the value
-export const scopedUsers = (token, users) => { // faudra mettre cette fonction dans le findAllUsers => res.json(scopedUsers(token, users)) à peu près
-    if (token.role === 1 || token.role === 2) return users;
-    return users.filter(user => user.id === token.id);
+const sadmin = "1";
+const admin = "2";
+
+/* Roles permissions */
+export const scopedUsers = (currentUser, users) => { //Fetch inside findAll controllers
+    if (currentUser.roleId === sadmin) return users;
+    if (currentUser.roleId === admin) return users.filter(user => user.roleId > admin)
+    return users.filter(user => user.id === currentUser.id);
 }
 
-// Elles ne se font appelé uniquement dans les middlewares de authUser
-export const canCreateUser = (token, user) => {
+export const canCreateUser = (currentUser, user) => {
     return (
-        token.role === 1 ||
-        (token.role === 2 && user.id != 1 && user.id != 2)
+        currentUser.roleId === sadmin ||
+        (currentUser.roleId === admin && user.roleId > admin)
     );
 }
 
-export const canViewUser = (token, user) => {
+export const canViewUser = (currentUser, user) => {
     return (
-        token.role === 1 ||
-        (token.role === 2 && user.id != 1 && user.id != 2) ||
-        user.id === token.id
+        currentUser.roleId === sadmin ||
+        (currentUser.roleId === admin && user.roleId > admin) ||
+        user.id === currentUser.id
     );
 }
 
-export const canDeleteUser = (token, user) => {
-    return token.role === 1;
+export const canDeleteUser = (currentUser, user) => {
+    return currentUser.roleId === sadmin && currentUser.roleId != sadmin;
 }
 
-export const canUpdateUser = (token, user) => {
+export const canUpdateUser = (currentUser, user) => {
     return (
-        token.role === 1 ||
-        (token.role === 2 && user.id != 1 && user.id != 2) ||
-        user.id === token.id
+        currentUser.roleId === sadmin ||
+        (currentUser.roleId === admin && user.roleId > admin) ||
+        user.id === currentUser.id
     );
 }
+/* Roles permissions */
 
-
-/////// Normalement ce qu'il y a en dessous doit aller dans le router ///////
-
-export const setUser = (req, res, next) => {
-    const user = User.findByPk(req.params.id);
-    if (!user) {
-        res.status(404).json({
-            error: `L'utilisateur n'existe pas !`
-        });
-    }
+/* Middlewares */
+export const setUser = async (req, res, next) => { // For id's parameters routes
+    req.user = await User.findByPk(req.params.id);
+    if (!req.user) return res.status(404).json({ error: `L'utilisateur n'existe pas !` });
     next();
 }
 
 export const authCreateUser = (req, res, next) => {
-    if (!canCreateUser(token, req.body));
-    res.status(401).json({
-        error: `Vous n'êtes pas autorisé à créer un utilisateur !`
-    });
+    if (!canCreateUser(req.currentUser, req.body)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à créer un utilisateur !` });
     next();
 }
 
 export const authGetUser = (req, res, next) => {
-    if (!canViewUser(token, req.body));
-    res.status(401).json({
-        error: `Vous n'êtes pas autorisé à voir cet utilisateur !`
-    });
+    if (!canViewUser(req.currentUser, req.user)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à voir cet utilisateur !` });
     next();
 }
 
 export const authDeleteUser = (req, res, next) => {
-    if (!canDeleteUser(token, req.body));
-    res.status(401).json({
-        error: `Vous n'êtes pas autorisé à supprimer cet utilisateur !`
-    });
+    if (!canDeleteUser(req.currentUser, req.user)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à supprimer cet utilisateur !` });
     next();
 }
 
 export const authUpdateUser = (req, res, next) => {
-    if (!canUpdateUser(token, req.body));
-    res.status(401).json({
-        error: `Vous n'êtes pas autorisé à modifier cet utilisateur !`
-    });
+    if (!canUpdateUser(req.currentUser, req.user)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à modifier cet utilisateur !` });
     next();
 }
+
+export const validFormCreateUser = (req, res, next) => {
+    next();
+}
+
+export const validFormUpdateUser = (req, res, next) => {
+    next();
+}
+/* Middlewares */

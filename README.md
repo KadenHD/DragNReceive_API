@@ -77,13 +77,12 @@ npm start
 
 # To-do
 
-- Regarder la vidéo liké, si ya moyen d'utiliser les retours de promesses dans le crud
 - Faire des middlewares qui check les roles, connecté, sa propre entities etc... (pour toutes les entities)
 - Faire le middleware des req.body valide, syntaxe, contraintes, caractères etc... (pour toute les entities)
 
 - Commenter en balle le code surtout au niveau des middlewares, permissions etc... (pour toute les entities)
-- Réussir à envoyer les images pour les produits et shop => res.sendFile(filepath);
 
+- Réussir à envoyer les images pour les produits et shop => res.sendFile(filepath);
 - Création de fausses factures une fois commandé
 - Faire le système de reset de mot de pass par email + token mais aussi le relier à un mailer (mail trap)
 - Faire le refresh du token en back-end (optionnel)
