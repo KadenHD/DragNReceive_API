@@ -77,6 +77,7 @@ npm start
 
 # To-do
 
+- Déplacer les définitions de update et create dans les middlewares de permissions (genre le hash password l'entities user etc....)
 - Faire des middlewares qui check les roles, connecté, sa propre entities etc... (pour toutes les entities)
 - Faire le middleware des req.body valide, syntaxe, contraintes, caractères etc... (pour toute les entities)
 

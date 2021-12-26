@@ -1,23 +1,25 @@
-import { User } from '../Models/Models.js';
+import { User, Shop } from '../Models/Models.js';
 
 const sadmin = "1";
 const admin = "2";
+const partner = "3";
+const client = "4";
 
-/* Roles permissions */
+/* Permissions */
 export const scopedUsers = (currentUser, users) => { //Fetch inside findAll controllers
     if (currentUser.roleId === sadmin) return users;
     if (currentUser.roleId === admin) return users.filter(user => user.roleId > admin)
     return users.filter(user => user.id === currentUser.id);
 }
 
-export const canCreateUser = (currentUser, user) => {
+const canCreateUser = (currentUser, user) => {
     return (
         currentUser.roleId === sadmin ||
         (currentUser.roleId === admin && user.roleId > admin)
     );
 }
 
-export const canViewUser = (currentUser, user) => {
+const canViewUser = (currentUser, user) => {
     return (
         currentUser.roleId === sadmin ||
         (currentUser.roleId === admin && user.roleId > admin) ||
@@ -25,18 +27,26 @@ export const canViewUser = (currentUser, user) => {
     );
 }
 
-export const canDeleteUser = (currentUser, user) => {
+const canDeleteUser = (currentUser, user) => {
     return currentUser.roleId === sadmin && currentUser.roleId != sadmin;
 }
 
-export const canUpdateUser = (currentUser, user) => {
+const canUpdateUser = (currentUser, user) => {
     return (
         currentUser.roleId === sadmin ||
         (currentUser.roleId === admin && user.roleId > admin) ||
         user.id === currentUser.id
     );
 }
-/* Roles permissions */
+
+const userExist = (user) => {
+    return User.findOne({ where: { email: user.email } });
+}
+
+const shopExist = (user) => {
+    return Shop.findByPk(user.shopId);
+}
+/* Permissions */
 
 /* Middlewares */
 export const setUser = async (req, res, next) => { // For id's parameters routes
@@ -65,11 +75,16 @@ export const authUpdateUser = (req, res, next) => {
     next();
 }
 
-export const validFormCreateUser = (req, res, next) => {
+export const validFormCreateUser = async (req, res, next) => {
+    if (await userExist(req.body)) return res.status(401).json({ error: `L'utilisateur existe déjà !` });
+    if (req.body.roleId != partner && req.body.shopId) return res.status(401).json({ error: `Pour appartenir à une boutique, il faut être un partenaire !` });
+    if (req.body.roleId === partner && !req.body.shopId) return res.status(401).json({ error: `Pour être partnaire, il faut appartenir à une boutique !` });
+    if (!await shopExist(req.body)) return res.status(404).json({ error: `La boutique n'existe pas !` });
     next();
 }
 
 export const validFormUpdateUser = (req, res, next) => {
+    //Taking care that req.user is set so i can edit him as i wish and compared differents values etc...
     next();
 }
 /* Middlewares */
