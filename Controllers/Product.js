@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { Product } from '../Models/Models.js';
-import { writeProduct, rmProduct } from '../Middlewares/FileSystem.js';
+import { writeProduct, rmProduct } from '../Utils/FileSystem.js';
 
 export const findAllProducts = (req, res) => {
     Product.findAll()

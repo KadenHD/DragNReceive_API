@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Shop, Product, Role, User, Order, Ticket, Message, OrderStatus, TicketStatus } from '../Models/Models.js';
-import { rmStore, mkShop, mkUser, mkProduct } from '../Middlewares/FileSystem.js';
+import { rmStore, mkShop, mkUser, mkProduct } from '../Utils/FileSystem.js';
 
 faker.locale = "fr";
 

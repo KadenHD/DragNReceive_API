@@ -1,4 +1,4 @@
-import { instanceFiles } from '../Middlewares/FileSystem.js';
+import { instanceFiles } from '../Utils/FileSystem.js';
 
 // Penser à supprimer les valeurs une fois mis en prod
 let envContent = "";

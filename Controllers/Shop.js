@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { Shop } from '../Models/Models.js';
-import { mkShop, rmShop, writeShop } from '../Middlewares/FileSystem.js';
+import { mkShop, rmShop, writeShop } from '../Utils/FileSystem.js';
 
 export const findAllShops = (req, res) => {
     Shop.findAll()

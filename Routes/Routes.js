@@ -8,7 +8,7 @@ import shopsRouter from './Shops.js';
 import ticketsRouter from './Tickets.js';
 import usersRouter from './Users.js';
 
-import { isValidToken } from '../Middlewares/TokenJWT.js';
+import { isValidToken } from '../Permissions/TokenJWT.js';
 
 const router = express.Router();
 

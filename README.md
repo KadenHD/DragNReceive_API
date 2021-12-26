@@ -77,11 +77,6 @@ npm start
 
 # To-do
 
-- Mettre dans le dossier utils le fichier FileSystem
-- Mettre dans le dossier Permissions le fichier TokenJWT
-- Renommer tout les imports de FileSystem et TokenJWT
-- Supprimer le dossier Middleware
-
 - Faire des middlewares qui check les roles, connecté, sa propre entities etc... (pour toutes les entities)
 - Faire le middleware des req.body valide, syntaxe, contraintes, caractères etc... (pour toute les entities)
 
