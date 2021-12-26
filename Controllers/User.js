@@ -1,6 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-import bcrypt from 'bcrypt';
-
 import { User } from '../Models/Models.js';
 
 import { scopedUsers } from '../Permissions/Users.js';
@@ -19,20 +16,10 @@ export const findAllUsers = (req, res) => {
         });
 }
 
-export const createUser = async (req, res) => {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const user = {
-        id: uuidv4(),
-        lastname: req.body.lastname,
-        firstname: req.body.firstname,
-        email: req.body.email,
-        password: hashedPassword,
-        roleId: req.body.roleId,
-        shopId: req.body.shopId
-    }
-    User.create(user)
+export const createUser = (req, res) => {
+    User.create(req.user)
         .then(data => {
-            mkUser(user.id);
+            mkUser(req.user.id);
             res.status(200).json({
                 success: `L'utilisateur a bien été créé.`
             });
@@ -58,7 +45,7 @@ export const findOneUser = (req, res) => {
 
 export const deleteUser = (req, res) => {
     User.destroy({ where: { id: req.params.id } })
-        .then(num => {
+        .then(data => {
             rmUser(req.params.id);
             res.status(200).json({
                 success: `L'utilisateur a bien été supprimé.`
@@ -71,10 +58,9 @@ export const deleteUser = (req, res) => {
         });
 }
 
-export const updateUser = async (req, res) => {
-    if (req.body.password) req.body.password = await bcrypt.hash(req.body.password, 10);
-    User.update(req.body, { where: { id: req.params.id } })
-        .then(num => {
+export const updateUser = (req, res) => {
+    User.update(req.user, { where: { id: req.params.id } })
+        .then(data => {
             res.status(200).json({
                 success: `L'utilisateur a bien été modifié`
             });
