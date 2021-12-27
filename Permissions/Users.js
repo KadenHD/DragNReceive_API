@@ -1,61 +1,22 @@
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 
-import { User, Shop, Role } from '../Models/Models.js';
+import { User } from '../Models/Models.js';
+
+import { emailExist, shopExist, roleExist } from '../Validations/Exists.js';
+import { canViewUser, canCreateUser, canDeleteUser, canUpdateUser } from '../Validations/Users.js';
 
 const sadmin = "1";
 const admin = "2";
 const partner = "3";
 const client = "4";
 
-/* Permissions */
 export const scopedUsers = (currentUser, users) => { //Fetch inside findAll controllers
     if (currentUser.roleId === sadmin) return users;
     if (currentUser.roleId === admin) return users.filter(user => user.roleId > admin)
     return users.filter(user => user.id === currentUser.id);
 }
 
-const canCreateUser = (currentUser, user) => {
-    return (
-        currentUser.roleId === sadmin ||
-        (currentUser.roleId === admin && user.roleId > admin)
-    );
-}
-
-const canViewUser = (currentUser, user) => {
-    return (
-        currentUser.roleId === sadmin ||
-        (currentUser.roleId === admin && user.roleId > admin) ||
-        user.id === currentUser.id
-    );
-}
-
-const canDeleteUser = (currentUser, user) => {
-    return currentUser.roleId === sadmin && currentUser.roleId != sadmin;
-}
-
-const canUpdateUser = (currentUser, user) => {
-    return (
-        currentUser.roleId === sadmin ||
-        (currentUser.roleId === admin && user.roleId > admin) ||
-        user.id === currentUser.id
-    );
-}
-
-const userExist = (user) => {
-    return User.findOne({ where: { email: user.email } });
-}
-
-const shopExist = (user) => {
-    return Shop.findByPk(user.shopId);
-}
-
-const roleExist = (user) => {
-    return Role.findByPk(user.roleId);
-}
-/* Permissions */
-
-/* Middlewares */
 export const setUser = async (req, res, next) => { // For id's parameters routes
     req.user = await User.findByPk(req.params.id);
     if (!req.user) return res.status(404).json({ error: `L'utilisateur n'existe pas !` });
@@ -84,13 +45,14 @@ export const authUpdateUser = (req, res, next) => {
 
 export const validFormCreateUser = async (req, res, next) => {
     if (!req.body.lastname || !req.body.firstname || !req.body.email || !req.body.password || !req.body.roleId) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
-    if (await userExist(req.body)) return res.status(401).json({ error: `L'utilisateur existe déjà !` });
+    if (await emailExist(req.body.email)) return res.status(401).json({ error: `L'email est déjà prise !` });
     if (req.body.roleId != partner && req.body.shopId) return res.status(401).json({ error: `Pour appartenir à une boutique, il faut être un partenaire !` });
     if (req.body.roleId === partner && !req.body.shopId) return res.status(401).json({ error: `Pour être partnaire, il faut appartenir à une boutique !` });
-    if (await roleExist(req.body)) return res.status(404).json({ error: `Le role n'existe pas` });
+    if (!await roleExist(req.body.roleId)) return res.status(404).json({ error: `Le role n'existe pas` });
     if (req.body.shopId) {
-        if (!await shopExist(req.body)) return res.status(404).json({ error: `La boutique n'existe pas !` });
+        if (!await shopExist(req.body.shopId)) return res.status(404).json({ error: `La boutique n'existe pas !` });
     }
+    //Vérification de l'email valide et du mot de passe
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     req.user = {
         id: uuidv4(),
@@ -105,6 +67,8 @@ export const validFormCreateUser = async (req, res, next) => {
 }
 
 export const validFormUpdateUser = async (req, res, next) => {
+    //Vérification de l'email valide et du mot de passe
+    // Peut-être faire aussi le changement de mot de passe en recevant un newPass et un actualPass, vérifier que le actualPass soit bon puis changer
     if (req.currentUser.id === req.user.id) req.user.password = await bcrypt.hash(req.body.password, 10)
     else if (req.currentUser.roleId < partner) {
         req.user.lastname = req.body.lastname;
@@ -115,4 +79,3 @@ export const validFormUpdateUser = async (req, res, next) => {
     }
     next();
 }
-/* Middlewares */

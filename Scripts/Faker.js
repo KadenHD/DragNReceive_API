@@ -3,7 +3,11 @@ import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Shop, Product, Role, User, Order, Ticket, Message, OrderStatus, TicketStatus } from '../Models/Models.js';
-import { rmStore, mkShop, mkUser, mkProduct } from '../Utils/FileSystem.js';
+
+import { rmStore } from '../FileSystems/FileSystems.js';
+import { mkShop } from '../FileSystems/Shops.js';
+import { mkUser } from '../FileSystems/Users.js';
+import { mkProduct } from '../FileSystems/Products';
 
 faker.locale = "fr";
 
@@ -80,7 +84,7 @@ async function fakeInit() {
         const ticketId = uuidv4();
         await Ticket.create({
             id: ticketId,
-            title: faker.lorem.sentence(),
+            title: faker.lorem.sentence(4),
             content: faker.lorem.sentence(),
             userId: userId,
             ticketStatusId: faker.datatype.number({ min: 1, max: 2 })

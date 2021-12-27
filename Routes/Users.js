@@ -1,6 +1,7 @@
 import express from 'express';
 
 import { findAllUsers, createUser, findOneUser, deleteUser, updateUser } from '../Controllers/User.js';
+
 import { setUser, authCreateUser, authGetUser, authDeleteUser, authUpdateUser, validFormCreateUser, validFormUpdateUser } from '../Permissions/Users.js';
 
 const router = express.Router();

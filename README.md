@@ -77,6 +77,8 @@ npm start
 
 # To-do
 
+- Faire la vérifiaction dans user permissions de l'email et mot de passe
+
 - Faire des middlewares qui check les roles, connecté, sa propre entities etc... (pour toutes les entities)
 - Faire le middleware des req.body valide, syntaxe, contraintes, caractères etc... (pour toute les entities)
 
