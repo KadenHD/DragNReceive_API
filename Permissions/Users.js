@@ -5,6 +5,7 @@ import { User } from '../Models/Models.js';
 
 import { emailExist, shopExist, roleExist } from '../Validations/Exists.js';
 import { canViewUser, canCreateUser, canDeleteUser, canUpdateUser } from '../Validations/Users.js';
+import { isValidEmail, isValidPassword } from '../Validations/Formats.js';
 
 const sadmin = "1";
 const admin = "2";
@@ -52,7 +53,8 @@ export const validFormCreateUser = async (req, res, next) => {
     if (req.body.shopId) {
         if (!await shopExist(req.body.shopId)) return res.status(404).json({ error: `La boutique n'existe pas !` });
     }
-    //Vérification de l'email valide et du mot de passe
+    if (!isValidEmail(req.body.email)) return res.status(401).json({ error: `Format d'email non-valide !` });
+    if (!isValidPassword(req.body.password)) return res.status(401).json({ error: `Format de mot de passe non-valide !` });
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     req.user = {
         id: uuidv4(),
@@ -67,8 +69,9 @@ export const validFormCreateUser = async (req, res, next) => {
 }
 
 export const validFormUpdateUser = async (req, res, next) => {
-    //Vérification de l'email valide et du mot de passe
-    // Peut-être faire aussi le changement de mot de passe en recevant un newPass et un actualPass, vérifier que le actualPass soit bon puis changer
+    if (!isValidEmail(req.body.email)) return res.status(401).json({ error: `Format d'email non-valide !` });
+    if (!isValidPassword(req.body.password)) return res.status(401).json({ error: `Format de mot de passe non-valide !` });
+    if (!isValidNewPassword(req.body.actualPassword, req.body.newPassword)) return res.status(401).json({ error: `Le mot de passe n'est pas valide !` });
     if (req.currentUser.id === req.user.id) req.user.password = await bcrypt.hash(req.body.password, 10)
     else if (req.currentUser.roleId < partner) {
         req.user.lastname = req.body.lastname;
