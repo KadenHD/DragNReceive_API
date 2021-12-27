@@ -7,7 +7,7 @@ import { Shop, Product, Role, User, Order, Ticket, Message, OrderStatus, TicketS
 import { rmStore } from '../FileSystems/FileSystems.js';
 import { mkShop } from '../FileSystems/Shops.js';
 import { mkUser } from '../FileSystems/Users.js';
-import { mkProduct } from '../FileSystems/Products';
+import { mkProduct } from '../FileSystems/Products.js';
 
 faker.locale = "fr";
 
