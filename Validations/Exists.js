@@ -1,6 +1,6 @@
 import { User, Shop, Role } from '../Models/Models.js';
 
-export const userExist = (key) => {
+export const emailExist = (key) => {
     return (
         User.findOne({ where: { email: key } }) ||
         Shop.findOne({ where: { email: key } })

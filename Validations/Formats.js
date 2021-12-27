@@ -4,15 +4,25 @@ export const isValidEmail = (email) => {
 }
 
 export const isValidPassword = (password) => {
-    return /[A-Z]/.test(password) &&
+    return (
+        /[A-Z]/.test(password) &&
         /[a-z]/.test(password) &&
         /[0-9]/.test(password) &&
         /[^A-Za-z0-9]/.test(password) &&
-        password.length > 7;
+        password.length > 7
+    );
 }
 
-export const isValidNewPassword = (actualPassword, newPassword) => {
-    if (actualPassword === newPassword) return false
-    //bcrypt compare le mot de passe dans le user ainsi que dans le actual
-    if (!isValidNewPassword(newPassword)) return false
+export const isValidLastName = (lastname) => {
+    return (
+        lastname.charAt(0) === lastname.charAt(0).toUpperCase() &&
+        lastname.length < 50
+    );
+}
+
+export const isValidFirstName = (firstname) => {
+    return (
+        firstname.charAt(0) === firstname.charAt(0).toUpperCase() &&
+        firstname.length < 50
+    );
 }
