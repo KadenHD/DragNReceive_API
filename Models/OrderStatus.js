@@ -4,11 +4,11 @@ import sequelize from "../Database/DBConfig.js";
 
 const Role = sequelize.define("orderStatus", {
     id: {
-        type: Sequelize.STRING(),
+        type: Sequelize.STRING(1),
         primaryKey: true
     },
     label: {
-        type: Sequelize.STRING(),
+        type: Sequelize.STRING(20),
         allowNull: false
     }
 });

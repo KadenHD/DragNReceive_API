@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 
-import { User, Shop } from '../Models/Models.js';
+import { User, Shop, Role } from '../Models/Models.js';
 
 const sadmin = "1";
 const admin = "2";
@@ -49,6 +49,10 @@ const userExist = (user) => {
 const shopExist = (user) => {
     return Shop.findByPk(user.shopId);
 }
+
+const roleExist = (user) => {
+    return Role.findByPk(user.roleId);
+}
 /* Permissions */
 
 /* Middlewares */
@@ -83,6 +87,7 @@ export const validFormCreateUser = async (req, res, next) => {
     if (await userExist(req.body)) return res.status(401).json({ error: `L'utilisateur existe déjà !` });
     if (req.body.roleId != partner && req.body.shopId) return res.status(401).json({ error: `Pour appartenir à une boutique, il faut être un partenaire !` });
     if (req.body.roleId === partner && !req.body.shopId) return res.status(401).json({ error: `Pour être partnaire, il faut appartenir à une boutique !` });
+    if (await roleExist(req.body)) return res.status(404).json({ error: `Le role n'existe pas` });
     if (req.body.shopId) {
         if (!await shopExist(req.body)) return res.status(404).json({ error: `La boutique n'existe pas !` });
     }

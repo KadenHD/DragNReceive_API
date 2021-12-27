@@ -4,15 +4,15 @@ import sequelize from "../Database/DBConfig.js";
 
 const Shop = sequelize.define("shop", {
     id: {
-        type: Sequelize.STRING(),
+        type: Sequelize.STRING(36),
         primaryKey: true
     },
     name: {
-        type: Sequelize.STRING(),
+        type: Sequelize.STRING(50),
         allowNull: false
     },
     email: {
-        type: Sequelize.STRING(),
+        type: Sequelize.STRING(100),
         allowNull: false
     },
     phone: {
@@ -20,11 +20,11 @@ const Shop = sequelize.define("shop", {
         allowNull: true
     },
     city: {
-        type: Sequelize.STRING(),
+        type: Sequelize.STRING(60),
         allowNull: true
     },
     street: {
-        type: Sequelize.STRING(),
+        type: Sequelize.STRING(100),
         allowNull: true
     },
     postal: {
