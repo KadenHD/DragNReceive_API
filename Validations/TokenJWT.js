@@ -7,7 +7,7 @@ export const isValidToken = async (req, res, next) => {
     if (!token) return res.status(401).json({ error: `Vous avez besoin d'un token.` });
     try {
         req.currentUser = jwt.verify(token, process.env.SECRET_TOKEN);
-        req.currentUser = await User.findByPk(req.currentUser.id);
+        req.currentUser = await User.findByPk(req.currentUser.id); // Add the current user to the request
         next();
     } catch (error) {
         res.status(400).json({ error: `Le token n'est pas valide.` });

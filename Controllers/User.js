@@ -6,7 +6,7 @@ import { mkUser, rmUser } from '../FileSystems/Users.js';
 export const findAllUsers = (req, res) => {
     User.findAll()
         .then(data => {
-            data = scopedUsers(req.currentUser, data); //fetch
+            data = scopedUsers(req.currentUser, data);
             res.status(200).json(data);
         })
         .catch(err => {

@@ -5,16 +5,16 @@ import cors from 'cors';
 
 import router from './Routes/Routes.js';
 
-dotenv.config(); // add the variables from .env to process.env
+dotenv.config(); // Add the variables from .env file to process.env
 
 const app = express();
 
-app.use(express.json()); //For JSON requests
+app.use(express.json()); // For JSON requests
 app.use(express.urlencoded({ extended: true }));
-app.use(fileUpload());
+app.use(fileUpload()); // Can use files like pictures and pdf from requests
 app.use(cors());
 
-app.use('/api', router);
+app.use('/api', router); // Init the whole routes
 
 var port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`App running at :\n - Local : ${process.env.BASE_URL}:${port}`));

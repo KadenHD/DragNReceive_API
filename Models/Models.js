@@ -8,6 +8,8 @@ import Order from '../Models/Order.js';
 import OrderStatus from '../Models/OrderStatus.js';
 import TicketStatus from '../Models/TicketStatus.js';
 
+// All the relations, FK and constraints from Models
+
 // User <-> Role
 User.belongsTo(Role);
 Role.hasMany(User, {

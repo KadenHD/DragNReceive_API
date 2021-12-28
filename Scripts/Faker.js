@@ -9,7 +9,7 @@ import { mkShop } from '../FileSystems/Shops.js';
 import { mkUser } from '../FileSystems/Users.js';
 import { mkProduct } from '../FileSystems/Products.js';
 
-faker.locale = "fr";
+faker.locale = "fr"; // Usefull the get french faker values
 
 try {
     rmStore();
@@ -18,7 +18,7 @@ try {
     console.log(error);
 }
 
-async function fakeInit() {
+const fakeInit = async () => {
     await defaultDatas();
     for (let i = 0; i < 10; i++) {
         var shopId = uuidv4();
@@ -102,8 +102,8 @@ async function fakeInit() {
     process.exit();
 }
 
-//Create the fakes standards users
-async function defaultDatas() {
+//Create the fakes standards values like status and roles and the standards users
+const defaultDatas = async () => {
     for (let i = 1; i < 5; i++) {
         mkUser(i);
         switch (i) {
@@ -128,9 +128,9 @@ async function defaultDatas() {
                 await OrderStatus.create({ id: i, label: "Collected" });
                 break;
             case 4:
-                const hashedUser = await bcrypt.hash("user", 10);
-                await Role.create({ id: i, label: "USER" });
-                await User.create({ id: i, lastname: "user", firstname: "user", email: "user@user.user", password: hashedUser, roleId: i, shopId: null });
+                const hashedClient = await bcrypt.hash("client", 10);
+                await Role.create({ id: i, label: "CLIENT" });
+                await User.create({ id: i, lastname: "client", firstname: "client", email: "client@client.client", password: hashedClient, roleId: i, shopId: null });
                 await OrderStatus.create({ id: i, label: "Canceled" });
                 break;
         }

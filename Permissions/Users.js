@@ -12,13 +12,13 @@ const admin = "2";
 const partner = "3";
 const client = "4";
 
-export const scopedUsers = (currentUser, users) => { //Fetch inside findAll controllers
-    if (currentUser.roleId === sadmin) return users;
-    if (currentUser.roleId === admin) return users.filter(user => user.roleId > admin)
-    return users.filter(user => user.id === currentUser.id);
+export const scopedUsers = (currentUser, users) => { // Fetch inside findAllUsers controller
+    if (currentUser.roleId === sadmin) return users; // If Super Admin return all users
+    if (currentUser.roleId === admin) return users.filter(user => user.roleId > admin) // If Admin return only partner and client
+    return users.filter(user => user.id === currentUser.id); // Else return only himself
 }
 
-export const setUser = async (req, res, next) => { // For id's parameters routes
+export const setUser = async (req, res, next) => { // For id's parameters routes to set the user values from DB
     req.user = await User.findByPk(req.params.id);
     if (!req.user) return res.status(404).json({ error: `L'utilisateur n'existe pas !` });
     next();
@@ -45,7 +45,7 @@ export const authUpdateUser = (req, res, next) => {
 }
 
 export const validFormCreateUser = async (req, res, next) => {
-    // Check exist and validity
+    // Check exists and validities
     if (!req.body.lastname || !req.body.firstname || !req.body.email || !req.body.password || !req.body.roleId) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
     if (await emailExist(req.body.email)) return res.status(401).json({ error: `L'email est déjà prise !` });
     if (req.body.roleId != partner && req.body.shopId) return res.status(401).json({ error: `Pour appartenir à une boutique, il faut être un partenaire !` });
@@ -73,7 +73,7 @@ export const validFormCreateUser = async (req, res, next) => {
 }
 
 export const validFormUpdateUser = async (req, res, next) => {
-    if (req.currentUser.id === req.user.id && req.body.newPassword && req.body.actualPassword) {
+    if (req.currentUser.id === req.user.id && req.body.newPassword && req.body.actualPassword) { // If its own modification can update password only
         if (!isValidPassword(req.body.newPassword)) return res.status(401).json({ error: `Format de mot de passe non-valide !` });
         const passwordSimilar = (data, hash) => {
             return bcrypt.compareSync(data, hash);
@@ -85,7 +85,7 @@ export const validFormUpdateUser = async (req, res, next) => {
             password: hashedPassword
         }
         console.log(req.user)
-    } else if (req.currentUser.roleId < partner && req.body.lastname && req.body.firstname && req.body.email) {
+    } else if (req.currentUser.roleId < partner && req.body.lastname && req.body.firstname && req.body.email) { // If its modification made by Admin or SuperAdmin can update last and first name and email only
         if (!isValidLastName(req.body.lastname)) return res.status(401).json({ error: `Format de nom non-valide !` });
         if (!isValidFirstName(req.body.firstname)) return res.status(401).json({ error: `Format de prénom non-valide !` });
         if (!isValidEmail(req.body.email)) return res.status(401).json({ error: `Format d'email non-valide !` });
