@@ -11,13 +11,6 @@ import { mkProduct } from '../FileSystems/Products.js';
 
 faker.locale = "fr"; // Usefull the get french faker values
 
-try {
-    rmStore();
-    fakeInit();
-} catch (error) {
-    console.log(error);
-}
-
 const fakeInit = async () => {
     await defaultDatas();
     for (let i = 0; i < 10; i++) {
@@ -135,4 +128,11 @@ const defaultDatas = async () => {
                 break;
         }
     }
+}
+
+try {
+    rmStore();
+    fakeInit();
+} catch (error) {
+    console.log(error);
 }
