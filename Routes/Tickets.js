@@ -2,7 +2,7 @@ import express from 'express';
 
 import { findAllTickets, createTicket, findOneTicket, updateTicket } from '../Controllers/Ticket.js';
 
-import { setTicket, authCreateTicket, validFormCreateTicket, authUpdateTicket, validFormUpdateTicket } from '../Permissions/Tickets.js';
+import { setTicket, authCreateTicket, validFormCreateTicket, authGetTicket, authUpdateTicket, validFormUpdateTicket } from '../Permissions/Tickets.js';
 
 const router = express.Router();
 

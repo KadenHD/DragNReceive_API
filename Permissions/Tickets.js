@@ -13,7 +13,7 @@ const client = "4";
 
 export const scopedTickets = (currentUser, tickets) => { // Fetch inside findAllTickets controller
     if (currentUser.roleId === sadmin) return tickets; // If Super Admin return all tickets
-    if (currentUser.roleId === admin) return tickets.filter(tickets => tickets.userId.roleId > admin && tickets.userId === currentUser.id) // If Admin return only partner and client
+    if (currentUser.roleId === admin) return tickets.filter(tickets => tickets.userId.roleId > admin && tickets.userId === currentUser.id) // If Admin return only partner and client and own
     return tickets.filter(ticket => ticket.userId === currentUser.id); // Else return only himself
 }
 
