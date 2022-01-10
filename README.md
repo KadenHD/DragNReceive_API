@@ -77,8 +77,7 @@ npm start
 
 # To-do
 
-- Faire des middlewares qui check les roles, connecté, sa propre entities etc... (pour toutes les entities)
-- Faire le middleware des req.body valide, syntaxe, contraintes, caractères etc... (pour toute les entities)
+- Finir middleware permission et validations de Ticket, Shop, Product, Order, Message
 
 - Commenter en balle les comments surtout au niveau des validations, permissions etc... (pour toute les entities)
 
