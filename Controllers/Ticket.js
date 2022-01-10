@@ -2,9 +2,12 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { Ticket } from '../Models/Models.js';
 
+import { scopedTickets } from '../Permissions/Tickets.js';
+
 export const findAllTickets = (req, res) => {
     Ticket.findAll()
         .then(data => {
+            data = scopedTickets(req.currentUser, data);
             res.status(200).json(data);
         })
         .catch(err => {
