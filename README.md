@@ -77,10 +77,7 @@ npm start
 
 # To-do
 
-- Régler le soucis de promesse du Ticket à cause de l'await des user et message
-
 - Finir middleware permission et validations de Shop, Product, Order, Message
-- Stocker les messages et users dans les tickets
 - Stocker les produits dans Shop
 - Stocker les produits dans les order (au moin les images) ?
 

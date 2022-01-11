@@ -5,10 +5,9 @@ import { scopedTickets } from '../Permissions/Tickets.js';
 export const findAllTickets = async (req, res) => {
     let data = await Ticket.findAll();
     scopedTickets(req.currentUser, data)
-    .then(data=>{
-        console.log("data : ",data)
-        res.status(200).json(data);
-    });
+        .then(data => {
+            res.status(200).json(data);
+        });
 }
 
 export const createTicket = async (req, res) => {

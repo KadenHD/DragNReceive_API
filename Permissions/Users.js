@@ -84,7 +84,6 @@ export const validFormUpdateUser = async (req, res, next) => {
         req.user = {
             password: hashedPassword
         }
-        console.log(req.user)
     } else if (req.currentUser.roleId < partner && req.body.lastname && req.body.firstname && req.body.email) { // If its modification made by Admin or SuperAdmin can update last and first name and email only
         if (!isValidLastName(req.body.lastname)) return res.status(401).json({ error: `Format de nom non-valide !` });
         if (!isValidFirstName(req.body.firstname)) return res.status(401).json({ error: `Format de prénom non-valide !` });
