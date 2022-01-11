@@ -2,18 +2,13 @@ import { Ticket } from '../Models/Models.js';
 
 import { scopedTickets } from '../Permissions/Tickets.js';
 
-export const findAllTickets = (req, res) => {
-    Ticket.findAll()
-        .then(data => {
-            data = scopedTickets(req.currentUser, data);
-            console.log("data : ",data)
-            res.status(200).json(data);
-        })
-        .catch(err => {
-            res.status(500).json({
-                error: `Une erreur est survenue lors de la recherche de tickets.`
-            });
-        });
+export const findAllTickets = async (req, res) => {
+    let data = await Ticket.findAll();
+    scopedTickets(req.currentUser, data)
+    .then(data=>{
+        console.log("data : ",data)
+        res.status(200).json(data);
+    });
 }
 
 export const createTicket = async (req, res) => {
