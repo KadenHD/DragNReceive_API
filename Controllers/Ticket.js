@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import { Ticket } from '../Models/Models.js';
 
 import { scopedTickets } from '../Permissions/Tickets.js';
@@ -18,13 +16,7 @@ export const findAllTickets = (req, res) => {
 }
 
 export const createTicket = async (req, res) => {
-    const ticket = {
-        id: uuidv4(),
-        title: req.body.title,
-        content: req.body.content,
-        ticketStatusId: 1
-    }
-    Ticket.create(ticket)
+    Ticket.create(req.ticket)
         .then(data => {
             res.status(200).json({
                 success: `Le ticket a bien été créé.`

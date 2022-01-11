@@ -2,9 +2,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { Ticket } from '../Models/Models.js';
 
-import {  } from '../Validations/Exists.js'; //if ticket is closed ?
 import { canCreateTicket, canViewTicket, canUpdateTicket } from '../Validations/Tickets.js';
-import {  } from '../Validations/Formats.js';
+import { isValidTitle, isValidContent } from '../Validations/Formats.js';
 
 const sadmin = "1";
 const admin = "2";
@@ -20,6 +19,8 @@ export const scopedTickets = (currentUser, tickets) => { // Fetch inside findAll
 export const setTicket = async (req, res, next) => { // For id's parameters routes to set the ticket values from DB
     req.ticket = await Ticket.findByPk(req.params.id);
     if (!req.ticket) return res.status(404).json({ error: `Le ticket n'existe pas !` });
+    req.ticket.user = await User.findByPk(req.ticket.userId);
+    if (!req.ticket.user) return res.status(404).json({ error: `L'utilisateur affilié à ce ticket n'existe pas !` });
     next();
 }
 
@@ -39,22 +40,23 @@ export const authUpdateTicket = (req, res, next) => {
 }
 
 export const validFormCreateTicket = async (req, res, next) => {
-    // Check exists and validities
-
-    // Check valids format values
-
+    if (!req.body.title || !req.body.content) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
+    if (!isValidTitle(req.body.title)) return res.status(401).json({ error: `Format de titre non-valide !` });
+    if (!isValidContent(req.body.content)) return res.status(401).json({ error: `Format de contenu non-valide !` });
     req.ticket = {
         id: uuidv4(),
-        //etc
+        title: req.body.title,
+        content: req.body.content,
+        userId: req.currentUser.id,
+        ticketStatusId: 1
     }
     next();
 }
 
 export const validFormUpdateTicket = async (req, res, next) => {
-    if (1) {
-
-    } else {
-        return res.status(401).json({ error: `Retournez un formulaire valide` });
+    if(req.ticket.ticketStatusId === 0) return res.status(401).json({ error: `Le ticket est clos !` });
+    req.ticket = {
+        ticketStatusId: 0
     }
     next();
 }

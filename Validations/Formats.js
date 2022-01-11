@@ -1,5 +1,6 @@
 export const isValidEmail = (email) => {
     const re = /\S+@\S+\.\S+/; // "string@string.string" format
+    email.length <= 100
     return re.test(email);
 }
 
@@ -16,13 +17,25 @@ export const isValidPassword = (password) => {
 export const isValidLastName = (lastname) => {
     return (
         lastname.charAt(0) === lastname.charAt(0).toUpperCase() && // Start with upper case
-        lastname.length < 50
+        lastname.length <= 50
     );
 }
 
 export const isValidFirstName = (firstname) => {
     return (
         firstname.charAt(0) === firstname.charAt(0).toUpperCase() && // Start with upper case
-        firstname.length < 50
+        firstname.length <= 50
+    );
+}
+
+export const isValidTitle = (title) => {
+    return (
+        title.length <= 60
+    );
+}
+
+export const isValidContent = (content) => {
+    return (
+        content.length <= 255
     );
 }
