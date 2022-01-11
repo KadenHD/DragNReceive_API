@@ -14,7 +14,7 @@ const client = "4";
 
 export const scopedUsers = (currentUser, users) => { // Fetch inside findAllUsers controller
     if (currentUser.roleId === sadmin) return users; // If Super Admin return all users
-    if (currentUser.roleId === admin) return users.filter(user => user.roleId > admin && user.id === currentUser.id) // If Admin return only partner and client and own
+    if (currentUser.roleId === admin) return users.filter(user => user.roleId === partner || user.roleId === client || user.id === currentUser.id)
     return users.filter(user => user.id === currentUser.id); // Else return only himself
 }
 

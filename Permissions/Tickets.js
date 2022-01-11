@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { Ticket } from '../Models/Models.js';
+import { Ticket, User, Message } from '../Models/Models.js';
 
 import { canCreateTicket, canViewTicket, canUpdateTicket } from '../Validations/Tickets.js';
 import { isValidTitle, isValidContent } from '../Validations/Formats.js';
@@ -10,9 +10,14 @@ const admin = "2";
 const partner = "3";
 const client = "4";
 
-export const scopedTickets = (currentUser, tickets) => { // Fetch inside findAllTickets controller
+export const scopedTickets = async (currentUser, tickets) => { // Fetch inside findAllTickets controller
+    //Stocker dans chacunes des solutions les messages dans les différents tickets et users
+    for(let i = 0; i < tickets.length; i++) {
+        tickets[i].user = await User.findByPk(tickets[i].userId); // Add user inside tickets
+        tickets[i].messages = await Message.findAll({where: {ticketId: tickets[i].id}})
+    }
     if (currentUser.roleId === sadmin) return tickets; // If Super Admin return all tickets
-    if (currentUser.roleId === admin) return tickets.filter(tickets => tickets.userId.roleId > admin && tickets.userId === currentUser.id) // If Admin return only partner and client and own
+    if (currentUser.roleId === admin) return tickets.filter(ticket => ticket.user.roleId === partner || ticket.user.roleId === client || ticket.userId === currentUser.id) // If Admin return only partner and client and own
     return tickets.filter(ticket => ticket.userId === currentUser.id); // Else return only himself
 }
 
@@ -31,6 +36,7 @@ export const authCreateTicket = (req, res, next) => {
 
 export const authGetTicket = (req, res, next) => {
     if (!canViewTicket(req.currentUser, req.ticket)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à voir ce ticket !` });
+    // Stocker les messages dans le ticket ici
     next();
 }
 
@@ -54,7 +60,7 @@ export const validFormCreateTicket = async (req, res, next) => {
 }
 
 export const validFormUpdateTicket = async (req, res, next) => {
-    if(req.ticket.ticketStatusId === 0) return res.status(401).json({ error: `Le ticket est clos !` });
+    if(req.ticket.ticketStatusId === 0) return res.status(401).json({ error: `Le ticket est déjà clos !` });
     req.ticket = {
         ticketStatusId: 0
     }

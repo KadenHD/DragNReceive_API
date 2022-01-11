@@ -6,6 +6,7 @@ export const findAllTickets = (req, res) => {
     Ticket.findAll()
         .then(data => {
             data = scopedTickets(req.currentUser, data);
+            console.log("data : ",data)
             res.status(200).json(data);
         })
         .catch(err => {
