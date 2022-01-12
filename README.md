@@ -78,6 +78,7 @@ npm start
 # To-do
 
 - Faire limite au centième près sur le float price (ex: 14.50)
+- cahier des charges finir la partie permissions
 
 - Finir middleware permission et validations de Shop, Product, Order, Message
 - Stocker les produits dans Shop
