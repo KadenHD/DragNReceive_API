@@ -26,8 +26,9 @@ export const scopedTickets = async (currentUser, tickets) => { // Fetch inside f
 export const setTicket = async (req, res, next) => { // For id's parameters routes to set the ticket values from DB
     req.ticket = await Ticket.findByPk(req.params.id);
     if (!req.ticket) return res.status(404).json({ error: `Le ticket n'existe pas !` });
-    req.ticket.user = await User.findByPk(req.ticket.userId);
-    if (!req.ticket.user) return res.status(404).json({ error: `L'utilisateur affilié à ce ticket n'existe pas !` });
+    req.ticket.dataValues.user = await User.findByPk(req.ticket.userId);
+    if (!req.ticket.dataValues.user) return res.status(404).json({ error: `L'utilisateur affilié à ce ticket n'existe pas !` });
+    req.ticket.dataValues.messages = await Message.findAll({ where: { ticketId: req.ticket.id } });
     next();
 }
 
@@ -62,9 +63,9 @@ export const validFormCreateTicket = async (req, res, next) => {
 }
 
 export const validFormUpdateTicket = async (req, res, next) => {
-    if (req.ticket.ticketStatusId === 0) return res.status(401).json({ error: `Le ticket est déjà clos !` });
+    if (req.ticket.ticketStatusId === "2") return res.status(401).json({ error: `Le ticket est déjà clos !` });
     req.ticket = {
-        ticketStatusId: 0
+        ticketStatusId: "2"
     }
     next();
 }
