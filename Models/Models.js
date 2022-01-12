@@ -11,88 +11,93 @@ import TicketStatus from '../Models/TicketStatus.js';
 // All the relations, FK and constraints from Models
 
 // User <-> Role
-User.belongsTo(Role);
-Role.hasMany(User, {
+User.belongsTo(Role, {
     foreignKey: {
         allowNull: false
     }
 });
+Role.hasMany(User);
 
 // User <-> Shop
-User.belongsTo(Shop);
-Shop.hasMany(User, {
+User.belongsTo(Shop, {
     foreignKey: {
         allowNull: true
     }
 });
+Shop.hasMany(User);
 
 // Ticket <-> User
-Ticket.belongsTo(User);
-User.hasMany(Ticket, {
+Ticket.belongsTo(User, {
     foreignKey: {
         allowNull: false
-    },
+    }
+});
+User.hasMany(Ticket, {
     onDelete: 'CASCADE'
 });
 
 // Message <-> User
-Message.belongsTo(User);
-User.hasMany(Message, {
+Message.belongsTo(User, {
     foreignKey: {
         allowNull: false
-    },
+    }
+});
+User.hasMany(Message, {
     onDelete: 'CASCADE'
 });
 
 // Message <-> Ticket
-Message.belongsTo(Ticket);
-Ticket.hasMany(Message, {
+Message.belongsTo(Ticket, {
     foreignKey: {
         allowNull: false
-    },
+    }
+});
+Ticket.hasMany(Message, {
     onDelete: 'CASCADE'
 });
 
 // Product <-> Shop
-Product.belongsTo(Shop);
-Shop.hasMany(Product, {
+Product.belongsTo(Shop, {
     foreignKey: {
         allowNull: false
-    },
+    }
+});
+Shop.hasMany(Product, {
     onDelete: 'CASCADE'
 });
 
 // Order <-> User
-Order.belongsTo(User);
-User.hasMany(Order, {
+Order.belongsTo(User, {
     foreignKey: {
         allowNull: false
-    },
+    }
+});
+User.hasMany(Order, {
     onDelete: 'CASCADE'
 });
 
 // Order <-> Product
-Order.belongsTo(Product);
-Product.hasMany(Order, {
+Order.belongsTo(Product, {
     foreignKey: {
         allowNull: false
     }
 });
+Product.hasMany(Order);
 
 // Order <-> OrderStatus
-Order.belongsTo(OrderStatus);
-OrderStatus.hasMany(Order, {
+Order.belongsTo(OrderStatus, {
     foreignKey: {
         allowNull: false
     }
 });
+OrderStatus.hasMany(Order);
 
 // Ticket <-> TicketStatus
-Ticket.belongsTo(TicketStatus);
-TicketStatus.hasMany(Ticket, {
+Ticket.belongsTo(TicketStatus, {
     foreignKey: {
         allowNull: false
     }
 });
+TicketStatus.hasMany(Ticket);
 
 export { User, Role, Ticket, Message, Shop, Product, Order, OrderStatus, TicketStatus };
