@@ -53,7 +53,7 @@ export const findOneOrder = (req, res) => {
         });
 }
 
-export const updateOrder = async (req, res) => {
+export const updateOrder = (req, res) => {
     Order.update(req.body, { where: { id: req.params.id } })
         .then(num => {
             res.status(200).json({
