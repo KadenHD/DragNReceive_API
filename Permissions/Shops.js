@@ -12,7 +12,7 @@ const partner = "3";
 const client = "4";
 
 export const scopedShops = (currentUser, shops) => { // Fetch inside findAllShops controller
-    if (currentUser.roleId === sadmin) return shops; // If Super Admin or admin return all shops
+    if (currentUser.roleId === sadmin || currentUser.roleId === admin) return shops; // If Super Admin or admin return all shops
     return shops.filter(shop => shop.deleted === false); // Else return only not deleted shops
 }
 
