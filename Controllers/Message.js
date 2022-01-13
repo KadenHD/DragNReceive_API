@@ -1,6 +1,6 @@
 import { Message } from '../Models/Models.js';
 
-export const createMessage = async (req, res) => {
+export const createMessage = (req, res) => {
     Message.create(req.message)
         .then(data => {
             res.status(200).json({

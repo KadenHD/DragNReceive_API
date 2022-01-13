@@ -15,7 +15,7 @@ export const findAllTickets = async (req, res) => {
         });
 }
 
-export const createTicket = async (req, res) => {
+export const createTicket = (req, res) => {
     Ticket.create(req.ticket)
         .then(data => {
             res.status(200).json({
@@ -39,7 +39,7 @@ export const findOneTicket = (req, res) => {
     }
 }
 
-export const updateTicket = async (req, res) => {
+export const updateTicket = (req, res) => {
     Ticket.update(req.ticket, { where: { id: req.params.id } })
         .then(num => {
             res.status(200).json({

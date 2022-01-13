@@ -79,7 +79,7 @@ npm start
 
 - Faire limite au centième près sur le float price (ex: 14.50) (en bdd et en permission)
 
-- Finir middleware permission et validations de Shop (retourner que ceux deleted false et enlever la suppression des fs), Product (retourner que ceux deleted false et enlever la suppression des fs), Order, Message
+- Finir middleware permission et validations de Shop (retourner que ceux deleted false et enlever la suppression des fs), Product (retourner que ceux deleted false et enlever la suppression des fs), Order
 - Stocker les produits dans Shop
 - Stocker les produits dans les order (au moin les images) ?
 
