@@ -78,10 +78,9 @@ npm start
 # To-do
 
 - Faire limite au centième près sur le float price (ex: 14.50)
-- cahier des charges finir la partie permissions
 
 - Remplacer la suppression de : Shop et Product
-par un booleen actif ? (pareil pour les produits etc et garder les routes delete mais mettre lupdate du booléen)
+par un booleen actif ? (pareil pour les produits etc et garder les routes delete mais mettre lupdate du booléen) (maj dans cahier des charges)
 
 - Finir middleware permission et validations de Shop, Product, Order, Message
 - Stocker les produits dans Shop

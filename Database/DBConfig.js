@@ -12,6 +12,7 @@ const sequelize = new Sequelize(
         timezone: '+01:00',
         dialect: process.env.DB_DIAL,
         host: process.env.DB_HOST,
+        logging: true // Mettre false une fois en prod (évite de consolelog les requetes)
     }
 );
 
