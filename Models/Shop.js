@@ -34,6 +34,10 @@ const Shop = sequelize.define("shop", {
     path: {
         type: Sequelize.STRING(255),
         allowNull: true
+    },
+    deleted: {
+        type: Sequelize.BOOLEAN(),
+        allowNull: false
     }
 });
 

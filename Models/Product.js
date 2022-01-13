@@ -26,6 +26,10 @@ const Product = sequelize.define("product", {
     path: {
         type: Sequelize.STRING(255),
         allowNull: false
+    },
+    deleted: {
+        type: Sequelize.BOOLEAN(),
+        allowNull: false
     }
 });
 

@@ -25,7 +25,8 @@ const fakeInit = async () => {
             city: faker.address.cityName(),
             street: faker.address.streetAddress(),
             postal: faker.address.zipCode(),
-            path: null
+            path: null,
+            deleted: false
         });
         const productId = uuidv4();
         const productPrice = faker.datatype.float();
@@ -36,7 +37,8 @@ const fakeInit = async () => {
             price: productPrice,
             stock: faker.datatype.number({ min: 1, max: 100 }),
             path: '',
-            shopId: shopId
+            shopId: shopId,
+            deleted: false
         })
             .then(store => {
                 mkShop(shopId);

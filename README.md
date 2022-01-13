@@ -79,9 +79,6 @@ npm start
 
 - Faire limite au centième près sur le float price (ex: 14.50)
 
-- Remplacer la suppression de : Shop et Product
-par un booleen actif ? (pareil pour les produits etc et garder les routes delete mais mettre lupdate du booléen) (maj dans cahier des charges)
-
 - Finir middleware permission et validations de Shop, Product, Order, Message
 - Stocker les produits dans Shop
 - Stocker les produits dans les order (au moin les images) ?

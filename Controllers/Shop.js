@@ -20,6 +20,7 @@ export const createShop = async (req, res) => {
         id: uuidv4(),
         name: req.body.name,
         email: req.body.email,
+        deleted: false
     }
     Shop.create(shop)
         .then(data => {
@@ -48,6 +49,7 @@ export const findOneShop = (req, res) => {
 }
 
 export const deleteShop = (req, res) => {
+    // deleted: true
     Shop.destroy({ where: { id: req.params.id } })
         .then(num => {
             rmShop(req.params.id);

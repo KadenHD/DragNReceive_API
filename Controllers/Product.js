@@ -25,6 +25,7 @@ export const createProduct = async (req, res) => {
         price: req.body.price,
         stock: req.body.stock,
         path: path,
+        deleted: false,
         shopId: req.body.shopId
     }
     Product.create(product)
@@ -54,6 +55,7 @@ export const findOneProduct = (req, res) => {
 }
 
 export const deleteProduct = async (req, res) => {
+    // deleted: true
     const product = await Product.findByPk(req.params.id);
     Product.destroy({ where: { id: product.id } })
         .then(num => {
