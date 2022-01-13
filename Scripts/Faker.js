@@ -108,26 +108,26 @@ const defaultDatas = async () => {
                 await User.create({ id: i, lastname: "sadmin", firstname: "sadmin", email: "sadmin@sadmin.sadmin", password: hashedSadmin, roleId: i, shopId: null });
                 await TicketStatus.create({ id: i, label: "Open" });
                 await OrderStatus.create({ id: i, label: "Validate" });
-                await OrderStatus.create({ id: i+1, label: "In progress" });
+                await OrderStatus.create({ id: i + 1, label: "In progress" });
                 break;
             case 2:
                 const hashedAdmin = await bcrypt.hash("admin", 10);
                 await Role.create({ id: i, label: "ADMIN" });
                 await User.create({ id: i, lastname: "admin", firstname: "admin", email: "admin@admin.admin", password: hashedAdmin, roleId: i, shopId: null });
                 await TicketStatus.create({ id: i, label: "Close" });
-                await OrderStatus.create({ id: i+1, label: "Available" });
+                await OrderStatus.create({ id: i + 1, label: "Available" });
                 break;
             case 3:
                 const hashedPartner = await bcrypt.hash("partner", 10);
                 await Role.create({ id: i, label: "PARTNER" });
                 await User.create({ id: i, lastname: "partner", firstname: "partner", email: "partner@partner.partner", password: hashedPartner, roleId: i, shopId: null });
-                await OrderStatus.create({ id: i+1, label: "Collected" });
+                await OrderStatus.create({ id: i + 1, label: "Collected" });
                 break;
             case 4:
                 const hashedClient = await bcrypt.hash("client", 10);
                 await Role.create({ id: i, label: "CLIENT" });
                 await User.create({ id: i, lastname: "client", firstname: "client", email: "client@client.client", password: hashedClient, roleId: i, shopId: null });
-                await OrderStatus.create({ id: i+1, label: "Canceled" });
+                await OrderStatus.create({ id: i + 1, label: "Canceled" });
                 break;
         }
     }

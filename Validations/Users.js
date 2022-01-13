@@ -6,16 +6,16 @@ const client = "4";
 export const canCreateUser = (currentUser, user) => {
     return (
         currentUser.roleId === sadmin || // Is SuperAdmin
-        (currentUser.roleId === admin && 
-        (user.roleId === partner || user.roleId === client)) // Is Admin and user is partner or client
+        (currentUser.roleId === admin &&
+            (user.roleId === partner || user.roleId === client)) // Is Admin and user is partner or client
     );
 }
 
 export const canViewUser = (currentUser, user) => {
     return (
         currentUser.roleId === sadmin || // Is superAdmin
-        (currentUser.roleId === admin && 
-        (user.roleId === partner || user.roleId === client)) || // Is Admin and user is partner or client
+        (currentUser.roleId === admin &&
+            (user.roleId === partner || user.roleId === client)) || // Is Admin and user is partner or client
         user.id === currentUser.id // Is himself
     );
 }
@@ -27,8 +27,8 @@ export const canDeleteUser = (currentUser, user) => {
 export const canUpdateUser = (currentUser, user) => {
     return (
         currentUser.roleId === sadmin || // Is SuperAdmin
-        (currentUser.roleId === admin && 
-        (user.roleId === partner || user.roleId === client)) || // Is Admin and user is partner or client
+        (currentUser.roleId === admin &&
+            (user.roleId === partner || user.roleId === client)) || // Is Admin and user is partner or client
         user.id === currentUser.id // Is himself
     );
 }

@@ -7,7 +7,7 @@ export const findAllTickets = async (req, res) => {
     scopedTickets(req.currentUser, data)
         .then(data => {
             res.status(200).json(data);
-        })        
+        })
         .catch(err => {
             res.status(500).json({
                 error: `Une erreur est survenue de lors de la modification du ticket.`
