@@ -1,4 +1,4 @@
-import { User, Shop, Role } from '../Models/Models.js';
+import { User, Shop, Role, Ticket } from '../Models/Models.js';
 
 export const emailExist = (key) => {
     return (
@@ -13,4 +13,8 @@ export const shopExist = (key) => {
 
 export const roleExist = (key) => {
     return Role.findByPk(key);
+}
+
+export const ticketExist = (key) => {
+    return Ticket.findByPk(key);
 }

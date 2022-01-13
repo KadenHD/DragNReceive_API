@@ -39,7 +39,6 @@ export const authCreateTicket = (req, res, next) => {
 
 export const authGetTicket = (req, res, next) => {
     if (!canViewTicket(req.currentUser, req.ticket)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à voir ce ticket !` });
-    // Stocker les messages dans le ticket ici
     next();
 }
 
