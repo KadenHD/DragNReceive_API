@@ -77,9 +77,9 @@ npm start
 
 # To-do
 
-- Faire limite au centième près sur le float price (ex: 14.50)
+- Faire limite au centième près sur le float price (ex: 14.50) (en bdd et en permission)
 
-- Finir middleware permission et validations de Shop, Product, Order, Message
+- Finir middleware permission et validations de Shop (retourner que ceux deleted false), Product (retourner que ceux deleted false), Order, Message
 - Stocker les produits dans Shop
 - Stocker les produits dans les order (au moin les images) ?
 
@@ -89,6 +89,8 @@ npm start
 - Génération de fausses factures pdf une fois commandé
 - Faire le système de reset de mot de passe par email + token mais aussi le relier à un mailer (mail trap)
 - Faire le refresh du token en back-end (optionnel)
+
+- maj du MCD
 
 # Sources
 
