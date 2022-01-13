@@ -39,3 +39,33 @@ export const isValidContent = (content) => {
         content.length <= 255
     );
 }
+
+export const isValidName = (name) => {
+    return (
+        name.length <= 50
+    );
+}
+
+export const isValidPhone = (phone) => {
+    return (
+        phone.length = 10
+    );
+}
+
+export const isValidCity = (city) => {
+    return (
+        city.length <= 60
+    );
+}
+
+export const isValidStreet = (street) => {
+    return (
+        street.length <= 100
+    );
+}
+
+export const isValidPostal = (postal) => {
+    return (
+        postal.length = 5
+    );
+}

@@ -18,3 +18,11 @@ export const roleExist = (key) => {
 export const ticketExist = (key) => {
     return Ticket.findByPk(key);
 }
+
+export const nameExist = (key) => {
+    return Shop.findOne({ where: { name: key } })
+}
+
+export const phoneExist = (key) => {
+    return Shop.findOne({ where: { phone: key } })
+}

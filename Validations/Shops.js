@@ -5,24 +5,30 @@ const client = "4";
 
 export const canCreateShop = (currentUser, user) => {
     return (
-        null
+        currentUser.roleId === sadmin ||
+        currentUser.roleId === admin
     );
 }
 
-export const canViewShop = (currentUser, user) => {
+export const canViewShop = (currentUser, shop) => {
     return (
-        null
+        currentUser.roleId === sadmin ||
+        currentUser.roleId === admin ||
+        shop.deleted === false
     );
 }
 
-export const canDeleteShop = (currentUser, user) => {
+export const canDeleteShop = (currentUser, shop) => {
     return (
-        null
+        currentUser.roleId === sadmin ||
+        currentUser.roleId === admin
     );
 }
 
-export const canUpdateShop = (currentUser, user) => {
+export const canUpdateShop = (currentUser, shop) => {
     return (
-        null
+        currentUser.roleId === sadmin ||
+        currentUser.roleId === admin ||
+        (currentUser.shopId === shop.id && currentUser.roleId === partner && shop.deleted === false)
     );
 }

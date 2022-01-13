@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { Product } from '../Models/Models.js';
-import { writeProduct, rmProduct } from '../FileSystems/Products.js';
+import { writeProduct } from '../FileSystems/Products.js';
 
 export const findAllProducts = (req, res) => {
     Product.findAll()
@@ -56,10 +56,8 @@ export const findOneProduct = (req, res) => {
 
 export const deleteProduct = async (req, res) => {
     // deleted: true
-    const product = await Product.findByPk(req.params.id);
-    Product.destroy({ where: { id: product.id } })
+    Product.destroy({ where: { id: req.params.id } })
         .then(num => {
-            rmProduct(product.id, product.shopId);
             res.status(200).json({
                 success: `Le produit a bien été supprimé.`
             });
