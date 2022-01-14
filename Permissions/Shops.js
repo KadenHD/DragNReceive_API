@@ -22,11 +22,11 @@ export const setShop = async (req, res, next) => { // For id's parameters routes
     req.shop = await Shop.findByPk(req.params.id);
     if (!req.shop) return res.status(404).json({ error: `La boutique n'existe pas !` });
     req.shop.dataValues.products = await Product.findAll({ where: { shopId: req.shop.id } });
-    // Set l'image
+    /* Set l'image
     if (req.shop.path != null) {
         console.log(setFileLogo(req.shop.id, req.shop.path))
         req.shop.dataValues.logo = setFileLogo(req.shop.id, req.shop.path)
-    }
+    } */
     next();
 }
 
