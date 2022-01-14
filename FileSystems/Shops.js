@@ -34,3 +34,14 @@ export const writeShop = (id, img) => {
         console.log("Image : " + dir + img.name + " saved !");
     });
 }
+
+export const setFileLogo = (id, path) => {
+    dir = 'Store/Companies/' + id + '/Logo/' + path;
+    fs.readFile(dir, function read(err, data) {
+        if (err) {
+            throw err;
+        }
+        //buffer et non l'image en elle même
+        return data
+    });
+}

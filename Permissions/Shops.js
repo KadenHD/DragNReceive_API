@@ -5,6 +5,7 @@ import { Shop, Product } from '../Models/Models.js';
 import { emailExist, nameExist, phoneExist } from '../Validations/Exists.js';
 import { canCreateShop, canViewShop, canDeleteShop, canUpdateShop } from '../Validations/Shops.js';
 import { isValidEmail, isValidName, isValidPhone, isValidCity, isValidStreet, isValidPostal, isValidLogo } from '../Validations/Formats.js';
+import { setFileLogo } from '../FileSystems/Shops.js';
 
 const sadmin = "1";
 const admin = "2";
@@ -14,12 +15,18 @@ const client = "4";
 export const scopedShops = (currentUser, shops) => { // Fetch inside findAllShops controller
     if (currentUser.roleId === sadmin || currentUser.roleId === admin) return shops; // If Super Admin or admin return all shops
     return shops.filter(shop => shop.deleted === false); // Else return only not deleted shops
+    // set les images dans une boucle
 }
 
 export const setShop = async (req, res, next) => { // For id's parameters routes to set the shop values from DB
     req.shop = await Shop.findByPk(req.params.id);
     if (!req.shop) return res.status(404).json({ error: `La boutique n'existe pas !` });
     req.shop.dataValues.products = await Product.findAll({ where: { shopId: req.shop.id } });
+    // Set l'image
+    if (req.shop.path != null) {
+        console.log(setFileLogo(req.shop.id, req.shop.path))
+        req.shop.dataValues.logo = setFileLogo(req.shop.id, req.shop.path)
+    }
     next();
 }
 
@@ -62,7 +69,7 @@ export const validFormCreateShop = async (req, res, next) => {
 }
 
 export const validFormUpdateShop = async (req, res, next) => {
-    if (!req.body.email && !req.body.name && !req.body.phone && !req.body.city && !req.body.street && !req.body.postal) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
+    if (!req.body.email && !req.body.name && !req.body.phone && !req.body.city && !req.body.street && !req.body.postal && !req.files.logo) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
     if (req.body.email) {
         if (await emailExist(req.body.email)) return res.status(401).json({ error: `L'email est déjà prise !` });
         if (!isValidEmail(req.body.email)) return res.status(401).json({ error: `Format d'email non-valide !` });
@@ -91,7 +98,7 @@ export const validFormUpdateShop = async (req, res, next) => {
         req.shop.postal = req.body.postal;
     }
     if (req.files.logo) {
-        if (isValidLogo(req.files.logo)) returnres.status(401).json({ error: `Format de fichier non-valide !` });
+        if (!isValidLogo(req.files.logo)) return res.status(401).json({ error: `Format de fichier non-valide !` });
         req.shop.path = req.files.logo.name;
     }
     next();

@@ -4,7 +4,7 @@ import { scopedShops } from '../Permissions/Shops.js';
 
 import { mkShop, writeShop } from '../FileSystems/Shops.js';
 
-export const findAllShops = (req, res) => {
+export const findAllShops = async (req, res) => {
     let data = await Shop.findAll();
     scopedShops(req.currentUser, data)
         .then(data => {
