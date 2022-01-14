@@ -77,20 +77,19 @@ npm start
 
 # To-do
 
-- Faire limite au centième près sur le float price (ex: 14.50) (en bdd et en permission)
+- Faire limite au centième près sur le float price (ex: 14.50) (en bdd et en validation)
 
 - Product (retourner que ceux deleted false et enlever la suppression des fs)
-- Stocker les produits dans Shop
+
+- res.sendFile(filepath) les produits dans produit
+- Stocker les produits dans le Shop + res.sendFile(filepath)
+- Stocker les produits dans les order + res.sendFile(filepath)
 
 - Order (utiliser la boucle for du controller, vérifier stock etc...)
-- Stocker les produits dans les order (et les images)
-
-- Commenter en balle les comments surtout au niveau des validations, permissions etc... (pour toute les entities)
-
-- Réussir à envoyer les images pour les produits, shop et order => res.sendFile(filepath);
 
 - test unitaire de chaques fonctionnalitées de chaques entités
 
+- Commenter en balle les comments surtout au niveau des validations, permissions etc... (pour toute les entities)
 - Génération de fausses factures pdf une fois commandé
 - Faire le système de reset de mot de passe par email + token mais aussi le relier à un mailer (mail trap)
 - Faire le refresh du token en back-end (optionnel)
