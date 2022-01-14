@@ -69,3 +69,9 @@ export const isValidPostal = (postal) => {
         postal.length = 5
     );
 }
+
+export const isValidLogo = (logo) => {
+    return (
+        true // à faire
+    );
+}

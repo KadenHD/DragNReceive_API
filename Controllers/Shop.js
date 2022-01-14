@@ -1,16 +1,18 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import { Shop } from '../Models/Models.js';
+
+import { scopedShops } from '../Permissions/Shops.js';
+
 import { mkShop, writeShop } from '../FileSystems/Shops.js';
 
 export const findAllShops = (req, res) => {
-    Shop.findAll()
+    let data = await Shop.findAll();
+    scopedShops(req.currentUser, data)
         .then(data => {
             res.status(200).json(data);
         })
         .catch(err => {
             res.status(500).json({
-                error: `Une erreur est survenue lors de la recherche de boutiques.`
+                error: `Une erreur est survenue de lors de la modification du ticket.`
             });
         });
 }
@@ -41,7 +43,6 @@ export const findOneShop = (req, res) => {
 }
 
 export const deleteShop = (req, res) => {
-    req.shop.deleted = true;
     Shop.update(req.shop, { where: { id: req.params.id } })
         .then(num => {
             res.status(200).json({
@@ -60,7 +61,7 @@ export const updateShop = async (req, res) => {
     Shop.update(req.shop, { where: { id: req.params.id } })
         .then(num => {
             if (req.files.logo) {
-                writeShop(req.params.id, img);
+                writeShop(req.params.id, req.files.logo);
             }
             res.status(200).json({
                 success: `La boutique a bien été modifiée`

@@ -10,7 +10,7 @@ export const findAllTickets = async (req, res) => {
         })
         .catch(err => {
             res.status(500).json({
-                error: `Une erreur est survenue de lors de la modification du ticket.`
+                error: `Une erreur est survenue de lors de la recherche des tickets.`
             });
         });
 }

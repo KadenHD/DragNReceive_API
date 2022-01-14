@@ -79,8 +79,6 @@ npm start
 
 - Faire limite au centième près sur le float price (ex: 14.50) (en bdd et en permission)
 
-- Finir Shop (retourner que ceux deleted false et enlever la suppression des fs)
-
 - Product (retourner que ceux deleted false et enlever la suppression des fs)
 - Stocker les produits dans Shop
 
@@ -89,7 +87,10 @@ npm start
 
 - Commenter en balle les comments surtout au niveau des validations, permissions etc... (pour toute les entities)
 
-- Réussir à envoyer les images pour les produits et shop => res.sendFile(filepath);
+- Réussir à envoyer les images pour les produits, shop et order => res.sendFile(filepath);
+
+- test unitaire de chaques fonctionnalitées de chaques entités
+
 - Génération de fausses factures pdf une fois commandé
 - Faire le système de reset de mot de passe par email + token mais aussi le relier à un mailer (mail trap)
 - Faire le refresh du token en back-end (optionnel)

@@ -4,7 +4,7 @@ import { Shop, Product } from '../Models/Models.js';
 
 import { emailExist, nameExist, phoneExist } from '../Validations/Exists.js';
 import { canCreateShop, canViewShop, canDeleteShop, canUpdateShop } from '../Validations/Shops.js';
-import { isValidEmail, isValidName, isValidPhone, isValidCity, isValidStreet, isValidPostal } from '../Validations/Formats.js';
+import { isValidEmail, isValidName, isValidPhone, isValidCity, isValidStreet, isValidPostal, isValidLogo } from '../Validations/Formats.js';
 
 const sadmin = "1";
 const admin = "2";
@@ -35,6 +35,7 @@ export const authGetShop = (req, res, next) => {
 
 export const authDeleteShop = (req, res, next) => {
     if (!canDeleteShop(req.currentUser, req.shop)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à supprimer cette boutique !` });
+    req.shop.deleted = true;
     next();
 }
 
@@ -89,12 +90,9 @@ export const validFormUpdateShop = async (req, res, next) => {
         if (!isValidPostal(req.body.street)) return res.status(401).json({ error: `Format de code postal non-valide !` });
         req.shop.postal = req.body.postal;
     }
-    //traitement d'image à modifier
-    let shop = req.body;
-    let img = {};
     if (req.files.logo) {
-        img = req.files.logo;
-        shop.path = img.name;
+        if (isValidLogo(req.files.logo)) returnres.status(401).json({ error: `Format de fichier non-valide !` });
+        req.shop.path = req.files.logo.name;
     }
     next();
 }
