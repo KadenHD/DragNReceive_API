@@ -77,8 +77,6 @@ npm start
 
 # To-do
 
-- Faire limite au centième près sur le float price (ex: 14.50) (en bdd et en validation)
-
 - Product (retourner que ceux deleted false et enlever la suppression des fs)
 
 - res.sendFile(filepath) les produits dans produit

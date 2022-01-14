@@ -75,3 +75,17 @@ export const isValidLogo = (logo) => {
         true // à faire
     );
 }
+
+export const isValidPrice = (price) => {
+    const split = price.toString().split('.')
+    if (split[1]) { // if float
+        return (
+            split[0].length <= 9 &&
+            split[1].length <= 2
+        );
+    } else { // if int
+        return (
+            split[0].length <= 9
+        );
+    }
+}
