@@ -79,9 +79,10 @@ npm start
 
 - Product (retourner que ceux deleted false et enlever la suppression des fs)
 
-- res.sendFile(filepath) les produits dans produit
-- Stocker les produits dans le Shop + res.sendFile(filepath)
-- Stocker les produits dans les order + res.sendFile(filepath)
+- Faire des fonctions dans fs pour retourner les images en les insérrants dans les json ?
+  - res.sendFile(filepath) les produits dans produit
+  - Stocker les produits dans le Shop + res.sendFile(filepath)
+  - Stocker les produits dans les order + res.sendFile(filepath)
 
 - Order (utiliser la boucle for du controller, vérifier stock etc...)
 
