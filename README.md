@@ -77,7 +77,9 @@ npm start
 
 # To-do
 
-- Product (retourner que ceux deleted false et enlever la suppression des fs)
+- Pour les formulaires create et update vérifier si tout est bien utile (exist et formats)
+
+- Product (finir les permissions et formats)
 - Order (utiliser la boucle for du controller, vérifier stock etc...)
 
 - Revoir les paths des produits et images pour les convertir en url, changer dans les fs le dir pour l'enregistrer directement dans le path si besoin
