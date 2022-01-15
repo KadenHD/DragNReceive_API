@@ -3,20 +3,23 @@ const admin = "2";
 const partner = "3";
 const client = "4";
 
-export const canCreateProduct = (currentUser, product) => {
+export const canCreateProduct = (currentUser, shop) => {
     return (
-        null
+        currentUser.id === shop.userId &&
+        currentUser.roleId === partner
     );
 }
 
-export const canViewProduct = (currentUser, product) => {
+export const canDeleteProduct = (currentUser, shop) => {
     return (
-        null
+        currentUser.id === shop.userId &&
+        currentUser.roleId === partner
     );
 }
 
-export const canUpdateProduct = (currentUser, product) => {
+export const canUpdateProduct = (currentUser, shop) => {
     return (
-        null
+        currentUser.id === shop.userId &&
+        currentUser.roleId === partner
     );
 }

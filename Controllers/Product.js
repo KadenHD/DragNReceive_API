@@ -1,36 +1,11 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import { Product } from '../Models/Models.js';
+
 import { writeProduct } from '../FileSystems/Products.js';
 
-export const findAllProducts = (req, res) => {
-    Product.findAll()
-        .then(data => {
-            res.status(200).json(data);
-        })
-        .catch(err => {
-            res.status(500).json({
-                error: `Une erreur est survenue lors de la recherche des produits.`
-            });
-        });
-}
-
 export const createProduct = async (req, res) => {
-    const img = req.files.image
-    const path = img.name;
-    const product = {
-        id: uuidv4(),
-        name: req.body.name,
-        description: req.body.description,
-        price: req.body.price,
-        stock: req.body.stock,
-        path: path,
-        deleted: false,
-        shopId: req.body.shopId
-    }
-    Product.create(product)
+    Product.create(req.product)
         .then(data => {
-            writeProduct(product.id, product.shopId, img);
+            writeProduct(req.product.id, req.product.shopId, req.files.image);
             res.status(200).json({
                 success: `Le produit a bien été créé.`
             });
@@ -38,18 +13,6 @@ export const createProduct = async (req, res) => {
         .catch(err => {
             res.status(500).json({
                 error: `Une erreur est survenue lors de la création du produit.`
-            });
-        });
-}
-
-export const findOneProduct = (req, res) => {
-    Product.findByPk(req.params.id)
-        .then(data => {
-            res.status(200).json(data);
-        })
-        .catch(err => {
-            res.status(500).json({
-                error: `Une erreur est survenue lors de la recherche du produit.`
             });
         });
 }
@@ -70,16 +33,10 @@ export const deleteProduct = async (req, res) => {
 }
 
 export const updateProduct = async (req, res) => {
-    const product = await Product.findByPk(req.params.id);
-    let img = {};
-    if (req.files.image) {
-        img = req.files.image;
-        req.body.path = img.name;
-    }
-    Product.update(req.body, { where: { id: product.id } })
+    Product.update(req.product, { where: { id: req.params.id } })
         .then(num => {
             if (req.files.image) {
-                writeProduct(product.id, product.shopId, img);
+                writeProduct(req.product.id, req.product.shopId, req.files.image);
             }
             res.status(200).json({
                 success: `Le produit a bien été modifié`

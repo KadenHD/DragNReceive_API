@@ -104,7 +104,7 @@ export const validFormUpdateShop = async (req, res, next) => {
         req.shop.street = req.body.street;
     }
     if (req.body.postal) {
-        if (!isValidPostal(req.body.street)) return res.status(401).json({ error: `Format de code postal non-valide !` });
+        if (!isValidPostal(req.body.postal)) return res.status(401).json({ error: `Format de code postal non-valide !` });
         req.shop.postal = req.body.postal;
     }
     if (req.files.logo) { // Voir comment vérifier les logos

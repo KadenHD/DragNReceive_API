@@ -1,7 +1,7 @@
 import { User } from '../Models/Models.js';
 
 import { scopedUsers } from '../Permissions/Users.js';
-import { mkUser, rmUser } from '../FileSystems/Users.js';
+import { mkUser/*, rmUser*/ } from '../FileSystems/Users.js';
 
 export const findAllUsers = (req, res) => {
     User.findAll()
