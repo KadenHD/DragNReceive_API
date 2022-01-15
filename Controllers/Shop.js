@@ -12,7 +12,7 @@ export const findAllShops = async (req, res) => {
         })
         .catch(err => {
             res.status(500).json({
-                error: `Une erreur est survenue de lors de la modification du ticket.`
+                error: `Une erreur est survenue de lors de la récupération des boutiques.`
             });
         });
 }
@@ -57,7 +57,7 @@ export const deleteShop = (req, res) => {
         });
 }
 
-export const updateShop = async (req, res) => {
+export const updateShop = (req, res) => {
     Shop.update(req.shop, { where: { id: req.params.id } })
         .then(num => {
             if (req.files.logo) {

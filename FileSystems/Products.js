@@ -23,9 +23,11 @@ export const writeProduct = (id, shopId, img) => {
     });
 }
 
+/*
 export const rmProduct = (id, shopId) => {
     dir = 'Store/Companies/' + shopId + '/Products/' + id;
     if (fs.existsSync(dir)) {
         fs.rmSync(dir, { recursive: true })
     }
 }
+*/

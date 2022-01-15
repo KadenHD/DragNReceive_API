@@ -5,28 +5,36 @@ import { Shop, Product } from '../Models/Models.js';
 import { emailExist, nameExist, phoneExist } from '../Validations/Exists.js';
 import { canCreateShop, canViewShop, canDeleteShop, canUpdateShop } from '../Validations/Shops.js';
 import { isValidEmail, isValidName, isValidPhone, isValidCity, isValidStreet, isValidPostal, isValidLogo } from '../Validations/Formats.js';
-import { setFileLogo } from '../FileSystems/Shops.js';
 
 const sadmin = "1";
 const admin = "2";
 const partner = "3";
 const client = "4";
 
-export const scopedShops = (currentUser, shops) => { // Fetch inside findAllShops controller
+export const scopedShops = async (currentUser, shops) => { // Fetch inside findAllShops controller
+    for (let i = 0; i < shops.length; i++) { // Stock in each shops their products.
+        if (currentUser.roleId === sadmin || currentUser.roleId === admin) { // If sadmin / admin can see deleted ones
+            shops[i].dataValues.products = await Product.findAll({ where: { shopId: shops[i].id } });
+        } else { // Else show only not deleted ones
+            shops[i].dataValues.products = await Product.findAll({ where: { shopId: shops[i].id, deleted: false } });
+        }
+    }
     if (currentUser.roleId === sadmin || currentUser.roleId === admin) return shops; // If Super Admin or admin return all shops
     return shops.filter(shop => shop.deleted === false); // Else return only not deleted shops
-    // set les images dans une boucle
 }
 
 export const setShop = async (req, res, next) => { // For id's parameters routes to set the shop values from DB
-    req.shop = await Shop.findByPk(req.params.id);
+    if (req.currentUser.roleId === sadmin || req.currentUser.roleId === admin) { // If sadmin / admin can see deleted ones
+        req.shop = await Shop.findOne({where: {id: req.params.id}});
+    } else { // Else show only not deleted ones
+        req.shop = await Shop.findOne({where: {id: req.params.id, deleted: false}});
+    }
     if (!req.shop) return res.status(404).json({ error: `La boutique n'existe pas !` });
-    req.shop.dataValues.products = await Product.findAll({ where: { shopId: req.shop.id } });
-    /* Set l'image
-    if (req.shop.path != null) {
-        console.log(setFileLogo(req.shop.id, req.shop.path))
-        req.shop.dataValues.logo = setFileLogo(req.shop.id, req.shop.path)
-    } */
+    if (req.currentUser.roleId === sadmin || req.currentUser.roleId === admin) { // If sadmin / admin can see deleted ones
+        req.shop.dataValues.products = await Product.findAll({ where: { shopId: req.shop.id } });
+    } else { // Else show only not deleted ones
+        req.shop.dataValues.products = await Product.findAll({ where: { shopId: req.shop.id, deleted: false } });
+    }
     next();
 }
 
@@ -35,14 +43,16 @@ export const authCreateShop = (req, res, next) => {
     next();
 }
 
-export const authGetShop = (req, res, next) => {
+export const authGetShop = async (req, res, next) => {
     if (!canViewShop(req.currentUser, req.shop)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à voir cette boutique !` });
     next();
 }
 
 export const authDeleteShop = (req, res, next) => {
     if (!canDeleteShop(req.currentUser, req.shop)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à supprimer cette boutique !` });
-    req.shop.deleted = true;
+    req.shop = {
+        deleted: true
+    }
     next();
 }
 
@@ -97,9 +107,10 @@ export const validFormUpdateShop = async (req, res, next) => {
         if (!isValidPostal(req.body.street)) return res.status(401).json({ error: `Format de code postal non-valide !` });
         req.shop.postal = req.body.postal;
     }
-    if (req.files.logo) {
+    if (req.files.logo) { // Voir comment vérifier les logos
         if (!isValidLogo(req.files.logo)) return res.status(401).json({ error: `Format de fichier non-valide !` });
         req.shop.path = req.files.logo.name;
     }
+    req.shop = req.shop.dataValues; // Store the new values
     next();
 }

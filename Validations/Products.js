@@ -3,19 +3,19 @@ const admin = "2";
 const partner = "3";
 const client = "4";
 
-export const canCreateOrder = (currentUser, orders) => {
+export const canCreateProduct = (currentUser, product) => {
     return (
         null
     );
 }
 
-export const canViewOrder = (currentUser, orders) => {
+export const canViewProduct = (currentUser, product) => {
     return (
         null
     );
 }
 
-export const canUpdateOrder = (currentUser, orders) => {
+export const canUpdateProduct = (currentUser, product) => {
     return (
         null
     );

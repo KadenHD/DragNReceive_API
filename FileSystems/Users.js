@@ -9,9 +9,11 @@ export const mkUser = (id) => {
     }
 }
 
+/*
 export const rmUser = (id) => {
     dir = 'Store/Users/' + id;
     if (fs.existsSync(dir)) {
         fs.rmSync(dir, { recursive: true });
     }
 }
+*/

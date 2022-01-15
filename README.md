@@ -80,16 +80,8 @@ npm start
 - Product (retourner que ceux deleted false et enlever la suppression des fs)
 - Order (utiliser la boucle for du controller, vérifier stock etc...)
 
-- Comment stocker des images dans les jsons du findAll (soit plusieurs images) ?
-  -idée 1 : pouvoir les stocker dans le json
-  -idée 2 : pouvoir en mettre pleins dans le res.sendFile et comparer les nom au path sur le web
-  -idée 3 : Ne pas les envoyer là, puis faire une boucle qui recherche les images une par une via un controller dédié (boucle qui envoie les id des boutiques)
-  -idée 4 : les stocker dans res.files ?
-
-- Faire des fonctions dans fs pour retourner les images
-  - res.sendFile(filepath) les produits dans produit
-  - Stocker les produits dans le Shop + res.sendFile(filepath)
-  - Stocker les produits dans les order + res.sendFile(filepath)
+- Revoir les paths des produits et images pour les convertir en url, changer dans les fs le dir pour l'enregistrer directement dans le path si besoin
+- Supprimer les endroits et fonctions liées au fait d'ajouter des images dans les requêtes
 
 - test unitaire de chaques fonctionnalitées de chaques entités
 

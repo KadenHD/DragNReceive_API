@@ -55,14 +55,14 @@ export const findOneProduct = (req, res) => {
 }
 
 export const deleteProduct = async (req, res) => {
-    // deleted: true
-    Product.destroy({ where: { id: req.params.id } })
+    Product.update(req.product, { where: { id: req.params.id } })
         .then(num => {
             res.status(200).json({
                 success: `Le produit a bien été supprimé.`
             });
         })
         .catch(err => {
+            console.log(err)
             res.status(500).json({
                 error: `Une erreur est survenue de lors de la suppression du produit.`
             });

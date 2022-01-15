@@ -13,13 +13,6 @@ export const mkShop = (id) => {
     }
 }
 
-export const rmShop = (id) => {
-    dir = 'Store/Companies/' + id;
-    if (fs.existsSync(dir)) {
-        fs.rmSync(dir, { recursive: true })
-    }
-}
-
 export const writeShop = (id, img) => {
     dir = 'Store/Companies/' + id + '/Logo/';
     console.log(dir)
@@ -35,13 +28,11 @@ export const writeShop = (id, img) => {
     });
 }
 
-export const setFileLogo = (id, path) => {
-    dir = 'Store/Companies/' + id + '/Logo/' + path;
-    fs.readFile(dir, function read(err, data) {
-        if (err) {
-            throw err;
-        }
-        //buffer et non l'image en elle même
-        return data
-    });
+/*
+export const rmShop = (id) => {
+    dir = 'Store/Companies/' + id;
+    if (fs.existsSync(dir)) {
+        fs.rmSync(dir, { recursive: true })
+    }
 }
+*/

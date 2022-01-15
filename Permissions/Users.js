@@ -94,7 +94,7 @@ export const validFormUpdateUser = async (req, res, next) => {
             email: req.body.email
         }
     } else {
-        return res.status(401).json({ error: `Retournez un formulaire valide` });
+        return res.status(401).json({ error: `Retournez un formulaire valide !` });
     }
     next();
 }
