@@ -10,6 +10,11 @@ const admin = "2";
 const partner = "3";
 const client = "4";
 
+export const scopedProducts = (currentUser, products) => { // Fetch inside findAllUsers controller
+    if (currentUser.roleId === sadmin || currentUser.roleId === admin) return products; // If Super Admin or admin return all products
+    return products.filter(product => product.deleted === false); // Else return only not deleted products
+}
+
 export const setProduct = async (req, res, next) => { // For id's parameters routes to set the ticket values from DB
     if (req.currentUser.roleId === sadmin || req.currentUser.roleId === admin) { // If sadmin / admin can see deleted ones
         req.product = await Product.findOne({ where: { id: req.params.id } });

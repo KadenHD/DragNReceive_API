@@ -77,9 +77,7 @@ npm start
 
 # To-do
 
-- Order : 
-utiliser des boucles for dans les controllers, 
-vérifier stock et soustraire etc...
+- Order : Update
 
 - Comprendre comment : 
 utiliser les images stockés en dur via url sur le front,

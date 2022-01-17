@@ -1,20 +1,20 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import { Order, Product } from '../Models/Models.js';
 
-import { } from '../Validations/Exists.js';
 import { canViewOrder, canCreateOrder, canUpdateOrder } from '../Validations/Orders.js';
-import { } from '../Validations/Formats.js';
+import { isValidPrice, isValidQuantities } from '../Validations/Formats.js';
 
 const sadmin = "1";
 const admin = "2";
 const partner = "3";
 const client = "4";
 
-export const scopedOrders = (currentUser, orders) => { // Fetch inside findAllUsers controller
-    // Return all pour sadmin et admin
-    // Return pour les partenaires seulement les orders ayant le shopId
-    // Return seulement ceux que les clients possèdent
+export const scopedOrders = async (currentUser, orders) => { // Fetch inside findAllUsers controller
+    for (let i = 0; i < orders.length; i++) {
+        orders[i].product = await Product.findByPk(orders[i].productId);
+    }
+    if (currentUser.roleId === sadmin || currentUser.roleId === admin) return orders;
+    if (currentUser.roleId === partner) return orders.filter(order => order.product.shopId === currentUser.shopId);
+    return orders.filter(order => order.userId === currentUser.id);
 }
 
 export const setOrder = async (req, res, next) => { // For id's parameters routes to set the order values from DB
@@ -44,9 +44,13 @@ export const authUpdateOrder = (req, res, next) => {
 
 export const validFormCreateOrder = async (req, res, next) => {
     for (let i = 0; i < req.body.orders.length; i++) {
-        if (req.body.orders[i].product.stock < quantities) return res.status(401).json({ error: `Il n'y a pas assez de stocks !` });; //boucle for de vérification
-        // Product exist et not deleted
-        // format valids
+        const { quantities, price, productId } = req.body.orders[i];
+        if (!quantities, !price, !productId) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
+        req.body.orders[i].product = await Product.findByPk(productId);
+        if (!req.body.orders[i].product) return res.status(404).json({ error: `Le produit n'existe pas` });
+        if (req.body.orders[i].product.stock < quantities) return res.status(401).json({ error: `Il n'y a pas assez de stocks !` });;
+        if (!isValidQuantities) return res.status(401).json({ error: `Format de quantités non-valide !` });
+        if (!isValidPrice) return res.status(401).json({ error: `Format de prix non-valide !` });
     }
     next();
 }

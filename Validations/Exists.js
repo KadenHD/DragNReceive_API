@@ -26,3 +26,7 @@ export const nameExist = (key) => {
 export const phoneExist = (key) => {
     return Shop.findOne({ where: { phone: key } })
 }
+
+export const productExist = (key) => {
+    return Product.findOne({ where: { id: key, deleted: false } })
+}

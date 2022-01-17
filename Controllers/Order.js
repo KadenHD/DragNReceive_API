@@ -21,15 +21,15 @@ export const createOrder = async (req, res) => {
     const orders = req.body.orders;
     const number = uuidv4();
     for (let i = 0; i < orders.length; i++) {
-        const { quantities, price, userId, productId } = orders[i];
+        const { quantities, price, productId } = orders[i];
         const order = {
             id: uuidv4(),
             quantities: quantities,
             price: price,
             number: number,
-            userId: userId,
+            userId: currentUser.id,
             productId: productId,
-            orderStatusId: 1
+            orderStatusId: "1"
         };
         const product = { stock: req.body.orders[i].product.stock - quantities };
         await Order.create(order)

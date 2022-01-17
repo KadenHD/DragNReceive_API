@@ -1,77 +1,77 @@
-export const isValidEmail = (email) => {
+export const isValidEmail = (key) => {
     const re = /\S+@\S+\.\S+/; // "string@string.string" format
-    email.length <= 100
-    return re.test(email);
+    key.length <= 100
+    return re.test(key);
 }
 
-export const isValidPassword = (password) => {
+export const isValidPassword = (key) => {
     return (
-        /[A-Z]/.test(password) && // One upper case
-        /[a-z]/.test(password) && // One lower case
-        /[0-9]/.test(password) && // One number
-        /[^A-Za-z0-9]/.test(password) && // One special caracter
-        password.length > 7
+        /[A-Z]/.test(key) && // One upper case
+        /[a-z]/.test(key) && // One lower case
+        /[0-9]/.test(key) && // One number
+        /[^A-Za-z0-9]/.test(key) && // One special caracter
+        key.length > 7
     );
 }
 
-export const isValidLastName = (lastname) => {
+export const isValidLastName = (key) => {
     return (
-        lastname.charAt(0) === lastname.charAt(0).toUpperCase() && // Start with upper case
-        lastname.length <= 50
+        key.charAt(0) === key.charAt(0).toUpperCase() && // Start with upper case
+        key.length <= 50
     );
 }
 
-export const isValidFirstName = (firstname) => {
+export const isValidFirstName = (key) => {
     return (
-        firstname.charAt(0) === firstname.charAt(0).toUpperCase() && // Start with upper case
-        firstname.length <= 50
+        key.charAt(0) === key.charAt(0).toUpperCase() && // Start with upper case
+        key.length <= 50
     );
 }
 
-export const isValidTitle = (title) => {
+export const isValidTitle = (key) => {
     return (
-        title.length <= 60
+        key.length <= 60
     );
 }
 
-export const isValidContent = (content) => {
+export const isValidContent = (key) => {
     return (
-        content.length <= 255
+        key.length <= 255
     );
 }
 
-export const isValidName = (name) => {
+export const isValidName = (key) => {
     return (
-        name.length <= 50
+        key.length <= 50
     );
 }
 
-export const isValidPhone = (phone) => {
+export const isValidPhone = (key) => {
     return (
-        phone.length = 10
+        key.length = 10
     );
 }
 
-export const isValidCity = (city) => {
+export const isValidCity = (key) => {
     return (
-        city.length <= 60
+        key.length <= 60
     );
 }
 
-export const isValidStreet = (street) => {
+export const isValidStreet = (key) => {
     return (
-        street.length <= 100
+        key.length <= 100
     );
 }
 
-export const isValidPostal = (postal) => {
+export const isValidPostal = (key) => {
     return (
-        postal.length = 5
+        key.length = 5
     );
 }
 
-export const isValidPrice = (price) => {
-    const split = price.toString().split('.')
+export const isValidPrice = (key) => {
+    const split = key.toString().split('.')
     if (split[1]) { // if float
         return (
             split[0].length <= 9 &&
@@ -84,25 +84,31 @@ export const isValidPrice = (price) => {
     }
 }
 
-export const isValidDescription = (description) => {
+export const isValidQuantities = (key) => {
     return (
         true // à faire
     );
 }
 
-export const isValidStock = (stock) => {
+export const isValidDescription = (key) => {
     return (
         true // à faire
     );
 }
 
-export const isValidImage = (image) => {
+export const isValidStock = (key) => {
     return (
         true // à faire
     );
 }
 
-export const isValidLogo = (logo) => {
+export const isValidImage = (key) => {
+    return (
+        true // à faire
+    );
+}
+
+export const isValidLogo = (key) => {
     return (
         true // à faire
     );
