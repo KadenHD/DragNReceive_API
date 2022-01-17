@@ -87,6 +87,7 @@ méthode de sauvegarde d'image (vidéo dans ppe ytb)
 
 - test unitaire de chaques fonctionnalitées de chaques entités (à faire avec l'aide du front ?)
 
+- Passer en français les labels etc...
 - Commenter en balle tout le code
     
 - Génération de fausses factures pdf quand commandé
