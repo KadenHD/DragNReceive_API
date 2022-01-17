@@ -77,17 +77,20 @@ npm start
 
 # To-do
 
-- Order (utiliser des boucles for dans les controllers, vérifier stock et soustraire etc...)
+- Order : 
+utiliser des boucles for dans les controllers, 
+vérifier stock et soustraire etc...
 
-- Revoir les paths des produits et images pour les convertir en url, changer dans les fs le dir pour l'enregistrer directement dans le path si besoin
-- Comprendre comment utiliser les images stockés en dur via url sur le front (vidéo dans ppe ytb)
+- Comprendre comment : 
+utiliser les images stockés en dur via url sur le front,
+méthode de sauvegarde d'image (vidéo dans ppe ytb)
 
-- test unitaire de chaques fonctionnalitées de chaques entités
+- test unitaire de chaques fonctionnalitées de chaques entités (à faire avec l'aide du front ?)
 
-- Commenter en balle les comments surtout au niveau des validations, permissions, middleware et lib etc... (pour toute les entities)
+- Commenter en balle tout le code
     
-- Génération de fausses factures pdf une fois commandé
-- Faire le système de reset de mot de passe par email + token mais aussi le relier à un mailer (mail trap ?)
+- Génération de fausses factures pdf quand commandé
+- Reset de mot de passe par email + token et le relier à un mailer (mail trap ?)
 - Faire le refresh du token en back-end (optionnel)
 
 - maj du MCD
