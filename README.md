@@ -80,11 +80,11 @@ npm start
 - Order (utiliser la boucle for du controller, vérifier stock etc...)
 
 - Revoir les paths des produits et images pour les convertir en url, changer dans les fs le dir pour l'enregistrer directement dans le path si besoin
-- Comprendre comment utiliser les images stockés en dur via url sur le front
+- Comprendre comment utiliser les images stockés en dur via url sur le front (vidéo dans ppe ytb)
 
 - test unitaire de chaques fonctionnalitées de chaques entités
 
-- Commenter en balle les comments surtout au niveau des validations, permissions etc... (pour toute les entities)
+- Commenter en balle les comments surtout au niveau des validations, permissions, middleware et lib etc... (pour toute les entities)
     
 - Génération de fausses factures pdf une fois commandé
 - Faire le système de reset de mot de passe par email + token mais aussi le relier à un mailer (mail trap ?)
