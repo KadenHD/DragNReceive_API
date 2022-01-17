@@ -77,7 +77,7 @@ export const validFormCreateShop = async (req, res, next) => {
 }
 
 export const validFormUpdateShop = async (req, res, next) => {
-    if ((!req.body.email && !req.body.name && !req.body.phone && !req.body.city && !req.body.street && !req.body.postal) || !req.files.logo) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
+    if (!req.body.email || !req.body.name || !req.body.phone || !req.body.city || !req.body.street || !req.body.postal) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
     if (req.body.email != req.shop.email) {
         if (await emailExist(req.body.email)) return res.status(401).json({ error: `L'email est déjà prise !` });
         if (!isValidEmail(req.body.email)) return res.status(401).json({ error: `Format d'email non-valide !` });

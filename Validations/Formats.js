@@ -70,12 +70,6 @@ export const isValidPostal = (postal) => {
     );
 }
 
-export const isValidLogo = (logo) => {
-    return (
-        true // à faire
-    );
-}
-
 export const isValidPrice = (price) => {
     const split = price.toString().split('.')
     if (split[1]) { // if float
@@ -88,4 +82,28 @@ export const isValidPrice = (price) => {
             split[0].length <= 9
         );
     }
+}
+
+export const isValidDescription = (description) => {
+    return (
+        true // à faire
+    );
+}
+
+export const isValidStock = (stock) => {
+    return (
+        true // à faire
+    );
+}
+
+export const isValidImage = (image) => {
+    return (
+        true // à faire
+    );
+}
+
+export const isValidLogo = (logo) => {
+    return (
+        true // à faire
+    );
 }

@@ -3,9 +3,9 @@ import { Product } from '../Models/Models.js';
 import { writeProduct } from '../FileSystems/Products.js';
 
 export const createProduct = async (req, res) => {
-    Product.create(req.product)
+    Product.create(req.body)
         .then(data => {
-            writeProduct(req.product.id, req.product.shopId, req.files.image);
+            writeProduct(req.body.id, req.body.shopId, req.files.image);
             res.status(200).json({
                 success: `Le produit a bien été créé.`
             });
@@ -18,7 +18,7 @@ export const createProduct = async (req, res) => {
 }
 
 export const deleteProduct = async (req, res) => {
-    Product.update(req.product, { where: { id: req.params.id } })
+    Product.update(req.body, { where: { id: req.params.id } })
         .then(num => {
             res.status(200).json({
                 success: `Le produit a bien été supprimé.`
@@ -33,10 +33,10 @@ export const deleteProduct = async (req, res) => {
 }
 
 export const updateProduct = async (req, res) => {
-    Product.update(req.product, { where: { id: req.params.id } })
+    Product.update(req.body, { where: { id: req.params.id } })
         .then(num => {
             if (req.files.image) {
-                writeProduct(req.product.id, req.product.shopId, req.files.image);
+                writeProduct(req.body.id, req.body.shopId, req.files.image);
             }
             res.status(200).json({
                 success: `Le produit a bien été modifié`
