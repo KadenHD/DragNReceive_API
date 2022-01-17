@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { Product, Shop } from '../Models/Models.js';
 
-import { canCreateProduct, canDeleteProduct, canUpdateProduct } from '../Validations/Products.js';
+import { canCreateProduct, canDeleteProduct, canViewProduct, canUpdateProduct } from '../Validations/Products.js';
 import { isValidName, isValidDescription, isValidPrice, isValidStock, isValidImage } from '../Validations/Formats.js';
 
 const sadmin = "1";
@@ -18,23 +18,31 @@ export const setProduct = async (req, res, next) => { // For id's parameters rou
     }
     if (!req.product) return res.status(404).json({ error: `Le produit n'existe pas !` });
     req.product.dataValues.shop = await Shop.findByPk(req.product.shopId);
-    if (!req.ticket.dataValues.shop) return res.status(404).json({ error: `La boutique affiliée à ce produit n'existe pas !` });
+    if (!req.product.dataValues.shop) return res.status(404).json({ error: `La boutique affiliée à ce produit n'existe pas !` });
     next();
 }
 
 export const authCreateProduct = (req, res, next) => {
-    if (!canCreateProduct(req.currentUser, req.body)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à créer un produit !` });
+    req.product.dataValues.shop = await Shop.findByPk(req.body.shopId);
+    if (!req.product.dataValues.shop) return res.status(404).json({ error: `La boutique affiliée à ce produit n'existe pas !` });
+    if (!canCreateProduct(req.currentUser, req.body, req.product.dataValues.shop)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à créer un produit !` });
     next();
 }
 
 export const authDeleteProduct = (req, res, next) => {
-    if (!canDeleteProduct(req.currentUser, req.product)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à supprimer ce produit !` });
+    if (!canDeleteProduct(req.currentUser, req.product, req.product.dataValues.shop)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à supprimer ce produit !` });
+    req.body = { deleted: true };
+    next();
+}
+
+export const authGetProduct = (req, res, next) => {
+    if (!canViewProduct(req.currentUser, req.product, req.product.dataValues.shop)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à voir ce produit !` });
     req.body = { deleted: true };
     next();
 }
 
 export const authUpdateProduct = (req, res, next) => {
-    if (!canUpdateProduct(req.currentUser, req.product)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à modifier ce produit !` });
+    if (!canUpdateProduct(req.currentUser, req.product, req.product.dataValues.shop)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à modifier ce produit !` });
     next();
 }
 

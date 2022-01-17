@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { Order } from '../Models/Models.js';
+import { Order, Product } from '../Models/Models.js';
 
 import { scopedOrders } from '../Permissions/Orders.js';
 
@@ -18,8 +18,8 @@ export const findAllOrder = (req, res) => {
 }
 
 export const createOrder = async (req, res) => {
-    const orders = req.body.orders
-    const number = uuidv4(); // Order number
+    const orders = req.body.orders;
+    const number = uuidv4();
     for (let i = 0; i < orders.length; i++) {
         const { quantities, price, userId, productId } = orders[i];
         const order = {
@@ -30,14 +30,15 @@ export const createOrder = async (req, res) => {
             userId: userId,
             productId: productId,
             orderStatusId: 1
-        }
+        };
+        const product = { stock: req.body.orders[i].product.stock - quantities };
         await Order.create(order)
             .catch(err => {
                 res.status(500).json({
                     error: `Une erreur est survenue lors de la création de la commande.`
                 });
             });
-        //Product update stock
+        await Product.update(product, order.productId)
     }
     res.status(200).json({
         success: `La commande a bien été créée.`
@@ -57,15 +58,20 @@ export const findOneOrder = (req, res) => {
 }
 
 export const updateOrder = (req, res) => {
-    Order.update(req.body, { where: { id: req.params.id } })
-        .then(num => {
-            res.status(200).json({
-                success: `La commande a bien été modifiée`
+    const orders = req.body.orders
+    for (let i = 0; i < orders.length; i++) {
+        const order = { orderStatusId: req.body.orderStatusId }
+        await Order.update(order, { where: { id: orders[i].id } })
+            .catch(err => {
+                res.status(500).json({
+                    error: `Une erreur est survenue de lors de la modification de la commande.`
+                });
             });
-        })
-        .catch(err => {
-            res.status(500).json({
-                error: `Une erreur est survenue de lors de la modification de la commande.`
-            });
-        });
+        //Product update stock if canceled
+    }
+    res.status(200).json({
+        success: `La commande a bien été modifiée.`
+    });
+
+
 }

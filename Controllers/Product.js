@@ -1,6 +1,21 @@
 import { Product } from '../Models/Models.js';
 
+import { scopedProducts } from '../Permissions/Products.js';
+
 import { writeProduct } from '../FileSystems/Products.js';
+
+export const findAllProducts = async (req, res) => {
+    let data = await Product.findAll();
+    scopedProducts(req.currentUser, data)
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: `Une erreur est survenue de lors de la recherche des produits.`
+            });
+        });
+}
 
 export const createProduct = async (req, res) => {
     Product.create(req.body)
@@ -32,10 +47,20 @@ export const deleteProduct = async (req, res) => {
         });
 }
 
+export const findOneProduct = (req, res) => {
+    try {
+        res.status(200).json(req.product)
+    } catch (err) {
+        res.status(500).json({
+            error: `Une erreur est survenue lors de la recherche du produit.`
+        });
+    }
+}
+
 export const updateProduct = async (req, res) => {
     Product.update(req.body, { where: { id: req.params.id } })
         .then(num => {
-            if (req.files.image) {
+            if (req.files.image) { // Save img
                 writeProduct(req.body.id, req.body.shopId, req.files.image);
             }
             res.status(200).json({

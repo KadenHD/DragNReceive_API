@@ -1,14 +1,16 @@
 import express from 'express';
 
-import { createProduct, deleteProduct, updateProduct } from '../Controllers/Product.js';
+import { findAllProducts, createProduct, deleteProduct, findOneProduct, updateProduct } from '../Controllers/Product.js';
 
-import { authCreateProduct, validFormCreateProduct, authDeleteProduct, authUpdateProduct, validFormUpdateProduct } from '../Permissions/Products.js';
+import { authCreateProduct, validFormCreateProduct, authDeleteProduct, authGetProduct, authUpdateProduct, validFormUpdateProduct } from '../Permissions/Products.js';
 import { setProduct } from '../Permissions/Products.js';
 
 const router = express.Router();
 
+router.get('/', findAllProducts)
 router.post('/', authCreateProduct, validFormCreateProduct, createProduct);
 router.delete('/:id', setProduct, authDeleteProduct, deleteProduct);
+router.get('/:id', setProduct, authGetProduct, findOneProduct)
 router.put('/:id', setProduct, authUpdateProduct, validFormUpdateProduct, updateProduct);
 
 export default router;
