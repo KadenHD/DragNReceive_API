@@ -27,7 +27,7 @@ export const setProduct = async (req, res, next) => { // For id's parameters rou
     next();
 }
 
-export const authCreateProduct = (req, res, next) => {
+export const authCreateProduct = async (req, res, next) => {
     req.product.dataValues.shop = await Shop.findByPk(req.body.shopId);
     if (!req.product.dataValues.shop) return res.status(404).json({ error: `La boutique affiliée à ce produit n'existe pas !` });
     if (!canCreateProduct(req.currentUser, req.body, req.product.dataValues.shop)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à créer un produit !` });

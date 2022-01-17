@@ -4,7 +4,7 @@ import { Order, Product } from '../Models/Models.js';
 
 import { scopedOrders } from '../Permissions/Orders.js';
 
-export const findAllOrder = (req, res) => {
+export const findAllOrder = async (req, res) => {
     let data = await Order.findAll();
     scopedOrders(req.currentUser, data)
         .then(data => {
@@ -57,7 +57,7 @@ export const findOneOrder = (req, res) => {
         });
 }
 
-export const updateOrder = (req, res) => {
+export const updateOrder = async (req, res) => {
     const orders = req.body.orders
     for (let i = 0; i < orders.length; i++) {
         const order = { orderStatusId: req.body.orderStatusId }
