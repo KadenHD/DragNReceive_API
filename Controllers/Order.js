@@ -2,8 +2,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { Order } from '../Models/Models.js';
 
+import { scopedOrders } from '../Permissions/Orders.js';
+
 export const findAllOrder = (req, res) => {
-    Order.findAll()
+    let data = await Order.findAll();
+    scopedOrders(req.currentUser, data)
         .then(data => {
             res.status(200).json(data);
         })
@@ -15,9 +18,8 @@ export const findAllOrder = (req, res) => {
 }
 
 export const createOrder = async (req, res) => {
-    const orders = req.body.orders //Req Orders should be like this : [{},{}]
-    // Surveiller que les stocks soient disponibles etc...
-    const number = uuidv4();
+    const orders = req.body.orders
+    const number = uuidv4(); // Order number
     for (let i = 0; i < orders.length; i++) {
         const { quantities, price, userId, productId } = orders[i];
         const order = {
@@ -35,6 +37,7 @@ export const createOrder = async (req, res) => {
                     error: `Une erreur est survenue lors de la création de la commande.`
                 });
             });
+        //Product update stock
     }
     res.status(200).json({
         success: `La commande a bien été créée.`

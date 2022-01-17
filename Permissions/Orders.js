@@ -12,12 +12,14 @@ const partner = "3";
 const client = "4";
 
 export const scopedOrders = (currentUser, orders) => { // Fetch inside findAllUsers controller
-    //faire comme dans tickets en boucle
+    // Return all pour sadmin et admin
+    // Return pour les partenaires seulement les orders ayant le shopId
+    // Return seulement ceux que les clients possèdent
 }
 
 export const setOrder = async (req, res, next) => { // For id's parameters routes to set the order values from DB
-    // Récup la commande
-    // Mettre le produit etc
+    // Mettre tous ceux avec le même numéro de commande dedans
+    // Mettre le contenu de produit
 }
 
 export const authCreateOrder = (req, res, next) => {

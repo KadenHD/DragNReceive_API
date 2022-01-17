@@ -77,7 +77,7 @@ npm start
 
 # To-do
 
-- Order (utiliser la boucle for du controller, vérifier stock etc...)
+- Order (utiliser des boucles for dans les controllers, vérifier stock et soustraire etc...)
 
 - Revoir les paths des produits et images pour les convertir en url, changer dans les fs le dir pour l'enregistrer directement dans le path si besoin
 - Comprendre comment utiliser les images stockés en dur via url sur le front (vidéo dans ppe ytb)
