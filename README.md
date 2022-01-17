@@ -77,8 +77,8 @@ npm start
 
 # To-do
 
-- Pour les formulaires create et update vérifier si tout est bien utile (exist et formats)
-- De plus, req.entitie juste pour les vérifié et envoyer par le req.body a la place
+- Vérifier toutes les permissions/validations/controllers entitées par entitées et fonctions...
+- De plus, req.entitie juste pour vérifier il ne faut pas y toucher après le setEntitie, envoyer par le req.body a la place par exemple
 
 - Product (finir les permissions et formats)
 - Order (utiliser la boucle for du controller, vérifier stock etc...)

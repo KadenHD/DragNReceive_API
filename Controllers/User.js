@@ -17,9 +17,9 @@ export const findAllUsers = (req, res) => {
 }
 
 export const createUser = (req, res) => {
-    User.create(req.user)
+    User.create(req.body)
         .then(data => {
-            mkUser(req.user.id);
+            mkUser(req.body.id);
             res.status(200).json({
                 success: `L'utilisateur a bien été créé.`
             });
@@ -59,7 +59,7 @@ export const deleteUser = (req, res) => {
 }
 
 export const updateUser = (req, res) => {
-    User.update(req.user, { where: { id: req.params.id } })
+    User.update(req.body, { where: { id: req.params.id } })
         .then(data => {
             res.status(200).json({
                 success: `L'utilisateur a bien été modifié`

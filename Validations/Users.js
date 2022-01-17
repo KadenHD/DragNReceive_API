@@ -21,7 +21,10 @@ export const canViewUser = (currentUser, user) => {
 }
 
 export const canDeleteUser = (currentUser, user) => {
-    return currentUser.roleId === sadmin && currentUser.roleId != sadmin; // Is SuperAdmin and user isn't SuperAdmin
+    return (
+        currentUser.roleId === sadmin && // Is SuperAdmin 
+        user.roleId != sadmin // User isn't SuperAdmin
+    );
 }
 
 export const canUpdateUser = (currentUser, user) => {
