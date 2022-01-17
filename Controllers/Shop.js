@@ -18,9 +18,9 @@ export const findAllShops = async (req, res) => {
 }
 
 export const createShop = (req, res) => {
-    Shop.create(req.shop)
+    Shop.create(req.body)
         .then(data => {
-            mkShop(req.shop.id);
+            mkShop(req.body.id);
             res.status(200).json({
                 success: `La boutique a bien été créée.`
             });
@@ -43,7 +43,7 @@ export const findOneShop = (req, res) => {
 }
 
 export const deleteShop = (req, res) => {
-    Shop.update(req.shop, { where: { id: req.params.id } })
+    Shop.update(req.body, { where: { id: req.params.id } })
         .then(num => {
             res.status(200).json({
                 success: `La boutique a bien été supprimée.`
@@ -58,7 +58,7 @@ export const deleteShop = (req, res) => {
 }
 
 export const updateShop = (req, res) => {
-    Shop.update(req.shop, { where: { id: req.params.id } })
+    Shop.update(req.body, { where: { id: req.params.id } })
         .then(num => {
             if (req.files.logo) {
                 writeShop(req.params.id, req.files.logo);
