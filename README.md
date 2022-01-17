@@ -77,14 +77,10 @@ npm start
 
 # To-do
 
-- Vérifier toutes les permissions/validations/controllers entitées par entitées et fonctions...
-- De plus, req.entitie juste pour vérifier il ne faut pas y toucher après le setEntitie, envoyer par le req.body a la place par exemple
-
 - Product (finir les permissions et formats)
 - Order (utiliser la boucle for du controller, vérifier stock etc...)
 
 - Revoir les paths des produits et images pour les convertir en url, changer dans les fs le dir pour l'enregistrer directement dans le path si besoin
-- Supprimer les endroits et fonctions liées au fait d'ajouter des images dans les requêtes
 
 - test unitaire de chaques fonctionnalitées de chaques entités
 
