@@ -1,7 +1,7 @@
 import { Message } from '../Models/Models.js';
 
 export const createMessage = (req, res) => {
-    Message.create(req.message)
+    Message.create(req.body)
         .then(data => {
             res.status(200).json({
                 success: `Le message a bien été créé.`

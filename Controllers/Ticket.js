@@ -16,7 +16,7 @@ export const findAllTickets = async (req, res) => {
 }
 
 export const createTicket = (req, res) => {
-    Ticket.create(req.ticket)
+    Ticket.create(req.body)
         .then(data => {
             res.status(200).json({
                 success: `Le ticket a bien été créé.`
@@ -40,7 +40,7 @@ export const findOneTicket = (req, res) => {
 }
 
 export const updateTicket = (req, res) => {
-    Ticket.update(req.ticket, { where: { id: req.params.id } })
+    Ticket.update(req.body, { where: { id: req.params.id } })
         .then(num => {
             res.status(200).json({
                 success: `Le ticket a bien été modifié`

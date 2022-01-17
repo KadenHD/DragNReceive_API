@@ -11,12 +11,11 @@ const partner = "3";
 const client = "4";
 
 export const scopedTickets = async (currentUser, tickets) => { // Fetch inside findAllTickets controller
-    //Stocker dans chacunes des solutions les messages dans les différents tickets et users
     for (let i = 0; i < tickets.length; i++) {
         const user = await User.findByPk(tickets[i].userId); // Add user inside tickets
+        tickets[i].dataValues.user = user.dataValues;
         const messages = await Message.findAll({ where: { ticketId: tickets[i].id } });
-        tickets[i].dataValues.user = user.dataValues
-        tickets[i].dataValues.messages = messages
+        tickets[i].dataValues.messages = messages;
     }
     if (currentUser.roleId === sadmin) return tickets; // If Super Admin return all tickets
     if (currentUser.roleId === admin) return tickets.filter(ticket => ticket.dataValues.user.roleId === partner || ticket.dataValues.user.roleId === client || ticket.userId === currentUser.id) // If Admin return only partner and client and own
@@ -51,20 +50,18 @@ export const validFormCreateTicket = async (req, res, next) => {
     if (!req.body.title || !req.body.content) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
     if (!isValidTitle(req.body.title)) return res.status(401).json({ error: `Format de titre non-valide !` });
     if (!isValidContent(req.body.content)) return res.status(401).json({ error: `Format de contenu non-valide !` });
-    req.ticket = {
+    req.body = {
         id: uuidv4(),
         title: req.body.title,
         content: req.body.content,
         userId: req.currentUser.id,
-        ticketStatusId: 1
-    }
+        ticketStatusId: "1"
+    };
     next();
 }
 
 export const validFormUpdateTicket = async (req, res, next) => {
     if (req.ticket.ticketStatusId === "2") return res.status(401).json({ error: `Le ticket est déjà clos !` });
-    req.ticket = {
-        ticketStatusId: "2"
-    }
+    req.body = { ticketStatusId: "2" };
     next();
 }
