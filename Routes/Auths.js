@@ -4,7 +4,7 @@ import { loginUser, loginClient } from '../Controllers/Auth.js';
 import { createUser } from '../Controllers/User.js';
 
 import { validFormCreateUser } from '../Permissions/Users.js';
-import { authRegisterClient } from '../Permissions/Auth.js';
+import { authRegisterClient } from '../Permissions/Auths.js';
 
 const router = express.Router();
 
