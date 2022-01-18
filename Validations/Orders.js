@@ -18,9 +18,9 @@ export const canViewOrder = (currentUser, order) => {
     );
 }
 
-export const canUpdateOrder = (currentUser, order) => {
+export const canUpdateOrder = (currentUser, order, product) => {
     return (
-        (currentUser.roleId === partner && order.product.shopId === currentUser.shopId) ||
+        (currentUser.roleId === partner && product.shopId === currentUser.shopId) ||
         (currentUser.roleId === client && order.userId === currentUser.id)
     );
 }

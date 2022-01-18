@@ -60,7 +60,7 @@ export const findOneOrder = (req, res) => {
 export const updateOrder = async (req, res) => {
     const orders = req.body.orders
     for (let i = 0; i < orders.length; i++) {
-        const order = { orderStatusId: req.body.orderStatusId }
+        const order = { orderStatusId: req.body.orders[i].orderStatusId }
         await Order.update(order, { where: { id: orders[i].id } })
             .catch(err => {
                 res.status(500).json({
