@@ -9,6 +9,5 @@ sequelize
         process.exit();
     })
     .catch(err => {
-        console.log(err);
         process.exit();
     });

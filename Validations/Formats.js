@@ -121,12 +121,14 @@ export const isValidStock = (key) => {
 
 export const isValidImage = (key) => {
     return (
-        true // à faire
+        key.mimetype === 'image/jpeg' ||
+        key.mimetype === 'image/png'
     );
 }
 
 export const isValidLogo = (key) => {
     return (
-        true // à faire
+        key.mimetype === 'image/jpeg' ||
+        key.mimetype === 'image/png'
     );
 }

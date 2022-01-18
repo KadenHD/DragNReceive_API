@@ -105,9 +105,9 @@ export const validFormUpdateShop = async (req, res, next) => {
         if (!isValidPostal(req.body.postal)) return res.status(401).json({ error: `Format de code postal non-valide !` });
         req.shop.postal = req.body.postal;
     }
-    if (req.files.logo) { // Voir comment vérifier les logos
+    if (req.files) { // Voir comment vérifier les logos
         if (!isValidLogo(req.files.logo)) return res.status(401).json({ error: `Format de fichier non-valide !` });
-        req.shop.path = req.files.logo.name;
+        req.shop.path = req.params.id + '/Logo/' + req.files.logo.name;
     }
     req.body = req.shop.dataValues; // Store the new values
     next();

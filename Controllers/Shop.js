@@ -50,7 +50,6 @@ export const deleteShop = (req, res) => {
             });
         })
         .catch(err => {
-            console.log(err)
             res.status(500).json({
                 error: `Une erreur est survenue de lors de la suppression de la boutique.`
             });

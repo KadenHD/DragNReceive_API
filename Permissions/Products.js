@@ -86,7 +86,7 @@ export const validFormUpdateProduct = async (req, res, next) => {
     }
     if (req.files.image) { // Voir comment vérifier les logos
         if (!isValidImage(req.files.image)) return res.status(401).json({ error: `Format de fichier non-valide !` });
-        req.product.path = req.files.image.name;
+        req.product.path = req.currentUser.shopId + '/Products/' + req.params.id + '/' + req.files.image.name;
     }
     req.body = req.product.dataValues; // Store the new values
     next();

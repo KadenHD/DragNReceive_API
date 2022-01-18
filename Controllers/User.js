@@ -1,7 +1,7 @@
 import { User } from '../Models/Models.js';
 
 import { scopedUsers } from '../Permissions/Users.js';
-import { mkUser/*, rmUser*/ } from '../FileSystems/Users.js';
+import { mkUser, rmUser } from '../FileSystems/Users.js';
 
 export const findAllUsers = (req, res) => {
     User.findAll()
@@ -46,7 +46,7 @@ export const findOneUser = (req, res) => {
 export const deleteUser = (req, res) => {
     User.destroy({ where: { id: req.params.id } })
         .then(data => {
-            //rmUser(req.params.id);
+            rmUser(req.params.id);
             res.status(200).json({
                 success: `L'utilisateur a bien été supprimé.`
             });

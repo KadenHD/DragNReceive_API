@@ -11,18 +11,7 @@ export const mkShop = (id) => {
 
 export const writeShop = (id, img) => {
     dir = 'Store/Companies/' + id + '/Logo/';
-    console.log(dir)
     if (fs.existsSync(dir)) fs.rmdirSync(dir, { recursive: true })
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFile(dir + img.name, img.data, function (err) {
-        if (err) throw err;
-        console.log("Image : " + dir + img.name + " saved !");
-    });
+    fs.writeFile(dir + img.name, img.data, function (err) { if (err) throw err; });
 }
-
-/*
-export const rmShop = (id) => {
-    dir = 'Store/Companies/' + id;
-    if (fs.existsSync(dir)) fs.rmSync(dir, { recursive: true })
-}
-*/
