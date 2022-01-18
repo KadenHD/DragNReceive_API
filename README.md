@@ -90,6 +90,7 @@ npm start
 
 # Sources
 
+- Video about store images and set path for accessing with front : [Link](https://youtu.be/srPXMt1Q0nY)
 - Video about permissions to access differents datas inside controllers : [Link](https://youtu.be/jI4K7L-LI58)
 - Video about creation of standard CRUD and routing with Express : [Link](https://youtu.be/l8WPWK9mS5M)
 - Video manipulation and creation of tables with ORM Sequelize with MySQL : [Link](https://youtu.be/ExTZYpyAn6s)
