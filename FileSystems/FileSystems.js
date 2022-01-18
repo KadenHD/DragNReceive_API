@@ -35,9 +35,7 @@ export const instanceFiles = (envContent) => {
 
 export const rmStore = () => {
     dir = 'Store';
-    if (fs.existsSync(dir)) {
-        fs.rmSync(dir, { recursive: true });
-    }
+    if (fs.existsSync(dir)) fs.rmSync(dir, { recursive: true });
 }
 
 
