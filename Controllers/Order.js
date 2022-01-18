@@ -72,6 +72,4 @@ export const updateOrder = async (req, res) => {
     res.status(200).json({
         success: `La commande a bien été modifiée.`
     });
-
-
 }

@@ -77,8 +77,6 @@ npm start
 
 # To-do
 
-- Order : Update
-
 - Comprendre comment : utiliser les images stockés en dur via url sur le front, méthode de sauvegarde d'image (vidéo dans ppe ytb)
 
 - test unitaire de chaques fonctionnalitées de chaques entités (à faire avec l'aide du front ?)
