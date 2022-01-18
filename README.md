@@ -77,11 +77,9 @@ npm start
 
 # To-do
 
-- Comprendre comment : utiliser les images stockés en dur via url sur le front, méthode de sauvegarde d'image (vidéo dans ppe ytb)
-
 - test unitaire de chaques fonctionnalitées de chaques entités (à faire avec l'aide du front ?)
 
-- Commenter en balle tout le code
+- Commenter en balle tout le code en anglais uniquement
     
 - Mettre un uuivid à la génération du secret token (pour que seul l'host le connaisse)
 - Génération de fausses factures pdf quand commandé
