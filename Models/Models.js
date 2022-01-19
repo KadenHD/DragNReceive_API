@@ -1,12 +1,12 @@
-import User from '../Models/User.js';
-import Role from '../Models/Role.js';
-import Ticket from '../Models/Ticket.js';
-import Message from '../Models/Message.js';
-import Shop from '../Models/Shop.js';
-import Product from '../Models/Product.js';
-import Order from '../Models/Order.js';
-import OrderStatus from '../Models/OrderStatus.js';
-import TicketStatus from '../Models/TicketStatus.js';
+import User from './User.js';
+import Role from './Role.js';
+import Ticket from './Ticket.js';
+import Message from './Message.js';
+import Shop from './Shop.js';
+import Product from './Product.js';
+import Order from './Order.js';
+import OrderStatus from './OrderStatus.js';
+import TicketStatus from './TicketStatus.js';
 
 // All the relations, FK and constraints from Models
 
