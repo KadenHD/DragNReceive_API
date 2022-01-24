@@ -77,13 +77,13 @@ npm start
 
 # To-do
 
-- test unitaire de chaques fonctionnalitées de chaques entités (à faire avec l'aide du front ?)
-
+- test unitaire de chaques fonctionnalitées de chaques entités (avec front)
 - Commenter en balle tout le code en anglais uniquement
-    
-- Mettre un uuivid à la génération du secret token (pour que seul l'host le connaisse)
+
 - Génération de fausses factures pdf quand commandé
-- Reset de mot de passe par email + token et le relier à un mailer (mail trap ?)
+- Reset de mot de passe par email + token et le relier à un mailer (mail trap...)
+    
+- Mettre un uuivid à la génération du secret token (inconnu)
 - Faire le refresh du token en back-end (optionnel)
 
 - maj du MCD
