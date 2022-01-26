@@ -80,7 +80,7 @@ npm start
 - test unitaire de chaques fonctionnalitées de chaques entités (avec front)
 - Commenter en balle tout le code en anglais uniquement
 
-- Génération de fausses factures pdf quand commandé
+- Génération de fausses factures pdf quand statut de la commande passe en préparation
 - Reset de mot de passe par email + token et le relier à un mailer (mail trap...)
     
 - Mettre un uuivid à la génération du secret token (inconnu)
