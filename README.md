@@ -86,8 +86,6 @@ npm start
 - Mettre un uuivid à la génération du secret token (inconnu)
 - Faire le refresh du token en back-end (optionnel)
 
-- maj du MCD
-
 # Sources
 
 - Video about store images and set path for accessing with front : [Link](https://youtu.be/srPXMt1Q0nY)
