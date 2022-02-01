@@ -12,7 +12,7 @@ envContent += "DB_HOST=localhost\n";
 envContent += "###< DataBase parameters ###\n\n";
 envContent += "###> API Server parameters ###\n";
 envContent += "PORT=3000\n";
-envContent += "BASE_URL=http://localhost\n";
+envContent += "BASE_URL=localhost\n";
 envContent += "SECRET_TOKEN=T0k3nD3G4m3r\n";
 envContent += "###< API Server parameters ###\n";
 

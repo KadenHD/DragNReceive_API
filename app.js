@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import fileUpload from 'express-fileupload';
 import cors from 'cors';
+import ip from 'ip';
 
 import router from './Routes/Routes.js';
 
@@ -18,4 +19,4 @@ app.use(cors());
 app.use('/api', router); // Init the whole routes
 
 var port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`App running at :\n - Local : ${process.env.BASE_URL}:${port}`));
+app.listen(port, () => console.log(`App running at :\n - Local : http://${process.env.BASE_URL}:${port}\n - Network : http://${ip.address()}:${port}`));
