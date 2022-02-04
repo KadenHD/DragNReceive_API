@@ -22,3 +22,15 @@ export const loginClient = async (req, res) => {
     const token = jwt.sign({ id: user.id }, process.env.SECRET_TOKEN);
     res.header('token', token).json({ token: token, user });
 }
+
+export const getCurrentUser = async (req, res) => {
+    const token = req.headers.authorization && extractBearerToken(req.headers.authorization);
+    if (!token) return res.status(200).json({ currentUser: null });
+    try {
+        req.currentUser = jwt.verify(token, process.env.SECRET_TOKEN);
+        req.currentUser = await User.findByPk(req.currentUser.id); // For all request who need to be logged in, put the current user inside the request
+        return res.status(200).json({ currentUser: req.currentUser });
+    } catch (error) {
+        return res.status(200).json({ currentUser: null });
+    }
+}
