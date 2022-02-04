@@ -76,8 +76,6 @@ npm start
 > JSON
 
 # To-do
-
-- faire une route /user dans auth qui récup le token dans le header (s'il est là) et qui vient ensuite retourner le user    
     
 - test unitaire de chaques fonctionnalitées de chaques entités (avec front)
 - Commenter en balle tout le code en anglais uniquement
