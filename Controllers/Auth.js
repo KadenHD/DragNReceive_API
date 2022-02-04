@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+import { extractBearerToken } from '../Permissions/TokenJWT.js';
+
 import { User } from '../Models/Models.js';
 
 export const loginUser = async (req, res) => {
