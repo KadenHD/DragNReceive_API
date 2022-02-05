@@ -19,4 +19,7 @@ app.use(cors());
 app.use('/api', router); // Init the whole routes
 
 var port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`App running at :\n - Local : http://${process.env.BASE_URL}:${port}\n - Network : http://${ip.address()}:${port}`));
+app.listen(port, () => console.log(`App running at :
+    - Local :   http://${process.env.BASE_URL}:${port}
+    - Network : http://${ip.address()}:${port}`
+));

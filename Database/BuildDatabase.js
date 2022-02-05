@@ -5,7 +5,7 @@ import { Shop, Product, Role, User, Order, Ticket, Message, TicketStatus, OrderS
 sequelize
     .sync({ force: true })
     .then(created => {
-        console.log("Database Successfully Created !!!")
+        console.log("INFO: Database Successfully Created.")
         process.exit();
     })
     .catch(err => {

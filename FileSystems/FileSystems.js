@@ -7,29 +7,29 @@ export const instanceFiles = (envContent) => {
         dir = 'Store';
         if (fs.existsSync(dir)) {
             fs.rmSync(dir, { recursive: true });
-            console.log("Folder : " + dir + " deleted !");
+            console.log("INFO: Folder" + dir + " deleted.");
         }
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
-            console.log("Folder : " + dir + " created !");
+            console.log("INFO: Folder" + dir + " created.");
         }
         dir = 'Store/Users';
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
-            console.log("Folder : " + dir + " created !");
+            console.log("INFO: Folder" + dir + " created.");
         }
         dir = 'Store/Companies';
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
-            console.log("Folder : " + dir + " created !");
+            console.log("INFO: Folder" + dir + " created.");
         }
         dir = '.env';
         fs.writeFile(dir, envContent, function (err) {
             if (err) throw err;
-            console.log("File : " + dir + " created !");
+            console.log("INFO: File" + dir + " created.");
         });
     } catch (error) {
-        console.log(error);
+        console.log("ERROR: " + error);
     }
 }
 
