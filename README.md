@@ -80,6 +80,7 @@ npm start
 - test unitaire de chaques fonctionnalitées de chaques entités (avec front)
 - Commenter en balle tout le code en anglais uniquement
 
+- Faire des couleurs pour les console.log (visuel pour se repérer)
 - Génération de fausses factures pdf quand statut de la commande passe en préparation (envoi par mail ou alors savoir comment faire télécharger uniquement pour le bon user)
 - Reset de mot de passe par email + token et le relier à un mailer (mail trap...)
     
