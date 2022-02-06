@@ -76,6 +76,8 @@ npm start
 > JSON
 
 # To-do
+
+- vérifier les entrées et sorties des contrôleurs (schématiser) pour éviter d'avoir des req.shopid au lieu d'un req.currentUser.shopid etc
     
 - test unitaire de chaques fonctionnalitées de chaques entités (avec front)
 - Commenter en balle tout le code en anglais uniquement
