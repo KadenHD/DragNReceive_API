@@ -77,15 +77,15 @@ npm start
 
 # To-do
 
-- vérifier les entrées et sorties des contrôleurs (schématiser) pour éviter d'avoir des req.shopid au lieu d'un req.currentUser.shopid etc
+- poursuivre le doc word pour vérifier les entrées et sorties des controllers
+- refaire les routes d'images / fs à la création de shop et product en faisant des vraies url valide
     
-- test unitaire de chaques fonctionnalitées de chaques entités (avec front)
 - Commenter en balle tout le code en anglais uniquement
 
-- Faire des couleurs pour les console.log (visuel pour se repérer)
 - Génération de fausses factures pdf quand statut de la commande passe en préparation (envoi par mail ou alors savoir comment faire télécharger uniquement pour le bon user)
 - Reset de mot de passe par email + token et le relier à un mailer (mail trap...)
     
+- Faire des couleurs pour les console.log (visuel pour se repérer)
 - Mettre un uuivid à la génération du secret token (inconnu)
 - Faire le refresh du token en back-end (optionnel)
 
