@@ -30,6 +30,14 @@
     </ul>
     <li>
       <a href="#Technologies">Technologies</a>
+      <ul>
+        <li>
+          <a href="#Softwares">Softwares</a>
+        </li>
+        <li>
+          <a href="#Languages">Languages</a>
+        </li>
+      </ul>
     </li>
     <li>
       <a href="#To-do">To-do</a>
@@ -41,7 +49,7 @@
     
 # Introduction
     
-
+The DragN'Receive company wishes to create a click & collect system across the entire Compiègne conurbation, having as partners markets and businesses mainly focused on the sale of foodstuffs and consumer products. They are therefore considering the creation of a website allowing the management of partner shops, thus allowing them to offer their products and thus add new products and their stocks while managing customer orders.
     
 # Installation
 
@@ -80,9 +88,7 @@ npm start
     
 # Technologies
 
-***The project was created using :***
-
-***Softwares :***
+## Softwares
 
 > Laragon,
 > Node,
@@ -91,7 +97,7 @@ npm start
 > Postman,
 > Visual Studio Code
 
-***Languages :***
+## Languages
 
 > It's a "Full JavaScript" project, using JSON format and Sequelize, sending SQL requests to MySQL database.
 
