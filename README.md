@@ -49,9 +49,11 @@
 
 ### Install Laragon
 
+> You can install Laragon, following the [Installation Tutorial](https://laragon.org/) on their official website.
+
 ### Install Node and NPM
 
-> You can easily install them, downloading [Official Node LTS version](https://nodejs.org/en/) on their website.
+> You can also easily install them, downloading [Node LTS version](https://nodejs.org/en/) on their official website.
 
 ## Implementation of the project
 
