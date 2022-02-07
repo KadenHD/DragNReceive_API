@@ -66,7 +66,10 @@ npm start
 ***Softwares :***
 
 > Visual Studio Code,
+> Postman,
 > Node,
+> Laragon,
+> PhpMyAdmin,
 > NPM
 
 ***Languages :***
