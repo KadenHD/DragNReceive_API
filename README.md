@@ -37,11 +37,16 @@
     
 # Installation
 
-### Prerequisites
+## Prerequisites
 
-### Implementation of the project
 
-- create mysql database in phpmyadmin
+
+## Implementation of the project
+
+- create mysql database in phpmyadmin called :
+```
+dragnreceive
+```
 - To create at the root of the project a .env file and create Store folders :
 ```
 npm run Instance
@@ -65,12 +70,12 @@ npm start
 
 ***Softwares :***
 
-> Visual Studio Code,
-> Postman,
-> Node,
 > Laragon,
+> Node,
+> NPM,
 > PhpMyAdmin,
-> NPM
+> Postman,
+> Visual Studio Code
 
 ***Languages :***
 
