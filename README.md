@@ -15,6 +15,14 @@
     <ul>
         <li>
             <a href="#Prerequisites">Prerequisites</a>
+            <ul>
+              <li>
+                <a href="#Install-Laragon">Install Laragon</a>
+              </li>
+              <li>
+                <a href="#Install-Node-and-NPM">Install Node and NPM</a>
+              </li>
+          </ul>
         </li>
         <li>
             <a href="#Implementation-of-the-project">Implementation of the project</a>
@@ -39,7 +47,9 @@
 
 ## Prerequisites
 
+### Install Laragon
 
+### Install Node and NPM
 
 ## Implementation of the project
 
