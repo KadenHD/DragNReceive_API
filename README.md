@@ -71,9 +71,7 @@ npm start
 
 ***Languages :***
 
-> JavaScript,
-> SQL,
-> JSON
+> It's a "Full JavaScript" project, using JSON format and Sequelize, sending SQL requests to MySQL database.
 
 # To-do
 
