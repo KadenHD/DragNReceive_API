@@ -27,8 +27,8 @@ export const canDeleteShop = (currentUser, shop) => {
 
 export const canUpdateShop = (currentUser, shop) => {
     return (
-        currentUser.roleId === sadmin ||
-        currentUser.roleId === admin ||
-        (currentUser.shopId === shop.id && currentUser.roleId === partner && shop.deleted === false) // Its the not deleted shop of a partner
+        currentUser.shopId === shop.id &&
+        currentUser.roleId === partner &&
+        shop.deleted === false // Its the not deleted shop of only a partner
     );
 }
