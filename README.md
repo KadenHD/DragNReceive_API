@@ -51,6 +51,8 @@
 
 ### Install Node and NPM
 
+> You can easily install them, downloading [Official Node LTS version](https://nodejs.org/en/) on their website.
+
 ## Implementation of the project
 
 - create mysql database in phpmyadmin called :
