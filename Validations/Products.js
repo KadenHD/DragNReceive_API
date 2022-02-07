@@ -21,8 +21,8 @@ export const canViewProduct = (currentUser, product, shop) => {
     return (
         currentUser.roleId === sadmin ||
         currentUser.roleId === admin ||
-        shop.deleted === false ||
-        product.deleted === false
+        (shop.deleted === false &&
+            product.deleted === false)
     );
 }
 
