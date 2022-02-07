@@ -52,14 +52,19 @@ export const authUpdateProduct = (req, res, next) => {
 }
 
 export const validFormCreateProduct = async (req, res, next) => {
-    if (!req.body.name || !req.body.description || !req.body.price || !req.body.stock) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
+    if (!req.body.name || !req.body.description || !req.body.price || !req.body.stock || !req.files) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
+    if (!isValidName(req.body.name)) return res.status(401).json({ error: `Format de nom non-valide !` });
+    if (!isValidDescription(req.body.description)) return res.status(401).json({ error: `Format de description non-valide !` });
+    if (!isValidPrice(req.body.price)) return res.status(401).json({ error: `Format de prix non-valide !` });
+    if (!isValidStock(req.body.stock)) return res.status(401).json({ error: `Format de stock non-valide !` });
+    if (!isValidImage(req.files.image)) return res.status(401).json({ error: `Format de fichier non-valide !` });
     req.body = {
         id: uuidv4(),
         name: req.body.name,
         description: req.body.description,
         price: req.body.price,
         stock: req.body.stock,
-        path: req.files.image.name,
+        path: req.files.image.name, //traitement
         deleted: false,
         shopId: req.currentUser.shopId
     }
