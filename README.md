@@ -4,7 +4,7 @@
     <h3 align="center">Projet Personnel Encadré DragNReceive - API </h3>
         
 <details open="open">
-  <summary>Sommaire</summary>
+  <summary>Summary</summary>
   <ol>
     <li>
       <a href="#Introduction">Introduction</a>
@@ -14,10 +14,10 @@
     </li>
     <ul>
         <li>
-            <a href="#prérequis">Prérequis</a>
+            <a href="#Prerequisites">Prerequisites</a>
         </li>
         <li>
-            <a href="#mise-en-place-du-projet">Mise en place du projet</a>
+            <a href="#Implementation-of-the-project">Implementation of the project</a>
         </li>
     </ul>
     <li>
@@ -37,9 +37,9 @@
     
 # Installation
 
-### Prérequis
+### Prerequisites
 
-### Mise en place du projet
+### Implementation of the project
 
 - create mysql database in phpmyadmin
 - To create at the root of the project a .env file and create Store folders :
@@ -61,15 +61,15 @@ npm start
     
 # Technologies
 
-***Le projet a été créé en utilisant :***
+***The project was created using :***
 
-***Les logiciels :***
+***Softwares :***
 
 > Visual Studio Code,
 > Node,
 > NPM
 
-***Les langues :***
+***Languages :***
 
 > JavaScript,
 > SQL,
