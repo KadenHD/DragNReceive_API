@@ -13,6 +13,7 @@ export const isValidPassword = (key) => {
         /[0-9]/.test(key) && // One number
         /[^A-Za-z0-9]/.test(key) && // One special caracter
         typeof key === 'string' &&
+        key.length <= 60 &&
         key.length > 7
     );
 }
