@@ -3,15 +3,15 @@ import { User } from '../Models/Models.js';
 import { scopedUsers } from '../Permissions/Users.js';
 import { mkUser, rmUser } from '../FileSystems/Users.js';
 
-export const findAllUsers = (req, res) => {
-    User.findAll()
+export const findAllUsers = async (req, res) => {
+    let data = await User.findAll();
+    scopedUsers(req.currentUser, data)
         .then(data => {
-            data = scopedUsers(req.currentUser, data);
             res.status(200).json(data);
         })
         .catch(err => {
             res.status(500).json({
-                error: `Une erreur est survenue lors de la recherche d'utilisateurs.`
+                error: `Une erreur est survenue de lors de la récupération des utilisateurs.`
             });
         });
 }
