@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 
-import { User } from '../Models/Models.js';
+import { User, Shop } from '../Models/Models.js';
 
 import { emailExist, shopExist, roleExist } from '../Validations/Exists.js';
 import { canViewUser, canCreateUser, canDeleteUser, canUpdateUser } from '../Validations/Users.js';
@@ -12,7 +12,13 @@ const admin = "2";
 const partner = "3";
 const client = "4";
 
-export const scopedUsers = (currentUser, users) => { // Fecth inside FindAllUsers Controller
+export const scopedUsers = async (currentUser, users) => { // Fecth inside FindAllUsers Controller
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].shopId) {
+            const shop = await Shop.findByPk(users[i].shopId); // Add shop inside users
+            users[i].dataValues.shop = shop.dataValues;
+        }
+    }
     if (currentUser.roleId === sadmin) return users;
     if (currentUser.roleId === admin) return users.filter(user => user.roleId === partner || user.roleId === client || user.id === currentUser.id) // Return Partner Client and himself
     return users.filter(user => user.id === currentUser.id); // Return only himself
