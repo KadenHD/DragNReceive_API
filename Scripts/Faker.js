@@ -67,15 +67,17 @@ const fakeInit = async () => {
 
         const orderId = uuidv4();
         const orderQuantities = faker.datatype.number({ min: 1, max: 20 });
-        await Order.create({
-            id: orderId,
-            quantities: orderQuantities,
-            price: productPrice * orderQuantities,
-            number: uuidv4(),
-            userId: userId,
-            productId: productId,
-            orderStatusId: faker.datatype.number({ min: 1, max: 3 })
-        });
+        if (roleId == "4") {
+            await Order.create({
+                id: orderId,
+                quantities: orderQuantities,
+                price: productPrice * orderQuantities,
+                number: uuidv4(),
+                userId: userId,
+                productId: productId,
+                orderStatusId: faker.datatype.number({ min: 1, max: 3 })
+            });
+        }
         const ticketId = uuidv4();
         await Ticket.create({
             id: ticketId,
