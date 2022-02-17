@@ -30,31 +30,28 @@ Shop.hasMany(User);
 Ticket.belongsTo(User, {
     foreignKey: {
         allowNull: false
-    }
-});
-User.hasMany(Ticket, {
+    },
     onDelete: 'CASCADE'
 });
+User.hasMany(Ticket);
 
 // Message <-> User
 Message.belongsTo(User, {
     foreignKey: {
         allowNull: false
-    }
-});
-User.hasMany(Message, {
+    },
     onDelete: 'CASCADE'
 });
+User.hasMany(Message);
 
 // Message <-> Ticket
 Message.belongsTo(Ticket, {
     foreignKey: {
         allowNull: false
-    }
-});
-Ticket.hasMany(Message, {
+    },
     onDelete: 'CASCADE'
 });
+Ticket.hasMany(Message);
 
 // Product <-> Shop
 Product.belongsTo(Shop, {
@@ -70,11 +67,10 @@ Shop.hasMany(Product, {
 Order.belongsTo(User, {
     foreignKey: {
         allowNull: false
-    }
-});
-User.hasMany(Order, {
+    },
     onDelete: 'CASCADE'
 });
+User.hasMany(Order);
 
 // Order <-> Product
 Order.belongsTo(Product, {
