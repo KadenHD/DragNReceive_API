@@ -103,7 +103,6 @@ npm start
 
 # To-do
 
-- poursuivre le doc word pour vérifier les entrées et sorties des controllers
 - refaire les routes d'images / fs à la création de shop et product en faisant des vraies url valide
     
 - Commenter en balle tout le code en anglais uniquement
