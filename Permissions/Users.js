@@ -88,6 +88,7 @@ export const validFormUpdateUser = async (req, res, next) => {
         if (!isValidLastName(req.body.lastname)) return res.status(401).json({ error: `Format de nom non-valide !` });
         if (!isValidFirstName(req.body.firstname)) return res.status(401).json({ error: `Format de prénom non-valide !` });
         if (!isValidEmail(req.body.email)) return res.status(401).json({ error: `Format d'email non-valide !` });
+        if (await emailExist(req.body.email) && req.body.email != req.user.email) return res.status(401).json({ error: `L'email est déjà prise !` });
         req.body = { lastname: req.body.lastname, firstname: req.body.firstname, email: req.body.email };
     } else {
         return res.status(401).json({ error: `Retournez un formulaire valide !` });
