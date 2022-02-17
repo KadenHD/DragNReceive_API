@@ -32,15 +32,13 @@ export const createUser = (req, res) => {
 }
 
 export const findOneUser = (req, res) => {
-    User.findByPk(req.params.id)
-        .then(data => {
-            res.status(200).json(data);
-        })
-        .catch(err => {
-            res.status(500).json({
-                error: `Une erreur est survenue lors de la recherche de l'utilisateur.`
-            });
+    try {
+        res.status(200).json(req.user)
+    } catch (err) {
+        res.status(500).json({
+            error: `Une erreur est survenue lors de la recherche de l'utilisateur.`
         });
+    }
 }
 
 export const deleteUser = (req, res) => {

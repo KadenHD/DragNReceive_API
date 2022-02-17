@@ -27,6 +27,9 @@ export const scopedUsers = async (currentUser, users) => { // Fecth inside FindA
 export const setUser = async (req, res, next) => { // For :id's routes, set the User with his contents
     req.user = await User.findByPk(req.params.id);
     if (!req.user) return res.status(404).json({ error: `L'utilisateur n'existe pas !` });
+    if (req.currentUser.roleId === partner) { // If partner store shop
+        req.user.dataValues.shop = await Shop.findByPk(req.user.shopId);
+    }
     next();
 }
 
@@ -85,6 +88,7 @@ export const validFormUpdateUser = async (req, res, next) => {
         const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
         req.body = { password: hashedPassword };
     } else if (req.currentUser.roleId < partner && req.body.lastname && req.body.firstname && req.body.email) { // If its modification made by Admin or SuperAdmin can update last and first name and email only
+        console.log("req.body")
         if (!isValidLastName(req.body.lastname)) return res.status(401).json({ error: `Format de nom non-valide !` });
         if (!isValidFirstName(req.body.firstname)) return res.status(401).json({ error: `Format de prénom non-valide !` });
         if (!isValidEmail(req.body.email)) return res.status(401).json({ error: `Format d'email non-valide !` });
