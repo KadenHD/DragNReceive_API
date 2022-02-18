@@ -103,13 +103,12 @@ npm start
 
 # To-do
 
-- refaire les routes d'images / fs à la création de shop et product en faisant des vraies url valide
-    
-- Commenter en balle tout le code en anglais uniquement
-
+## Fonctionnel
+- Mot de passe oublié + Reset de mot de passe par email + token et le relier à un mailer (mail trap...)
+- La création d'un utilisateur génère un mot de passe aléatoire qui s'envoie par mail à l'utilisateur concerné (l'admin ne rentre plus de mdp)
 - Génération de fausses factures pdf quand statut de la commande passe en préparation (envoi par mail ou alors savoir comment faire télécharger uniquement pour le bon user)
-- Reset de mot de passe par email + token et le relier à un mailer (mail trap...)
     
+## A la fin
 - Faire des couleurs pour les console.log (visuel pour se repérer)
 - Mettre un uuivid à la génération du secret token (inconnu)
 - Faire le refresh du token en back-end (optionnel)
