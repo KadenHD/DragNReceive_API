@@ -11,7 +11,7 @@ dotenv.config(); // Add the variables from .env file to process.env
 const app = express();
 
 app.use(express.json()); // For JSON requests
-app.use(express.static('Store/Companies'));
+app.use(express.static('Store'));
 app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload()); // Can use files like pictures and pdf from requests
 app.use(cors());
