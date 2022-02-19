@@ -50,6 +50,7 @@ export const authGetShop = async (req, res, next) => {
 
 export const authDeleteShop = (req, res, next) => {
     if (!canDeleteShop(req.currentUser, req.shop)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à supprimer cette boutique !` });
+    if (req.shop.deleted) return res.status(401).json({ error: `La boutique a déjà été supprimée !` });
     req.body = { deleted: true };
     next();
 }
