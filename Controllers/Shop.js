@@ -45,6 +45,7 @@ export const findOneShop = (req, res) => {
 export const deleteShop = (req, res) => {
     Shop.update(req.body, { where: { id: req.params.id } })
         .then(num => {
+            // update deleted true to all products
             res.status(200).json({
                 success: `La boutique a bien été supprimée.`
             });
