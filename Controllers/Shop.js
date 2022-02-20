@@ -60,7 +60,7 @@ export const deleteShop = (req, res) => {
 export const updateShop = (req, res) => {
     Shop.update(req.body, { where: { id: req.params.id } })
         .then(num => {
-            if (req.files.logo) { // save img
+            if (req.files) { // save img
                 writeShop(req.params.id, req.files.logo);
             }
             res.status(200).json({
