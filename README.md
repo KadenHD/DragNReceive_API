@@ -104,11 +104,11 @@ npm start
 # To-do
 
 ## Fonctionnel
-- Créer un dossier dans le store seulement aux utilisateurs de role client ?
 - une fois la boutique supprimée, supprimer tous les utilisateurs de la boutique ? ainsi que delete.true leurs produits? 
 - Mot de passe oublié + Reset de mot de passe par email + token et le relier à un mailer (mail trap...)
 - La création d'un utilisateur génère un mot de passe aléatoire qui s'envoie par mail à l'utilisateur concerné (l'admin ne rentre plus de mdp)
 - Génération de fausses factures pdf quand statut de la commande passe en préparation (envoi par mail ou alors savoir comment faire télécharger uniquement pour le bon user)
+- Rajouter une image de profil aux users, modifiable uniquement par eux et null à la création ?
     
 ## A la fin
 - Faire des couleurs pour les console.log (visuel pour se repérer)
