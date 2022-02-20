@@ -19,9 +19,7 @@ export const findAllUsers = async (req, res) => {
 export const createUser = (req, res) => {
     User.create(req.body)
         .then(data => {
-            if (req.body.roleId == '3') {
-                mkUser(req.body.id);
-            }
+            mkUser(req.body.id);
             res.status(200).json({
                 success: `L'utilisateur a bien été créé.`
             });
