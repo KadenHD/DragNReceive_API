@@ -78,7 +78,6 @@ export const validFormCreateShop = async (req, res, next) => {
 }
 
 export const validFormUpdateShop = async (req, res, next) => {
-    console.log(req.body)
     if ((!req.body.email || !req.body.name) && !req.body.phone && !req.body.city && !req.body.street && !req.body.postal) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
     if ((req.body.email == req.shop.email) && (req.body.name == req.shop.name) && (req.body.phone == req.shop.phone) && (req.body.city == req.shop.city) && (req.body.street == req.shop.street) && (req.body.postal == req.shop.postal) && (!req.files)) return res.status(401).json({ error: `Vous n'avez pas modifiée la boutique !` });
     if (req.body.email != req.shop.email) {
