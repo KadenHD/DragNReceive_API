@@ -62,7 +62,9 @@ const fakeInit = async () => {
             shopId: shopId
         })
             .then(store => {
-                mkUser(userId);
+                if (roleId == '3') {
+                    mkUser(userId);
+                }
             });
 
         const orderId = uuidv4();
