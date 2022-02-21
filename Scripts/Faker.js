@@ -96,6 +96,7 @@ const fakeInit = async () => {
             });
         }
     }
+    console.log("SUCCESS: Fakes values are now inside your Database !");
     process.exit();
 }
 
@@ -121,8 +122,22 @@ const defaultDatas = async () => {
                 break;
             case 3:
                 const hashedPartner = await bcrypt.hash("partner", 10);
+                const shopId = uuidv4()
+                const n1 = faker.company.catchPhraseAdjective();
+                const n2 = faker.company.bsNoun();
                 await Role.create({ id: i, label: "PARTNER" });
-                await User.create({ id: i, lastname: "partner", firstname: "partner", email: "partner@partner.partner", password: hashedPartner, roleId: i, shopId: null });
+                await Shop.create({
+                    id: shopId,
+                    name: n1 + " " + n2,
+                    email: "service@" + n1 + "-" + n2 + ".fr",
+                    phone: faker.phone.phoneNumberFormat(),
+                    city: faker.address.cityName(),
+                    street: faker.address.streetAddress(),
+                    postal: faker.address.zipCode(),
+                    path: null,
+                    deleted: false
+                });
+                await User.create({ id: i, lastname: "partner", firstname: "partner", email: "partner@partner.partner", password: hashedPartner, roleId: i, shopId: shopId });
                 await OrderStatus.create({ id: i + 1, label: "Collected" });
                 break;
             case 4:
@@ -136,6 +151,7 @@ const defaultDatas = async () => {
 }
 
 try {
+    console.log("INFO: Launching the Faker script...");
     rmStore();
     fakeInit();
 } catch (error) {
