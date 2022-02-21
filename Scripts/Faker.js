@@ -9,7 +9,7 @@ import { mkShop } from '../FileSystems/Shops.js';
 import { mkUser } from '../FileSystems/Users.js';
 import { mkProduct } from '../FileSystems/Products.js';
 
-faker.locale = "fr"; // Usefull the get french faker values
+faker.locale = "fr"; /* Usefull the get french faker values */
 
 const fakeInit = async () => {
     await defaultDatas();
@@ -99,7 +99,7 @@ const fakeInit = async () => {
     process.exit();
 }
 
-//Create the fakes standards values like status and roles and the standards users
+/* Create the fakes standards values like status and roles and the standards users */
 const defaultDatas = async () => {
     for (let i = 1; i < 5; i++) {
         mkUser(i);

@@ -1,6 +1,6 @@
 export const isValidEmail = (key) => {
     return (
-        /\S+@\S+\.\S+/.test(key) && // "string@string.string" format
+        /\S+@\S+\.\S+/.test(key) && /* "string@string.string" format */
         typeof key === 'string' &&
         key.length <= 100
     );
@@ -8,10 +8,10 @@ export const isValidEmail = (key) => {
 
 export const isValidPassword = (key) => {
     return (
-        /[A-Z]/.test(key) && // One upper case
-        /[a-z]/.test(key) && // One lower case
-        /[0-9]/.test(key) && // One number
-        /[^A-Za-z0-9]/.test(key) && // One special caracter
+        /[A-Z]/.test(key) && /* One upper case */
+        /[a-z]/.test(key) && /* One lower case */
+        /[0-9]/.test(key) && /* One number */
+        /[^A-Za-z0-9]/.test(key) && /* One special caracter */
         typeof key === 'string' &&
         key.length <= 60 &&
         key.length > 7
@@ -20,7 +20,7 @@ export const isValidPassword = (key) => {
 
 export const isValidLastName = (key) => {
     return (
-        key.charAt(0) === key.charAt(0).toUpperCase() && // Start with upper case
+        key.charAt(0) === key.charAt(0).toUpperCase() && /* Start with upper case */
         typeof key === 'string' &&
         key.length <= 50
     );
@@ -28,7 +28,7 @@ export const isValidLastName = (key) => {
 
 export const isValidFirstName = (key) => {
     return (
-        key.charAt(0) === key.charAt(0).toUpperCase() && // Start with upper case
+        key.charAt(0) === key.charAt(0).toUpperCase() && /* Start with upper case */
         typeof key === 'string' &&
         key.length <= 50
     );
@@ -85,13 +85,13 @@ export const isValidPostal = (key) => {
 
 export const isValidPrice = (key) => {
     const split = key.toString().split('.')
-    if (split[1]) { // if float
+    if (split[1]) { /* if float */
         return (
             typeof key === 'number' &&
             split[0].length <= 9 &&
             split[1].length <= 2
         );
-    } else { // if int
+    } else { /* if int */
         return (
             typeof key === 'number' &&
             split[0].length <= 9

@@ -10,15 +10,15 @@ const admin = "2";
 const partner = "3";
 const client = "4";
 
-export const scopedProducts = (currentUser, products) => { // Fetch inside findAllUsers controller
-    if (currentUser.roleId === sadmin || currentUser.roleId === admin) return products; // If Super Admin or admin return all products
-    return products.filter(product => product.deleted === false); // Else return only not deleted products
+export const scopedProducts = (currentUser, products) => { /* Fetch inside findAllUsers controller */
+    if (currentUser.roleId === sadmin || currentUser.roleId === admin) return products; /* If Super Admin or admin return all products */
+    return products.filter(product => product.deleted === false); /* Else return only not deleted products */
 }
 
-export const setProduct = async (req, res, next) => { // For id's parameters routes to set the ticket values from DB
-    if (req.currentUser.roleId === sadmin || req.currentUser.roleId === admin) { // If sadmin / admin can see deleted ones
+export const setProduct = async (req, res, next) => { /* For id's parameters routes to set the ticket values from DB */
+    if (req.currentUser.roleId === sadmin || req.currentUser.roleId === admin) { /* If sadmin / admin can see deleted ones */
         req.product = await Product.findOne({ where: { id: req.params.id } });
-    } else { // Else show only not deleted ones
+    } else { /* Else show only not deleted ones */
         req.product = await Product.findOne({ where: { id: req.params.id, deleted: false } });
     }
     if (!req.product) return res.status(404).json({ error: `Le produit n'existe pas !` });
@@ -64,7 +64,7 @@ export const validFormCreateProduct = async (req, res, next) => {
         description: req.body.description,
         price: req.body.price,
         stock: req.body.stock,
-        path: req.files.image.name, //traitement
+        path: req.files.image.name, /* traitement */
         deleted: false,
         shopId: req.currentUser.shopId
     }
@@ -89,10 +89,10 @@ export const validFormUpdateProduct = async (req, res, next) => {
         if (!isValidStock(req.body.stock)) return res.status(401).json({ error: `Format de stock non-valide !` });
         req.product.stock = req.body.stock;
     }
-    if (req.files) { // Voir comment vérifier les logos
+    if (req.files) { /* Voir comment vérifier les logos */
         if (!isValidImage(req.files.image)) return res.status(401).json({ error: `Format de fichier non-valide !` });
         req.product.path = req.currentUser.shopId + '/Products/' + req.params.id + '/' + req.files.image.name;
     }
-    req.body = req.product.dataValues; // Store the new values
+    req.body = req.product.dataValues; /* Store the new values */
     next();
 }

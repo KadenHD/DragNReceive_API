@@ -30,7 +30,7 @@ export const getCurrentUser = async (req, res) => {
     if (!token) return res.status(200).json({ currentUser: null });
     try {
         req.currentUser = jwt.verify(token, process.env.SECRET_TOKEN);
-        req.currentUser = await User.findByPk(req.currentUser.id); // For all request who need to be logged in, put the current user inside the request
+        req.currentUser = await User.findByPk(req.currentUser.id); /* For all request who need to be logged in, put the current user inside the request */
         return res.status(200).json({ currentUser: req.currentUser });
     } catch (error) {
         return res.status(200).json({ currentUser: null });

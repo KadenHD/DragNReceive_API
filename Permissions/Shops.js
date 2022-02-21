@@ -11,28 +11,28 @@ const admin = "2";
 const partner = "3";
 const client = "4";
 
-export const scopedShops = async (currentUser, shops) => { // Fetch inside findAllShops controller
-    for (let i = 0; i < shops.length; i++) { // Stock in each shops their products.
-        if (currentUser.roleId === sadmin || currentUser.roleId === admin) { // If sadmin / admin can see deleted ones
+export const scopedShops = async (currentUser, shops) => { /* Fetch inside findAllShops controller */
+    for (let i = 0; i < shops.length; i++) { /* Stock in each shops their products. */
+        if (currentUser.roleId === sadmin || currentUser.roleId === admin) { /* If sadmin / admin can see deleted ones */
             shops[i].dataValues.products = await Product.findAll({ where: { shopId: shops[i].id } });
-        } else { // Else show only not deleted ones
+        } else { /* Else show only not deleted ones */
             shops[i].dataValues.products = await Product.findAll({ where: { shopId: shops[i].id, deleted: false } });
         }
     }
-    if (currentUser.roleId === sadmin || currentUser.roleId === admin) return shops; // If Super Admin or admin return all shops
-    return shops.filter(shop => shop.deleted === false); // Else return only not deleted shops
+    if (currentUser.roleId === sadmin || currentUser.roleId === admin) return shops; /* If Super Admin or admin return all shops */
+    return shops.filter(shop => shop.deleted === false); /* Else return only not deleted shops */
 }
 
-export const setShop = async (req, res, next) => { // For id's parameters routes to set the shop values from DB
-    if (req.currentUser.roleId === sadmin || req.currentUser.roleId === admin) { // If sadmin / admin can see deleted ones
+export const setShop = async (req, res, next) => { /* For id's parameters routes to set the shop values from DB */
+    if (req.currentUser.roleId === sadmin || req.currentUser.roleId === admin) { /* If sadmin / admin can see deleted ones */
         req.shop = await Shop.findOne({ where: { id: req.params.id } });
-    } else { // Else show only not deleted ones
+    } else { /* Else show only not deleted ones */
         req.shop = await Shop.findOne({ where: { id: req.params.id, deleted: false } });
     }
     if (!req.shop) return res.status(404).json({ error: `La boutique n'existe pas !` });
-    if (req.currentUser.roleId === sadmin || req.currentUser.roleId === admin) { // If sadmin / admin can see deleted ones
+    if (req.currentUser.roleId === sadmin || req.currentUser.roleId === admin) { /* If sadmin / admin can see deleted ones */
         req.shop.dataValues.products = await Product.findAll({ where: { shopId: req.shop.id } });
-    } else { // Else show only not deleted ones
+    } else { /* Else show only not deleted ones */
         req.shop.dataValues.products = await Product.findAll({ where: { shopId: req.shop.id, deleted: false } });
     }
     next();
@@ -61,11 +61,11 @@ export const authUpdateShop = (req, res, next) => {
 }
 
 export const validFormCreateShop = async (req, res, next) => {
-    // Check exists and validities
+    /* Check exists and validities */
     if (!req.body.email || !req.body.name) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
     if (await emailExist(req.body.email)) return res.status(401).json({ error: `L'email est déjà prise !` });
     if (await nameExist(req.body.name)) return res.status(401).json({ error: `Le nom est déjà pris !` });
-    // Check valids formats
+    /* Check valids formats */
     if (!isValidEmail(req.body.email)) return res.status(401).json({ error: `Format d'email non-valide !` });
     if (!isValidName(req.body.name)) return res.status(401).json({ error: `Format de nom non-valide !` });
     req.body = {
@@ -107,10 +107,10 @@ export const validFormUpdateShop = async (req, res, next) => {
         if (!isValidPostal(req.body.postal)) return res.status(401).json({ error: `Format de code postal non-valide !` });
         req.shop.postal = req.body.postal;
     }
-    if (req.files) { // Voir comment vérifier les logos
+    if (req.files) { /* Voir comment vérifier les logos */
         if (!isValidLogo(req.files.logo)) return res.status(401).json({ error: `Format de fichier non-valide !` });
         req.shop.path = '/Companies/' + req.params.id + '/Logo/' + req.files.logo.name;
     }
-    req.body = req.shop.dataValues; // Store the new values
+    req.body = req.shop.dataValues; /* Store the new values */
     next();
 }

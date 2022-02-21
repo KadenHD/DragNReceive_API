@@ -67,7 +67,7 @@ export const updateOrder = async (req, res) => {
                     error: `Une erreur est survenue de lors de la modification de la commande.`
                 });
             });
-        //Product update stock if canceled
+        /* Product update stock if canceled */
     }
     res.status(200).json({
         success: `La commande a bien été modifiée.`

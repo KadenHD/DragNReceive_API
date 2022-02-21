@@ -14,7 +14,7 @@ export const canViewShop = (currentUser, shop) => {
     return (
         currentUser.roleId === sadmin ||
         currentUser.roleId === admin ||
-        shop.deleted === false // not deleted
+        shop.deleted === false /* not deleted  */
     );
 }
 
@@ -29,6 +29,6 @@ export const canUpdateShop = (currentUser, shop) => {
     return (
         currentUser.shopId === shop.id &&
         currentUser.roleId === partner &&
-        shop.deleted === false // Its the not deleted shop of only a partner
+        shop.deleted === false /* Its the not deleted shop of only a partner  */
     );
 }

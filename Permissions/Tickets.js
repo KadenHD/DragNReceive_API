@@ -10,21 +10,21 @@ const admin = "2";
 const partner = "3";
 const client = "4";
 
-export const scopedTickets = async (currentUser, tickets) => { // Fetch inside findAllTickets controller
+export const scopedTickets = async (currentUser, tickets) => { /* Fetch inside findAllTickets controller */
     /* Store inside reqs */
     for (let i = 0; i < tickets.length; i++) {
-        const user = await User.findByPk(tickets[i].userId); // Add user inside tickets
+        const user = await User.findByPk(tickets[i].userId); /* Add user inside tickets */
         tickets[i].dataValues.user = user.dataValues;
         const messages = await Message.findAll({ where: { ticketId: tickets[i].id } });
         tickets[i].dataValues.messages = messages;
     }
     /* fetch returns */
-    if (currentUser.roleId === sadmin) return tickets; // If Super Admin return all tickets
-    if (currentUser.roleId === admin) return tickets.filter(ticket => ticket.dataValues.user.roleId === partner || ticket.dataValues.user.roleId === client || ticket.userId === currentUser.id) // If Admin return only partner and client and own
-    return tickets.filter(ticket => ticket.userId === currentUser.id); // Else return only himself
+    if (currentUser.roleId === sadmin) return tickets; /* If Super Admin return all tickets */
+    if (currentUser.roleId === admin) return tickets.filter(ticket => ticket.dataValues.user.roleId === partner || ticket.dataValues.user.roleId === client || ticket.userId === currentUser.id) /* If Admin return only partner and client and own */
+    return tickets.filter(ticket => ticket.userId === currentUser.id); /* Else return only himself */
 }
 
-export const setTicket = async (req, res, next) => { // For id's parameters routes to set the ticket values from DB
+export const setTicket = async (req, res, next) => { /* For id's parameters routes to set the ticket values from DB */
     req.ticket = await Ticket.findByPk(req.params.id);
     if (!req.ticket) return res.status(404).json({ error: `Le ticket n'existe pas !` });
     req.ticket.dataValues.user = await User.findByPk(req.ticket.userId);

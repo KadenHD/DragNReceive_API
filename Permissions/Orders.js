@@ -14,7 +14,7 @@ const available = "3";
 const collected = "4";
 const canceled = "5";
 
-export const scopedOrders = async (currentUser, orders) => { // Fetch inside findAllUsers controller
+export const scopedOrders = async (currentUser, orders) => { /* Fetch inside findAllUsers controller */
     for (let i = 0; i < orders.length; i++) {
         orders[i].product = await Product.findByPk(orders[i].productId);
     }
@@ -23,7 +23,7 @@ export const scopedOrders = async (currentUser, orders) => { // Fetch inside fin
     return orders.filter(order => order.userId === currentUser.id);
 }
 
-export const setOrder = async (req, res, next) => { // For id's parameters routes to set the order values from DB
+export const setOrder = async (req, res, next) => { /* For id's parameters routes to set the order values from DB */
     req.order = await Order.findByPk(req.params.id);
     if (!req.order) return res.status(404).json({ error: `La commande n'existe pas !` });
     req.orders = await Order.findAll({ where: { number: req.order.number } });

@@ -1,7 +1,7 @@
 import { instanceFiles } from '../FileSystems/FileSystems.js';
 
-// Delete the values if on production 
-// String who create the .env file
+/* Delete the values if on production */
+/* String who create the .env file */
 let envContent = "";
 envContent += "###> DataBase parameters ###\n";
 envContent += "DB_NAME=dragnreceive\n";

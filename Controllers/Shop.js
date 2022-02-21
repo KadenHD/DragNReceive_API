@@ -45,7 +45,7 @@ export const findOneShop = (req, res) => {
 export const deleteShop = (req, res) => {
     Shop.update(req.body, { where: { id: req.params.id } })
         .then(num => {
-            // update deleted true to all products
+            /* update deleted true to all products and users (and store folder) */
             res.status(200).json({
                 success: `La boutique a bien été supprimée.`
             });
@@ -60,7 +60,7 @@ export const deleteShop = (req, res) => {
 export const updateShop = (req, res) => {
     Shop.update(req.body, { where: { id: req.params.id } })
         .then(num => {
-            if (req.files) { // save img
+            if (req.files) { /* save img */
                 writeShop(req.params.id, req.files.logo);
             }
             res.status(200).json({

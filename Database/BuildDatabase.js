@@ -1,6 +1,6 @@
 import sequelize from './DBConfig.js';
 
-import { Shop, Product, Role, User, Order, Ticket, Message, TicketStatus, OrderStatus } from '../Models/Models.js'; //Keep It
+import { Shop, Product, Role, User, Order, Ticket, Message, TicketStatus, OrderStatus } from '../Models/Models.js'; /* KeepIt */
 
 sequelize
     .sync({ force: true })

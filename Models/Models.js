@@ -8,9 +8,9 @@ import Order from './Order.js';
 import OrderStatus from './OrderStatus.js';
 import TicketStatus from './TicketStatus.js';
 
-// All the relations, FK and constraints from Models
+/* All the relations, FK and constraints from Models */
 
-// User <-> Role
+/* User <-> Role */
 User.belongsTo(Role, {
     foreignKey: {
         allowNull: false
@@ -18,7 +18,7 @@ User.belongsTo(Role, {
 });
 Role.hasMany(User);
 
-// User <-> Shop
+/* User <-> Shop */
 User.belongsTo(Shop, {
     foreignKey: {
         allowNull: true
@@ -26,7 +26,7 @@ User.belongsTo(Shop, {
 });
 Shop.hasMany(User);
 
-// Ticket <-> User
+/* Ticket <-> User */
 Ticket.belongsTo(User, {
     foreignKey: {
         allowNull: false
@@ -35,7 +35,7 @@ Ticket.belongsTo(User, {
 });
 User.hasMany(Ticket);
 
-// Message <-> User
+/* Message <-> User */
 Message.belongsTo(User, {
     foreignKey: {
         allowNull: false
@@ -44,7 +44,7 @@ Message.belongsTo(User, {
 });
 User.hasMany(Message);
 
-// Message <-> Ticket
+/* Message <-> Ticket */
 Message.belongsTo(Ticket, {
     foreignKey: {
         allowNull: false
@@ -53,7 +53,7 @@ Message.belongsTo(Ticket, {
 });
 Ticket.hasMany(Message);
 
-// Product <-> Shop
+/* Product <-> Shop */
 Product.belongsTo(Shop, {
     foreignKey: {
         allowNull: false
@@ -63,7 +63,7 @@ Shop.hasMany(Product, {
     onDelete: 'CASCADE'
 });
 
-// Order <-> User
+/* Order <-> User */
 Order.belongsTo(User, {
     foreignKey: {
         allowNull: false
@@ -72,7 +72,7 @@ Order.belongsTo(User, {
 });
 User.hasMany(Order);
 
-// Order <-> Product
+/* Order <-> Product */
 Order.belongsTo(Product, {
     foreignKey: {
         allowNull: false
@@ -80,7 +80,7 @@ Order.belongsTo(Product, {
 });
 Product.hasMany(Order);
 
-// Order <-> OrderStatus
+/* Order <-> OrderStatus */
 Order.belongsTo(OrderStatus, {
     foreignKey: {
         allowNull: false
@@ -88,7 +88,7 @@ Order.belongsTo(OrderStatus, {
 });
 OrderStatus.hasMany(Order);
 
-// Ticket <-> TicketStatus
+/* Ticket <-> TicketStatus */
 Ticket.belongsTo(TicketStatus, {
     foreignKey: {
         allowNull: false

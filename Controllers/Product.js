@@ -59,7 +59,7 @@ export const findOneProduct = (req, res) => {
 export const updateProduct = async (req, res) => {
     Product.update(req.body, { where: { id: req.params.id } })
         .then(num => {
-            if (req.files.image) { // Save img
+            if (req.files) { /* Save img */
                 writeProduct(req.body.id, req.body.shopId, req.files.image);
             }
             res.status(200).json({
