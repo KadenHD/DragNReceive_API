@@ -133,3 +133,10 @@ export const isValidLogo = (key) => {
         key.mimetype === 'image/png'
     );
 }
+
+export const isValidPhoto = (key) => {
+    return (
+        key.mimetype === 'image/jpeg' ||
+        key.mimetype === 'image/png'
+    );
+}

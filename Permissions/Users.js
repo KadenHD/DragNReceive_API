@@ -5,7 +5,7 @@ import { User, Shop } from '../Models/Models.js';
 
 import { emailExist, shopExist, roleExist } from '../Validations/Exists.js';
 import { canViewUser, canCreateUser, canDeleteUser, canUpdateUser } from '../Validations/Users.js';
-import { isValidEmail, isValidFirstName, isValidLastName, isValidPassword } from '../Validations/Formats.js';
+import { isValidEmail, isValidFirstName, isValidLastName, isValidPassword, isValidPhoto } from '../Validations/Formats.js';
 
 const sadmin = "1";
 const admin = "2";
@@ -21,6 +21,7 @@ export const scopedUsers = async (currentUser, users) => { // Fecth inside FindA
     }
     if (currentUser.roleId === sadmin) return users;
     if (currentUser.roleId === admin) return users.filter(user => user.roleId === partner || user.roleId === client || user.id === currentUser.id) // Return Partner Client and himself
+    if (currentUser.roleId === partner) return users.filter(user => user.shopId === currentUser.shopId || user.id === currentUser.id)
     return users.filter(user => user.id === currentUser.id); // Return only himself
 }
 
@@ -86,16 +87,21 @@ export const validFormUpdateUser = async (req, res, next) => {
         if (!passwordSimilar(req.body.actualPassword, req.user.password)) return res.status(401).json({ error: `Le mot de passe n'est pas correct !` }); // Check if actual password is the same as db
         if (passwordSimilar(req.body.newPassword, req.user.password)) return res.status(401).json({ error: `Le nouveau mot de passe doit être différent de l'ancien !` }); // Check if new password is != as db
         const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
-        req.body = { password: hashedPassword };
+        req.user.password = hashedPassword;
     } else if (req.currentUser.roleId < partner && req.body.lastname && req.body.firstname && req.body.email) { // If its modification made by Admin or SuperAdmin can update last and first name and email only
-        console.log("req.body")
         if (!isValidLastName(req.body.lastname)) return res.status(401).json({ error: `Format de nom non-valide !` });
         if (!isValidFirstName(req.body.firstname)) return res.status(401).json({ error: `Format de prénom non-valide !` });
         if (!isValidEmail(req.body.email)) return res.status(401).json({ error: `Format d'email non-valide !` });
         if (await emailExist(req.body.email) && req.body.email != req.user.email) return res.status(401).json({ error: `L'email est déjà prise !` });
-        req.body = { lastname: req.body.lastname, firstname: req.body.firstname, email: req.body.email };
+        req.user.lastname = req.body.lastname;
+        req.user.firstname = req.body.firstname;
+        req.user.email = req.body.email;
+    } else if (req.currentUser.id == req.user.id && req.files) { // only own modification for image
+        if (!isValidPhoto(req.files.photo)) return res.status(401).json({ error: `Format de fichier non-valide !` });
+        req.user.path = '/Users/' + req.params.id + '/Photo/' + req.files.photo.name;
     } else {
         return res.status(401).json({ error: `Retournez un formulaire valide !` });
     }
+    req.body = req.user.dataValues;
     next();
 }

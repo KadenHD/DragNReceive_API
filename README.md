@@ -108,10 +108,6 @@ npm start
 - Mot de passe oublié + Reset de mot de passe par email + token et le relier à un mailer (mail trap...)
 - La création d'un utilisateur génère un mot de passe aléatoire qui s'envoie par mail à l'utilisateur concerné (l'admin ne rentre plus de mdp)
 - Génération de fausses factures pdf quand statut de la commande passe en préparation (envoi par mail ou alors savoir comment faire télécharger uniquement pour le bon user)
-- Rajouter une image de profil aux users, modifiable uniquement par eux et null à la création ? 
-fonctions fs faite, reste que : 
-dans updateUser dans permission faire comme dans le shop (if (req.files)) 
-dans le user controller un if (req.files) à la modification
     
 ## A la fin
 - Faire des couleurs pour les console.log (visuel pour se repérer)

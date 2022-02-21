@@ -1,7 +1,7 @@
 import { User } from '../Models/Models.js';
 
 import { scopedUsers } from '../Permissions/Users.js';
-import { mkUser, rmUser } from '../FileSystems/Users.js';
+import { mkUser, writeUser, rmUser } from '../FileSystems/Users.js';
 
 export const findAllUsers = async (req, res) => {
     let data = await User.findAll();
@@ -59,6 +59,9 @@ export const deleteUser = (req, res) => {
 export const updateUser = (req, res) => {
     User.update(req.body, { where: { id: req.params.id } })
         .then(data => {
+            if (req.files) {
+                writeUser(req.params.id, req.files.photo);
+            }
             res.status(200).json({
                 success: `L'utilisateur a bien été modifié`
             });

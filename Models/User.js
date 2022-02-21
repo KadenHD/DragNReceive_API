@@ -22,7 +22,11 @@ const User = sequelize.define("user", {
     password: {
         type: Sequelize.STRING(60),
         allowNull: false
-    }
+    },
+    path: {
+        type: Sequelize.STRING(255),
+        allowNull: true
+    },
 });
 
 export default User;
