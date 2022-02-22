@@ -12,8 +12,9 @@ import { mkProduct } from '../FileSystems/Products.js';
 faker.locale = "fr"; /* Usefull the get french faker values */
 
 const fakeInit = async () => {
+    const numTry = 50;
     await defaultDatas();
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < numTry; i++) {
         var shopId = uuidv4();
         const n1 = faker.company.catchPhraseAdjective();
         const n2 = faker.company.bsNoun();
@@ -104,24 +105,22 @@ const fakeInit = async () => {
 const defaultDatas = async () => {
     for (let i = 1; i < 5; i++) {
         mkUser(i);
+        const hashedPassword = await bcrypt.hash("Password1@", 10);
         switch (i) {
             case 1:
-                const hashedSadmin = await bcrypt.hash("sadmin", 10);
                 await Role.create({ id: i, label: "SUPERADMIN" });
-                await User.create({ id: i, lastname: "sadmin", firstname: "sadmin", email: "sadmin@sadmin.sadmin", password: hashedSadmin, roleId: i, shopId: null });
+                await User.create({ id: i, lastname: "Sadmin", firstname: "Sadmin", email: "sadmin@sadmin.sadmin", password: hashedPassword, roleId: i, shopId: null });
                 await TicketStatus.create({ id: i, label: "Open" });
                 await OrderStatus.create({ id: i, label: "Validate" });
                 await OrderStatus.create({ id: i + 1, label: "In progress" });
                 break;
             case 2:
-                const hashedAdmin = await bcrypt.hash("admin", 10);
                 await Role.create({ id: i, label: "ADMIN" });
-                await User.create({ id: i, lastname: "admin", firstname: "admin", email: "admin@admin.admin", password: hashedAdmin, roleId: i, shopId: null });
+                await User.create({ id: i, lastname: "Admin", firstname: "Admin", email: "admin@admin.admin", password: hashedPassword, roleId: i, shopId: null });
                 await TicketStatus.create({ id: i, label: "Close" });
                 await OrderStatus.create({ id: i + 1, label: "Available" });
                 break;
             case 3:
-                const hashedPartner = await bcrypt.hash("partner", 10);
                 const shopId = uuidv4()
                 const n1 = faker.company.catchPhraseAdjective();
                 const n2 = faker.company.bsNoun();
@@ -137,13 +136,12 @@ const defaultDatas = async () => {
                     path: null,
                     deleted: false
                 });
-                await User.create({ id: i, lastname: "partner", firstname: "partner", email: "partner@partner.partner", password: hashedPartner, roleId: i, shopId: shopId });
+                await User.create({ id: i, lastname: "Partner", firstname: "Partner", email: "partner@partner.partner", password: hashedPassword, roleId: i, shopId: shopId });
                 await OrderStatus.create({ id: i + 1, label: "Collected" });
                 break;
             case 4:
-                const hashedClient = await bcrypt.hash("client", 10);
                 await Role.create({ id: i, label: "CLIENT" });
-                await User.create({ id: i, lastname: "client", firstname: "client", email: "client@client.client", password: hashedClient, roleId: i, shopId: null });
+                await User.create({ id: i, lastname: "Client", firstname: "Client", email: "client@client.client", password: hashedPassword, roleId: i, shopId: null });
                 await OrderStatus.create({ id: i + 1, label: "Canceled" });
                 break;
         }
