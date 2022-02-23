@@ -20,8 +20,7 @@ export const canViewShop = (currentUser, shop) => {
 
 export const canDeleteShop = (currentUser, shop) => {
     return (
-        currentUser.roleId === sadmin ||
-        currentUser.roleId === admin
+        currentUser.roleId === sadmin
     );
 }
 
