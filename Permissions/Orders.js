@@ -34,19 +34,19 @@ export const setOrder = async (req, res, next) => { /* For id's parameters route
 }
 
 export const authCreateOrder = (req, res, next) => {
-    if (!canCreateOrder(req.currentUser, req.body)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à créer une commande !` });
+    if (!canCreateOrder(req.currentUser, req.body)) return res.status(403).json({ error: `Vous n'êtes pas autorisé à créer une commande !` });
     next();
 }
 
 export const authGetOrder = (req, res, next) => {
-    if (!canViewOrder(req.currentUser, req.order)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à voir cette commande !` });
+    if (!canViewOrder(req.currentUser, req.order)) return res.status(403).json({ error: `Vous n'êtes pas autorisé à voir cette commande !` });
     next();
 }
 
 export const authUpdateOrder = async (req, res, next) => {
     for (let i = 0; i < req.body.orders.length; i++) {
         const product = await Product.findByPk(req.body.orders[i].productId);
-        if (!canUpdateOrder(req.currentUser, req.body.orders[i], product)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à modifier cette commande !` });
+        if (!canUpdateOrder(req.currentUser, req.body.orders[i], product)) return res.status(403).json({ error: `Vous n'êtes pas autorisé à modifier cette commande !` });
     }
     next();
 }
@@ -54,12 +54,12 @@ export const authUpdateOrder = async (req, res, next) => {
 export const validFormCreateOrder = async (req, res, next) => {
     for (let i = 0; i < req.body.orders.length; i++) {
         const { quantities, price, productId } = req.body.orders[i];
-        if (!quantities, !price, !productId) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
+        if (!quantities, !price, !productId) return res.status(403).json({ error: `Le formulaire n'est pas bon !` });
         req.body.orders[i].product = await Product.findByPk(productId);
         if (!req.body.orders[i].product) return res.status(404).json({ error: `Le produit n'existe pas` });
-        if (req.body.orders[i].product.stock < quantities) return res.status(401).json({ error: `Il n'y a pas assez de stocks !` });;
-        if (!isValidQuantities) return res.status(401).json({ error: `Format de quantités non-valide !` });
-        if (!isValidPrice) return res.status(401).json({ error: `Format de prix non-valide !` });
+        if (req.body.orders[i].product.stock < quantities) return res.status(403).json({ error: `Il n'y a pas assez de stocks !` });;
+        if (!isValidQuantities) return res.status(403).json({ error: `Format de quantités non-valide !` });
+        if (!isValidPrice) return res.status(403).json({ error: `Format de prix non-valide !` });
     }
     next();
 }
@@ -80,7 +80,7 @@ export const validFormUpdateOrder = async (req, res, next) => {
         else if (req.body.orders[i].orderStatusId === canceled && req.currentUser.roleId === client && currentUser.id === order.userId && order.orderStatusId === validate) {
             req.body.orders[i] = { id: req.body.orders[i].id, orderStatusId: canceled }
         }
-        else return res.status(401).json({ error: `Vous ne pouvez pas modifier cette commande !` });
+        else return res.status(403).json({ error: `Vous ne pouvez pas modifier cette commande !` });
     }
     next();
 }

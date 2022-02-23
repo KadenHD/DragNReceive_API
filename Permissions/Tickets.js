@@ -34,24 +34,24 @@ export const setTicket = async (req, res, next) => { /* For id's parameters rout
 }
 
 export const authCreateTicket = (req, res, next) => {
-    if (!canCreateTicket(req.currentUser, req.body)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à créer un ticket !` });
+    if (!canCreateTicket(req.currentUser, req.body)) return res.status(403).json({ error: `Vous n'êtes pas autorisé à créer un ticket !` });
     next();
 }
 
 export const authGetTicket = (req, res, next) => {
-    if (!canViewTicket(req.currentUser, req.ticket)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à voir ce ticket !` });
+    if (!canViewTicket(req.currentUser, req.ticket)) return res.status(403).json({ error: `Vous n'êtes pas autorisé à voir ce ticket !` });
     next();
 }
 
 export const authUpdateTicket = (req, res, next) => {
-    if (!canUpdateTicket(req.currentUser, req.ticket)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à modifier ce ticket !` });
+    if (!canUpdateTicket(req.currentUser, req.ticket)) return res.status(403).json({ error: `Vous n'êtes pas autorisé à modifier ce ticket !` });
     next();
 }
 
 export const validFormCreateTicket = async (req, res, next) => {
-    if (!req.body.title || !req.body.content) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
-    if (!isValidTitle(req.body.title)) return res.status(401).json({ error: `Format de titre non-valide !` });
-    if (!isValidContent(req.body.content)) return res.status(401).json({ error: `Format de contenu non-valide !` });
+    if (!req.body.title || !req.body.content) return res.status(403).json({ error: `Le formulaire n'est pas bon !` });
+    if (!isValidTitle(req.body.title)) return res.status(403).json({ error: `Format de titre non-valide !` });
+    if (!isValidContent(req.body.content)) return res.status(403).json({ error: `Format de contenu non-valide !` });
     req.body = {
         id: uuidv4(),
         title: req.body.title,
@@ -63,7 +63,7 @@ export const validFormCreateTicket = async (req, res, next) => {
 }
 
 export const validFormUpdateTicket = async (req, res, next) => {
-    if (req.ticket.ticketStatusId === "2") return res.status(401).json({ error: `Le ticket est déjà clos !` });
+    if (req.ticket.ticketStatusId === "2") return res.status(403).json({ error: `Le ticket est déjà clos !` });
     req.body = { ticketStatusId: "2" };
     next();
 }

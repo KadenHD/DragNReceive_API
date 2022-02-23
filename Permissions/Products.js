@@ -30,34 +30,34 @@ export const setProduct = async (req, res, next) => { /* For id's parameters rou
 export const authCreateProduct = async (req, res, next) => {
     req.product.dataValues.shop = await Shop.findByPk(req.body.shopId);
     if (!req.product.dataValues.shop) return res.status(404).json({ error: `La boutique affiliée à ce produit n'existe pas !` });
-    if (!canCreateProduct(req.currentUser, req.body, req.product.dataValues.shop)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à créer un produit !` });
+    if (!canCreateProduct(req.currentUser, req.body, req.product.dataValues.shop)) return res.status(403).json({ error: `Vous n'êtes pas autorisé à créer un produit !` });
     next();
 }
 
 export const authDeleteProduct = (req, res, next) => {
-    if (!canDeleteProduct(req.currentUser, req.product, req.product.dataValues.shop)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à supprimer ce produit !` });
+    if (!canDeleteProduct(req.currentUser, req.product, req.product.dataValues.shop)) return res.status(403).json({ error: `Vous n'êtes pas autorisé à supprimer ce produit !` });
     req.body = { deleted: true };
     next();
 }
 
 export const authGetProduct = (req, res, next) => {
-    if (!canViewProduct(req.currentUser, req.product, req.product.dataValues.shop)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à voir ce produit !` });
+    if (!canViewProduct(req.currentUser, req.product, req.product.dataValues.shop)) return res.status(403).json({ error: `Vous n'êtes pas autorisé à voir ce produit !` });
     req.body = { deleted: true };
     next();
 }
 
 export const authUpdateProduct = (req, res, next) => {
-    if (!canUpdateProduct(req.currentUser, req.product, req.product.dataValues.shop)) return res.status(401).json({ error: `Vous n'êtes pas autorisé à modifier ce produit !` });
+    if (!canUpdateProduct(req.currentUser, req.product, req.product.dataValues.shop)) return res.status(403).json({ error: `Vous n'êtes pas autorisé à modifier ce produit !` });
     next();
 }
 
 export const validFormCreateProduct = async (req, res, next) => {
-    if (!req.body.name || !req.body.description || !req.body.price || !req.body.stock || !req.files) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
-    if (!isValidName(req.body.name)) return res.status(401).json({ error: `Format de nom non-valide !` });
-    if (!isValidDescription(req.body.description)) return res.status(401).json({ error: `Format de description non-valide !` });
-    if (!isValidPrice(req.body.price)) return res.status(401).json({ error: `Format de prix non-valide !` });
-    if (!isValidStock(req.body.stock)) return res.status(401).json({ error: `Format de stock non-valide !` });
-    if (!isValidImage(req.files.image)) return res.status(401).json({ error: `Format de fichier non-valide !` });
+    if (!req.body.name || !req.body.description || !req.body.price || !req.body.stock || !req.files) return res.status(403).json({ error: `Le formulaire n'est pas bon !` });
+    if (!isValidName(req.body.name)) return res.status(403).json({ error: `Format de nom non-valide !` });
+    if (!isValidDescription(req.body.description)) return res.status(403).json({ error: `Format de description non-valide !` });
+    if (!isValidPrice(req.body.price)) return res.status(403).json({ error: `Format de prix non-valide !` });
+    if (!isValidStock(req.body.stock)) return res.status(403).json({ error: `Format de stock non-valide !` });
+    if (!isValidImage(req.files.image)) return res.status(403).json({ error: `Format de fichier non-valide !` });
     req.body = {
         id: uuidv4(),
         name: req.body.name,
@@ -72,25 +72,25 @@ export const validFormCreateProduct = async (req, res, next) => {
 }
 
 export const validFormUpdateProduct = async (req, res, next) => {
-    if (!req.body.name || !req.body.description || !req.body.price || !req.body.stock) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
+    if (!req.body.name || !req.body.description || !req.body.price || !req.body.stock) return res.status(403).json({ error: `Le formulaire n'est pas bon !` });
     if (req.body.name != req.product.name) {
-        if (!isValidName(req.body.name)) return res.status(401).json({ error: `Format de nom non-valide !` });
+        if (!isValidName(req.body.name)) return res.status(403).json({ error: `Format de nom non-valide !` });
         req.product.name = req.body.name;
     }
     if (req.body.description != req.product.description) {
-        if (!isValidDescription(req.body.description)) return res.status(401).json({ error: `Format de description non-valide !` });
+        if (!isValidDescription(req.body.description)) return res.status(403).json({ error: `Format de description non-valide !` });
         req.product.description = req.body.description;
     }
     if (req.body.price != req.product.price) {
-        if (!isValidPrice(req.body.price)) return res.status(401).json({ error: `Format de prix non-valide !` });
+        if (!isValidPrice(req.body.price)) return res.status(403).json({ error: `Format de prix non-valide !` });
         req.product.price = req.body.price;
     }
     if (req.body.stock != req.product.stock) {
-        if (!isValidStock(req.body.stock)) return res.status(401).json({ error: `Format de stock non-valide !` });
+        if (!isValidStock(req.body.stock)) return res.status(403).json({ error: `Format de stock non-valide !` });
         req.product.stock = req.body.stock;
     }
     if (req.files) { /* Voir comment vérifier les logos */
-        if (!isValidImage(req.files.image)) return res.status(401).json({ error: `Format de fichier non-valide !` });
+        if (!isValidImage(req.files.image)) return res.status(403).json({ error: `Format de fichier non-valide !` });
         req.product.path = req.currentUser.shopId + '/Products/' + req.params.id + '/' + req.files.image.name;
     }
     req.body = req.product.dataValues; /* Store the new values */
