@@ -6,8 +6,7 @@ const client = "4";
 export const canCreateUser = (currentUser, user) => {
     return (
         currentUser.roleId === sadmin || /* Is SuperAdmin */
-        (currentUser.roleId === admin &&
-            (user.roleId === partner || user.roleId === client)) /* Is Admin and user is partner or client */
+        (currentUser.roleId === admin && user.roleId === partner) /* Is Admin and user is partner */
     );
 }
 
