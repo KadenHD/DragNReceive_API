@@ -112,7 +112,6 @@ npm start
     
 ## A la fin
 - Faire des couleurs pour les console.log (visuel pour se repérer)
-- Mettre un uuivid à la génération du secret token (inconnu)
 - Faire le refresh du token en back-end (optionnel)
 
 # Sources
