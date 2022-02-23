@@ -110,7 +110,7 @@ npm start
 - La création d'un utilisateur génère un mot de passe aléatoire qui s'envoie par mail à l'utilisateur concerné (l'admin ne rentre plus de mdp)
 - Génération de fausses factures pdf quand statut de la commande passe en préparation (envoi par mail ou alors savoir comment faire télécharger uniquement pour le bon user)
     
-## A la fin
+## Bonus
 - Faire des couleurs pour les console.log (visuel pour se repérer)
 - Faire le refresh du token en back-end (optionnel)
 
