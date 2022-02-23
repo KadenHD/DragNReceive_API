@@ -37,7 +37,7 @@ const fakeInit = async () => {
             description: faker.commerce.productDescription(),
             price: productPrice,
             stock: faker.datatype.number({ min: 1, max: 100 }),
-            path: '',
+            path: '/default.svg',
             shopId: shopId,
             deleted: false
         })
@@ -121,7 +121,7 @@ const defaultDatas = async () => {
                 await OrderStatus.create({ id: i + 1, label: "Available" });
                 break;
             case 3:
-                const shopId = uuidv4()
+                const shopId = 'partner'
                 const n1 = faker.company.catchPhraseAdjective();
                 const n2 = faker.company.bsNoun();
                 await Role.create({ id: i, label: "PARTNER" });
@@ -136,6 +136,23 @@ const defaultDatas = async () => {
                     path: null,
                     deleted: false
                 });
+                for (let i = 0; i < 15; i++) {
+                    const productId = uuidv4();
+                    await Product.create({
+                        id: productId,
+                        name: faker.commerce.productName(),
+                        description: faker.commerce.productDescription(),
+                        price: faker.datatype.float(),
+                        stock: faker.datatype.number({ min: 1, max: 100 }),
+                        path: '/default.svg',
+                        shopId: shopId,
+                        deleted: false
+                    })
+                        .then(store => {
+                            mkShop(shopId);
+                            mkProduct(productId, shopId);
+                        });
+                }
                 await User.create({ id: i, lastname: "Partner", firstname: "Partner", email: "partner@partner.partner", password: hashedPassword, roleId: i, shopId: shopId });
                 await OrderStatus.create({ id: i + 1, label: "Collected" });
                 break;

@@ -1,7 +1,7 @@
 # Environements file and packages
 node_modules
 .env
-Store
+
 
 # Editors directories / files
 .idea

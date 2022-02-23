@@ -4,7 +4,12 @@ let dir = '';
 
 export const instanceFiles = (envContent) => {
     try {
-        dir = 'Store';
+        dir = 'Store/Companies';
+        if (fs.existsSync(dir)) {
+            fs.rmSync(dir, { recursive: true });
+            console.log("INFO: Folder" + dir + " deleted.");
+        }
+        dir = 'Store/Users';
         if (fs.existsSync(dir)) {
             fs.rmSync(dir, { recursive: true });
             console.log("INFO: Folder" + dir + " deleted.");
@@ -34,7 +39,9 @@ export const instanceFiles = (envContent) => {
 }
 
 export const rmStore = () => {
-    dir = 'Store';
+    dir = 'Store/Companies';
+    if (fs.existsSync(dir)) fs.rmSync(dir, { recursive: true });
+    dir = 'Store/Users';
     if (fs.existsSync(dir)) fs.rmSync(dir, { recursive: true });
 }
 
