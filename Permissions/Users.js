@@ -27,7 +27,7 @@ export const scopedUsers = async (currentUser, users) => { /* Fecth inside FindA
 
 export const setUser = async (req, res, next) => { /* For :id's routes, set the User with his contents */
     req.user = await User.findByPk(req.params.id);
-    if (!req.user) return res.status(403).json({ error: `L'utilisateur n'existe pas !` });
+    if (!req.user) return res.status(404).json({ error: `L'utilisateur n'existe pas !` });
     if (req.currentUser.roleId === partner) { /* If partner store shop */
         req.user.dataValues.shop = await Shop.findByPk(req.user.shopId);
     }
@@ -60,8 +60,8 @@ export const validFormCreateUser = async (req, res, next) => {
     if (await emailExist(req.body.email)) return res.status(403).json({ error: `L'email est déjà prise !` });
     if (req.body.roleId != partner && req.body.shopId) return res.status(403).json({ error: `Pour appartenir à une boutique, il faut être un partenaire !` }); /* If shop but no partner */
     if (req.body.roleId === partner && !req.body.shopId) return res.status(403).json({ error: `Pour être partnaire, il faut appartenir à une boutique !` }); /* If partner but no shop */
-    if (!await roleExist(req.body.roleId)) return res.status(403).json({ error: `Le role n'existe pas` }); /* If role not exist */
-    if (req.body.shopId) if (!await shopExist(req.body.shopId)) return res.status(403).json({ error: `La boutique n'existe pas !` }); /* If shop not exist */
+    if (!await roleExist(req.body.roleId)) return res.status(404).json({ error: `Le role n'existe pas` }); /* If role not exist */
+    if (req.body.shopId) if (!await shopExist(req.body.shopId)) return res.status(404).json({ error: `La boutique n'existe pas !` }); /* If shop not exist */
     /* Check valids formats */
     if (!isValidLastName(req.body.lastname)) return res.status(403).json({ error: `Format de nom non-valide !` });
     if (!isValidFirstName(req.body.firstname)) return res.status(403).json({ error: `Format de prénom non-valide !` });
@@ -92,7 +92,7 @@ export const validFormUpdateUser = async (req, res, next) => {
         if (!isValidLastName(req.body.lastname)) return res.status(403).json({ error: `Format de nom non-valide !` });
         if (!isValidFirstName(req.body.firstname)) return res.status(403).json({ error: `Format de prénom non-valide !` });
         if (!isValidEmail(req.body.email)) return res.status(403).json({ error: `Format d'email non-valide !` });
-        if (await emailExist(req.body.email) && req.body.email != req.user.email) return res.status(403).json({ error: `L'email est déjà prise !` });
+        if (await emailExist(req.body.email) && req.body.email != req.user.email) return res.status(404).json({ error: `L'email est déjà prise !` });
         req.user.lastname = req.body.lastname;
         req.user.firstname = req.body.firstname;
         req.user.email = req.body.email;
