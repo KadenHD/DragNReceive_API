@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { Shop, Product } from '../Models/Models.js';
+import { Shop, Product, User } from '../Models/Models.js';
 
 import { emailExist, nameExist, phoneExist } from '../Validations/Exists.js';
 import { canCreateShop, canViewShop, canDeleteShop, canUpdateShop } from '../Validations/Shops.js';
@@ -34,6 +34,9 @@ export const setShop = async (req, res, next) => { /* For id's parameters routes
         req.shop.dataValues.products = await Product.findAll({ where: { shopId: req.shop.id } });
     } else { /* Else show only not deleted ones */
         req.shop.dataValues.products = await Product.findAll({ where: { shopId: req.shop.id, deleted: false } });
+    }
+    if (req.currentUser.roleId === partner || req.currentUser.roleId === admin || req.currentUser.roleId === sadmin) {
+        req.shop.dataValues.users = await User.findAll({ where: { shopId: req.shop.id } })
     }
     next();
 }
