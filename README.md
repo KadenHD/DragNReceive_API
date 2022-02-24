@@ -112,7 +112,6 @@ npm start
 - Génération de fausses factures pdf quand statut de la commande passe en préparation (envoi par mail ou alors savoir comment faire télécharger uniquement pour le bon user)
     
 ## Bonus
-- Faire des couleurs pour les console.log (visuel pour se repérer)
 - Faire le refresh du token en back-end (optionnel)
 
 # Sources

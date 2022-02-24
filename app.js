@@ -3,6 +3,7 @@ import express from 'express';
 import fileUpload from 'express-fileupload';
 import cors from 'cors';
 import ip from 'ip';
+import chalk from 'chalk';
 
 import router from './Routes/Routes.js';
 
@@ -19,7 +20,8 @@ app.use(cors());
 app.use('/api', router); /* Init the whole routes */
 
 var port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`App running at :
-    - Local :   http://${process.env.BASE_URL}:${port}
-    - Network : http://${ip.address()}:${port}`
-));
+app.listen(port, () => console.log(`
+${chalk.blue('App running at')} :
+    - ${chalk.yellow('Local')} :   ${chalk.bgGray(`http://${process.env.BASE_URL}:${port}`)}
+    - ${chalk.magenta('Network')} : ${chalk.bgGray(`http://${ip.address()}:${port}`)}
+`));

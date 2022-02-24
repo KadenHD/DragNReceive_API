@@ -1,6 +1,7 @@
 import faker from 'faker';
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
+import ChalkMSG from '../Scripts/Chalk.js';
 
 import { Shop, Product, Role, User, Order, Ticket, Message, OrderStatus, TicketStatus } from '../Models/Models.js';
 
@@ -97,7 +98,7 @@ const fakeInit = async () => {
             });
         }
     }
-    console.log("SUCCESS: Fakes values are now inside your Database !");
+    console.log(`${ChalkMSG.SUCCESS}Fakes values are now inside your Database !`);
     process.exit();
 }
 
@@ -166,9 +167,9 @@ const defaultDatas = async () => {
 }
 
 try {
-    console.log("INFO: Launching the Faker script...");
+    console.log(`${ChalkMSG.INFO}Launching the Faker script...`);
     rmStore();
     fakeInit();
 } catch (error) {
-    console.log("ERROR: " + error);
+    console.log(`${ChalkMSG.ERROR}${error}`);
 }

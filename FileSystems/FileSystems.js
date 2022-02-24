@@ -1,4 +1,5 @@
 import fs from 'fs';
+import ChalkMSG from '../Scripts/Chalk.js';
 
 let dir = '';
 
@@ -7,34 +8,34 @@ export const instanceFiles = (envContent) => {
         dir = 'Store/Companies';
         if (fs.existsSync(dir)) {
             fs.rmSync(dir, { recursive: true });
-            console.log("INFO: Folder" + dir + " deleted.");
+            console.log(`${ChalkMSG.INFO}Folder ${dir} created.`);
         }
         dir = 'Store/Users';
         if (fs.existsSync(dir)) {
             fs.rmSync(dir, { recursive: true });
-            console.log("INFO: Folder" + dir + " deleted.");
+            console.log(`${ChalkMSG.INFO}Folder ${dir} created.`);
         }
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
-            console.log("INFO: Folder" + dir + " created.");
+            console.log(`${ChalkMSG.INFO}Folder ${dir} created.`);
         }
         dir = 'Store/Users';
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
-            console.log("INFO: Folder" + dir + " created.");
+            console.log(`${ChalkMSG.INFO}Folder ${dir} created.`);
         }
         dir = 'Store/Companies';
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
-            console.log("INFO: Folder" + dir + " created.");
+            console.log(`${ChalkMSG.INFO}Folder ${dir} created.`);
         }
         dir = '.env';
         fs.writeFile(dir, envContent, function (err) {
             if (err) throw err;
-            console.log("INFO: File" + dir + " created.");
+            console.log(`${ChalkMSG.INFO}File ${dir} created.`);
         });
     } catch (error) {
-        console.log("ERROR: " + error);
+        console.log(`${ChalkMSG.ERROR}${error}`);
     }
 }
 
