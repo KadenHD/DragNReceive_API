@@ -79,7 +79,7 @@ export const isValidStreet = (key) => {
 export const isValidPostal = (key) => {
     return (
         typeof key === 'number' &&
-        key.length === 5
+        key.toString().length === 5
     );
 }
 
@@ -102,7 +102,7 @@ export const isValidPrice = (key) => {
 export const isValidQuantities = (key) => {
     return (
         typeof key === 'number' &&
-        key.length <= 11
+        key.toString().length <= 11
     );
 }
 
@@ -116,7 +116,7 @@ export const isValidDescription = (key) => {
 export const isValidStock = (key) => {
     return (
         typeof key === 'number' &&
-        key.length <= 11
+        key.toString().length <= 11
     );
 }
 
