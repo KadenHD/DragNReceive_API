@@ -73,6 +73,7 @@ export const validFormCreateProduct = async (req, res, next) => {
 
 export const validFormUpdateProduct = async (req, res, next) => {
     if (!req.body.name || !req.body.description || !req.body.price || !req.body.stock) return res.status(403).json({ error: `Le formulaire n'est pas bon !` });
+    if ((req.body.name == req.product.name) && (req.body.description == req.product.description) && (req.body.price == req.product.price) && (req.body.stock == req.product.stock) && (!req.files)) return res.status(401).json({ error: `Vous n'avez pas modifiée le produit !` });
     if (req.body.name != req.product.name) {
         if (!isValidName(req.body.name)) return res.status(403).json({ error: `Format de nom non-valide !` });
         req.product.name = req.body.name;
@@ -91,7 +92,7 @@ export const validFormUpdateProduct = async (req, res, next) => {
     }
     if (req.files) { /* Voir comment vérifier les logos */
         if (!isValidImage(req.files.image)) return res.status(403).json({ error: `Format de fichier non-valide !` });
-        req.product.path = req.currentUser.shopId + '/Products/' + req.params.id + '/' + req.files.image.name;
+        req.product.path = '/Companies/' + req.currentUser.shopId + '/Products/' + req.params.id + '/' + req.files.image.name;
     }
     req.body = req.product.dataValues; /* Store the new values */
     next();
