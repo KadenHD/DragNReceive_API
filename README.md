@@ -104,8 +104,6 @@ npm start
 # To-do
 
 ## Fonctionnel
-- Format de prix et stock non-valides
-
 - test unitaire avec mocha
 
 - une fois la boutique supprimée, supprimer tous les utilisateurs de la boutique (dossiers store aussi) ? ainsi que delete.true leurs produits? 
