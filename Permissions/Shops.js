@@ -18,6 +18,9 @@ export const scopedShops = async (currentUser, shops) => { /* Fetch inside findA
         } else { /* Else show only not deleted ones */
             shops[i].dataValues.products = await Product.findAll({ where: { shopId: shops[i].id, deleted: false } });
         }
+        if (currentUser.roleId === partner || currentUser.roleId === admin || currentUser.roleId === sadmin) {
+            shops[i].dataValues.users = await User.findAll({ where: { shopId: shops[i].id } })
+        }
     }
     if (currentUser.roleId === sadmin || currentUser.roleId === admin) return shops; /* If Super Admin or admin return all shops */
     return shops.filter(shop => shop.deleted === false); /* Else return only not deleted shops */
