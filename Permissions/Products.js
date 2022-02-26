@@ -28,9 +28,9 @@ export const setProduct = async (req, res, next) => { /* For id's parameters rou
 }
 
 export const authCreateProduct = async (req, res, next) => {
-    req.product.dataValues.shop = await Shop.findByPk(req.body.shopId);
-    if (!req.product.dataValues.shop) return res.status(404).json({ error: `La boutique affiliée à ce produit n'existe pas !` });
-    if (!canCreateProduct(req.currentUser, req.body, req.product.dataValues.shop)) return res.status(403).json({ error: `Vous n'êtes pas autorisé à créer un produit !` });
+    req.body.shop = await Shop.findByPk(req.currentUser.shopId);
+    if (!req.body.shop) return res.status(404).json({ error: `La boutique affiliée à ce produit n'existe pas !` });
+    if (!canCreateProduct(req.currentUser, req.body, req.body.shop)) return res.status(403).json({ error: `Vous n'êtes pas autorisé à créer un produit !` });
     next();
 }
 
@@ -53,18 +53,21 @@ export const authUpdateProduct = (req, res, next) => {
 
 export const validFormCreateProduct = async (req, res, next) => {
     if (!req.body.name || !req.body.description || !req.body.price || !req.body.stock || !req.files) return res.status(403).json({ error: `Le formulaire n'est pas bon !` });
+    req.body.price = parseFloat(req.body.price);
+    req.body.stock = parseInt(req.body.stock);
     if (!isValidName(req.body.name)) return res.status(403).json({ error: `Format de nom non-valide !` });
     if (!isValidDescription(req.body.description)) return res.status(403).json({ error: `Format de description non-valide !` });
     if (!isValidPrice(req.body.price)) return res.status(403).json({ error: `Format de prix non-valide !` });
     if (!isValidStock(req.body.stock)) return res.status(403).json({ error: `Format de stock non-valide !` });
     if (!isValidImage(req.files.image)) return res.status(403).json({ error: `Format de fichier non-valide !` });
+    const id = uuidv4();
     req.body = {
-        id: uuidv4(),
+        id: id,
         name: req.body.name,
         description: req.body.description,
         price: req.body.price,
         stock: req.body.stock,
-        path: req.files.image.name, /* traitement */
+        path: '/Companies/' + req.currentUser.shopId + '/Products/' + id + '/' + req.files.image.name,
         deleted: false,
         shopId: req.currentUser.shopId
     }
@@ -83,12 +86,12 @@ export const validFormUpdateProduct = async (req, res, next) => {
         req.product.description = req.body.description;
     }
     if (req.body.price != req.product.price) {
-        if (!isValidPrice(req.body.price)) return res.status(403).json({ error: `Format de prix non-valide !` });
-        req.product.price = req.body.price;
+        if (!isValidPrice(parseFloat(req.body.price))) return res.status(403).json({ error: `Format de prix non-valide !` });
+        req.product.price = parseFloat(req.body.price);
     }
     if (req.body.stock != req.product.stock) {
-        if (!isValidStock(req.body.stock)) return res.status(403).json({ error: `Format de stock non-valide !` });
-        req.product.stock = req.body.stock;
+        if (!isValidStock(parseInt(req.body.stock))) return res.status(403).json({ error: `Format de stock non-valide !` });
+        req.product.stock = parseInt(req.body.stock);
     }
     if (req.files) { /* Voir comment vérifier les logos */
         if (!isValidImage(req.files.image)) return res.status(403).json({ error: `Format de fichier non-valide !` });

@@ -6,23 +6,24 @@ const client = "4";
 export const canCreateProduct = (currentUser, product, shop) => {
     return (
         currentUser.shopId === shop.id &&
-        currentUser.roleId === partner
+        currentUser.roleId === partner &&
+        shop.deleted === false
     );
 }
 
 export const canDeleteProduct = (currentUser, product, shop) => {
     return (
         currentUser.shopId === shop.id &&
-        currentUser.roleId === partner ||
-        (shop.deleted === false &&
-            product.deleted === false)
+        currentUser.roleId === partner &&
+        shop.deleted === false &&
+        product.deleted === false
     );
 }
 
 export const canViewProduct = (currentUser, product, shop) => {
     return (
-        currentUser.roleId === sadmin ||
-        currentUser.roleId === admin ||
+        (currentUser.roleId === sadmin ||
+            currentUser.roleId === admin) ||
         (shop.deleted === false &&
             product.deleted === false)
     );
@@ -31,8 +32,8 @@ export const canViewProduct = (currentUser, product, shop) => {
 export const canUpdateProduct = (currentUser, product, shop) => {
     return (
         currentUser.shopId === shop.id &&
-        currentUser.roleId === partner ||
-        (shop.deleted === false &&
-            product.deleted === false)
+        currentUser.roleId === partner &&
+        shop.deleted === false &&
+        product.deleted === false
     );
 }
