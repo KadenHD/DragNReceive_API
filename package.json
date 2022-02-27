@@ -9,7 +9,7 @@
     "Instance": "node ./Scripts/Instance.js",
     "BuildDB": "node ./Database/BuildDatabase.js",
     "FakeDB": "node ./Scripts/Faker.js",
-    "Test": "node ./Scripts/Test.js"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,10 @@
   },
   "homepage": "https://github.com/KadenHD/DragNReceive_API#readme",
   "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
     "faker": "^5.5.3",
+    "mocha": "^9.2.1",
     "nodemon": "^2.0.14"
   },
   "dependencies": {
