@@ -104,8 +104,6 @@ npm start
 # To-do
 
 ## Fonctionnel
-- test unitaire avec mocha
-
 - une fois la boutique supprimée, supprimer tous les utilisateurs de la boutique (dossiers store aussi) ? ainsi que delete.true leurs produits? 
 - Mot de passe oublié + Reset de mot de passe par email + token et le relier à un mailer (mail trap...)
 - La création d'un utilisateur génère un mot de passe aléatoire qui s'envoie par mail à l'utilisateur concerné (l'admin ne rentre plus de mdp)
