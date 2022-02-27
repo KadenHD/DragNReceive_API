@@ -1,8 +1,8 @@
 import { assert } from 'chai';
 import { emailExist, shopExist } from '../Validations/Exists.js';
 
-describe('Testing exists', () => {
-    describe('Testing email exist', () => {
+describe('Exists', () => {
+    describe('Email exist', () => {
         it('Email exist in Database', async () => {
             let result = false;
             if (await emailExist("admin@admin.admin")) result = true;
@@ -15,7 +15,7 @@ describe('Testing exists', () => {
         });
     });
 
-    describe('Testing shop exist', () => {
+    describe('Shop exist', () => {
         it('Shop exist in Database', async () => {
             let result = false;
             if (await shopExist("partner")) result = true;
