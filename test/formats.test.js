@@ -1,8 +1,8 @@
 import { assert } from 'chai';
 import { isValidEmail, isValidPassword } from '../Validations/Formats.js';
 
-describe('Testing formats', () => {
-    describe('Testing email format', () => {
+describe('Formats', () => {
+    describe('Email format', () => {
         it('Email format is valid', () => {
             let result = isValidEmail("test@test.test");
             assert.equal(result, true);
@@ -21,7 +21,7 @@ describe('Testing formats', () => {
         });
     });
 
-    describe('Testing password format', () => {
+    describe('Password format', () => {
         it('Password format is valid', () => {
             let result = isValidPassword("Password1@");
             assert.equal(result, true);
