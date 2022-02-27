@@ -20,8 +20,10 @@ app.use(cors());
 app.use('/api', router); /* Init the whole routes */
 
 var port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`
-${chalk.blue('App running at')} :
-    - ${chalk.yellow('Local')} :   ${chalk.bgGray(`http://${process.env.BASE_URL}:${port}`)}
-    - ${chalk.magenta('Network')} : ${chalk.bgGray(`http://${ip.address()}:${port}`)}
-`));
+
+export default
+    app.listen(port, () => console.log(`
+    ${chalk.blue('App running at')} :
+        - ${chalk.yellow('Local')} :   ${chalk.bgGray(`http://${process.env.BASE_URL}:${port}`)}
+        - ${chalk.magenta('Network')} : ${chalk.bgGray(`http://${ip.address()}:${port}`)}
+    `));
