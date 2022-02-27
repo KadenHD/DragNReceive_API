@@ -1,4 +1,4 @@
-import { User, Shop, Role, Ticket } from '../Models/Models.js';
+import { User, Shop, Role, Ticket, Product } from '../Models/Models.js';
 
 export const emailExist = (key) => {
     return (
