@@ -30,6 +30,9 @@ export const setTicket = async (req, res, next) => { /* For id's parameters rout
     req.ticket.dataValues.user = await User.findByPk(req.ticket.userId);
     if (!req.ticket.dataValues.user) return res.status(404).json({ error: `L'utilisateur affilié à ce ticket n'existe pas !` });
     req.ticket.dataValues.messages = await Message.findAll({ where: { ticketId: req.ticket.id } });
+    for (let i = 0; i < req.ticket.dataValues.messages.length; i++) {
+        req.ticket.dataValues.messages[i].dataValues.user = await User.findByPk(req.ticket.dataValues.messages[i].userId);
+    }
     next();
 }
 
