@@ -104,7 +104,6 @@ npm start
 # To-do
 
 ## Fonctionnel
-- fonctionnalités de password reset
 
 - une fois la boutique supprimée, supprimer tous les utilisateurs de la boutique (dossiers store aussi), ainsi que delete.true leurs produits.
 
