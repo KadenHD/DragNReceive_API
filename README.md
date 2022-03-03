@@ -109,8 +109,8 @@ npm start
 
 ### Mailer
 
-- Envoie par mail au user quand un admin répond au Ticket
-- Envoie par mail au user quand un ticket est clos
+- Envoie par mail au user quand un admin répond au Ticket (faire côté controller)
+- Envoie par mail au user quand un ticket est clos (faire côté controller)
 
 - Envoie par mail quand la commande est validé
 - Envoie par mail quand la commande est en cours
