@@ -123,3 +123,27 @@ export const createdUser = async (user, password) => {
     else if (user.roleId === "4") { data = createdClientData(user, password); }
     await mailSender(data);
 }
+
+export const resetUser = async (user, link) => {
+    const toMail = user.email;
+    const subjectMail = "Compte Client DragN'Receive créé !";
+    const textMail = `
+    Bonjour ${user.lastname} ${user.firstname},
+    Vous avez demandé une réinitialisation de mot de passe :
+    Lien : ${link}
+    Ce n'est pas vous ? Veuillez changer de mot de passe par sécurité.
+    `;
+    const htmlMail = `
+    <b>Bonjour ${user.lastname} ${user.firstname},</b><br>
+    <b>Vous avez demandé une réinitialisation de mot de passe :</b><br>
+    <b>Lien : ${link}</b><br>
+    <b>Ce n'est pas vous ? Veuillez changer de mot de passe par sécurité.</b>
+    `;
+    const data = {
+        toMail: toMail,
+        subjectMail: subjectMail,
+        textMail: textMail,
+        htmlMail: htmlMail
+    }
+    await mailSender(data);
+}

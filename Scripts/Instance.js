@@ -20,6 +20,11 @@ envContent += "MAILER_HOST=smtp.mailtrap.io\n";
 envContent += "MAILER_PORT=2525\n";
 envContent += "MAILER_USER=ca455d7aca861d\n";
 envContent += "MAILER_PASS=ea3d25e5512bfc\n";
-envContent += "###< NodeMailer parameters ###\n";
+envContent += "###< NodeMailer parameters ###\n\n";
+envContent += "###> WEB Client parameters ###\n";
+envContent += "CLIENT_PORT=8080\n";
+envContent += "CLIENT_URL=localhost\n";
+envContent += "###< WEB Client parameters ###\n\n";
+
 
 instanceFiles(envContent);
