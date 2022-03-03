@@ -4,6 +4,8 @@ import { scopedShops } from '../Permissions/Shops.js';
 
 import { mkShop, writeShop } from '../Scripts/FileSystems.js';
 
+import { createdShop } from '../Scripts/NodeMailer.js';
+
 export const findAllShops = async (req, res) => {
     let data = await Shop.findAll();
     scopedShops(req.currentUser, data)
@@ -21,9 +23,17 @@ export const createShop = (req, res) => {
     Shop.create(req.body)
         .then(data => {
             mkShop(req.body.id);
-            res.status(200).json({
-                success: `La boutique a bien été créée.`
-            });
+            createdShop(req.body)
+                .then(data => {
+                    res.status(200).json({
+                        success: `La boutique a bien été créée.`
+                    });
+                })
+                .catch(err => {
+                    res.status(500).json({
+                        error: `Une erreur est survenue lors de l'envoi du mail.`
+                    });
+                });
         })
         .catch(err => {
             res.status(500).json({

@@ -124,9 +124,9 @@ export const createdUser = async (user, password) => {
     await mailSender(data);
 }
 
-export const resetUser = async (user, link) => {
+export const resetedUser = async (user, link) => {
     const toMail = user.email;
-    const subjectMail = "Compte Client DragN'Receive créé !";
+    const subjectMail = "Demande de réinitialisation de mot de passe !";
     const textMail = `
     Bonjour ${user.lastname} ${user.firstname},
     Vous avez demandé une réinitialisation de mot de passe :
@@ -138,6 +138,28 @@ export const resetUser = async (user, link) => {
     <b>Vous avez demandé une réinitialisation de mot de passe :</b><br>
     <b>Lien : ${link}</b><br>
     <b>Ce n'est pas vous ? Veuillez changer de mot de passe par sécurité.</b>
+    `;
+    const data = {
+        toMail: toMail,
+        subjectMail: subjectMail,
+        textMail: textMail,
+        htmlMail: htmlMail
+    }
+    await mailSender(data);
+}
+
+export const createdShop = async (shop) => {
+    const toMail = shop.email;
+    const subjectMail = `DragN'Receive - Boutique ${shop.name} créée !`;
+    const textMail = `
+    Bonjour boutique ${shop.name},
+    Nous vous confirmons la création de votre boutique, un de nos administrateurs va 
+    s'occuper d'ajouter un Partenaire à votre boutique incessamment sous peu.
+    `;
+    const htmlMail = `
+    <b>Bonjour boutique ${shop.name},</b><br>
+    <b>Nous vous confirmons la création de votre boutique, un de nos administrateurs va 
+    s'occuper d'ajouter un Partenaire à votre boutique incessamment sous peu.</b>
     `;
     const data = {
         toMail: toMail,

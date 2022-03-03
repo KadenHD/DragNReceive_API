@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { WebToken } from '../Models/Models.js';
 import { extractBearerToken } from '../Permissions/TokenJWT.js';
 import { User } from '../Models/Models.js';
-import { resetUser } from '../Scripts/NodeMailer.js';
+import { resetedUser } from '../Scripts/NodeMailer.js';
 
 export const loginUser = async (req, res) => {
     const user = await User.findOne({ where: { email: req.body.email } });
@@ -42,7 +42,7 @@ export const createForgotUser = (req, res) => {
     WebToken.create(req.body)
         .then(data => {
             const link = `http://${process.env.CLIENT_URL}:${process.env.CLIENT_PORT}/reset/${req.body.userId}/${req.body.token}`;
-            resetUser(req.user, link)
+            resetedUser(req.user, link)
                 .then(data => {
                     res.status(200).json({
                         success: `Le token a bien été envoyé.`
