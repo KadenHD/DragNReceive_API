@@ -36,3 +36,11 @@ export const getCurrentUser = async (req, res) => {
         return res.status(200).json({ currentUser: null });
     }
 }
+
+export const createForgotUser = async (req, res) => {
+
+}
+
+export const updateResetUser = async (req, res) => {
+
+}
