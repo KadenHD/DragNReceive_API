@@ -11,7 +11,7 @@ const sequelize = new Sequelize(
         timezone: '+01:00',
         dialect: process.env.DB_DIAL,
         host: process.env.DB_HOST,
-        logging: false /* Uncomment while on prod (avoid consolelog db requests) */
+        //logging: false /* Uncomment while on prod (avoid consolelog db requests) */
     }
 );
 
