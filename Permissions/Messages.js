@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { Ticket, User } from '../Models/Models.js';
+import { Ticket } from '../Models/Models.js';
 
 import { canCreateMessage } from '../Validations/Messages.js';
 import { isValidContent } from '../Validations/Formats.js';
@@ -9,12 +9,6 @@ import { ticketExist } from '../Validations/Exists.js';
 export const setTicket = async (req, res, next) => {
     req.ticket = await Ticket.findByPk(req.body.ticketId);
     if (!req.ticket) return res.status(404).json({ error: `Le ticket n'existe pas !` });
-    next();
-}
-
-export const setUser = async (req, res, next) => {
-    req.user = await User.findByPk(req.ticket.userId);
-    if (!req.user) return res.status(404).json({ error: `L'utilisateur n'existe pas !` });
     next();
 }
 

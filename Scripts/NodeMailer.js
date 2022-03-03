@@ -192,14 +192,14 @@ export const deletedShop = async (shop) => {
 
 export const responsedTicket = async (ticket, user) => {
     const toMail = user.email;
-    const subjectMail = `DragN'Receive - Réponse au ticket n°${ticket.title} !`;
+    const subjectMail = `DragN'Receive - Réponse au ticket n°${ticket.id} !`;
     const textMail = `
     Bonjour ${user.lastname} ${user.firstname},
-    Nous vous confirmons la réponse d'un de nos administrateur sur le ticket n°${ticket.title}.
+    Nous vous confirmons la réponse d'un de nos administrateur sur le ticket n°${ticket.id}.
     `;
     const htmlMail = `
     <b>Bonjour ${user.lastname} ${user.firstname},</b><br>
-    <b>Nous vous confirmons la réponse d'un de nos administrateur sur le ticket n°${ticket.title}.</b>
+    <b>Nous vous confirmons la réponse d'un de nos administrateur sur le ticket n°${ticket.id}.</b>
     `;
     const data = {
         toMail: toMail,
@@ -212,14 +212,14 @@ export const responsedTicket = async (ticket, user) => {
 
 export const closedTicket = async (ticket, user) => {
     const toMail = user.email;
-    const subjectMail = `DragN'Receive - Ticket n°${ticket.title} clos !`;
+    const subjectMail = `DragN'Receive - Ticket n°${ticket.id} clos !`;
     const textMail = `
     Bonjour ${user.lastname} ${user.firstname},
-    Nous vous confirmons que le ticket n°${ticket.title} a bien été clos.
+    Nous vous confirmons que le ticket n°${ticket.id} a bien été clos.
     `;
     const htmlMail = `
     <b>Bonjour ${user.lastname} ${user.firstname},</b><br>
-    <b>Nous vous confirmons que le ticket n°${ticket.title} a bien été clos.</b>
+    <b>Nous vous confirmons que le ticket n°${ticket.id} a bien été clos.</b>
     `;
     const data = {
         toMail: toMail,
