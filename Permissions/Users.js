@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
+import faker from 'faker';
 
 import { User, Shop } from '../Models/Models.js';
 
@@ -56,7 +57,7 @@ export const authUpdateUser = (req, res, next) => {
 
 export const validFormCreateUser = async (req, res, next) => {
     /* Check exists and validities */
-    if (!req.body.lastname || !req.body.firstname || !req.body.email || !req.body.password || !req.body.roleId) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
+    if (!req.body.lastname || !req.body.firstname || !req.body.email || !req.body.roleId) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
     if (await emailExist(req.body.email)) return res.status(403).json({ error: `L'email est déjà prise !` });
     if (req.body.roleId != partner && req.body.shopId) return res.status(403).json({ error: `Pour appartenir à une boutique, il faut être un partenaire !` }); /* If shop but no partner */
     if (req.body.roleId === partner && !req.body.shopId) return res.status(403).json({ error: `Pour être partnaire, il faut appartenir à une boutique !` }); /* If partner but no shop */
@@ -66,8 +67,10 @@ export const validFormCreateUser = async (req, res, next) => {
     if (!isValidLastName(req.body.lastname)) return res.status(403).json({ error: `Format de nom non-valide !` });
     if (!isValidFirstName(req.body.firstname)) return res.status(403).json({ error: `Format de prénom non-valide !` });
     if (!isValidEmail(req.body.email)) return res.status(403).json({ error: `Format d'email non-valide !` });
-    if (!isValidPassword(req.body.password)) return res.status(403).json({ error: `Format de mot de passe non-valide !` });
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    req.password = faker.internet.password(50) + "@" + faker.datatype.number(4) + "_" + faker.random.alpha({ count: 4, upcase: true });
+    console.log(req.password)
+    if (!isValidPassword(req.password)) return res.status(403).json({ error: `Format de mot de passe non-valide !` });
+    const hashedPassword = await bcrypt.hash(req.password, 10);
     req.body = {
         id: uuidv4(),
         lastname: req.body.lastname,
