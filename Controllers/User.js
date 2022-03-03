@@ -2,7 +2,7 @@ import { User } from '../Models/Models.js';
 
 import { scopedUsers } from '../Permissions/Users.js';
 import { mkUser, writeUser, rmUser } from '../Scripts/FileSystems.js';
-import { createdUser } from '../Scripts/NodeMailer.js';
+import { createdUser, deletedUser } from '../Scripts/NodeMailer.js';
 
 export const findAllUsers = async (req, res) => {
     let data = await User.findAll();
@@ -21,17 +21,10 @@ export const createUser = (req, res) => {
     User.create(req.body)
         .then(data => {
             mkUser(req.body.id);
-            createdUser(req.body, req.password)
-                .then(data => {
-                    res.status(200).json({
-                        success: `Le compte a bien été créé.`
-                    });
-                })
-                .catch(err => {
-                    res.status(500).json({
-                        error: `Une erreur est survenue lors de l'envoi du mail.`
-                    });
-                });
+            createdUser(req.body, req.password);
+            res.status(200).json({
+                success: `Le compte a bien été créé.`
+            });
         })
         .catch(err => {
             res.status(500).json({
@@ -54,6 +47,7 @@ export const deleteUser = (req, res) => {
     User.destroy({ where: { id: req.params.id } })
         .then(data => {
             rmUser(req.params.id);
+            deletedUser(req.user);
             res.status(200).json({
                 success: `L'utilisateur a bien été supprimé.`
             });

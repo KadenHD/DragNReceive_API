@@ -42,17 +42,10 @@ export const createForgotUser = (req, res) => {
     WebToken.create(req.body)
         .then(data => {
             const link = `http://${process.env.CLIENT_URL}:${process.env.CLIENT_PORT}/reset/${req.body.userId}/${req.body.token}`;
-            resetedUser(req.user, link)
-                .then(data => {
-                    res.status(200).json({
-                        success: `Le token a bien été envoyé.`
-                    });
-                })
-                .catch(err => {
-                    res.status(500).json({
-                        error: `Une erreur est survenue lors de l'envoi du mail.`
-                    });
-                });
+            resetedUser(req.user, link);
+            res.status(200).json({
+                success: `Le token a bien été envoyé.`
+            });
         })
         .catch(err => {
             res.status(500).json({

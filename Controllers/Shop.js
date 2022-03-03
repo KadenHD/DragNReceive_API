@@ -23,17 +23,10 @@ export const createShop = (req, res) => {
     Shop.create(req.body)
         .then(data => {
             mkShop(req.body.id);
-            createdShop(req.body)
-                .then(data => {
-                    res.status(200).json({
-                        success: `La boutique a bien été créée.`
-                    });
-                })
-                .catch(err => {
-                    res.status(500).json({
-                        error: `Une erreur est survenue lors de l'envoi du mail.`
-                    });
-                });
+            createdShop(req.body);
+            res.status(200).json({
+                success: `La boutique a bien été créée.`
+            });
         })
         .catch(err => {
             res.status(500).json({
@@ -56,19 +49,9 @@ export const deleteShop = (req, res) => {
     Shop.update(req.body, { where: { id: req.params.id } })
         .then(num => {
             /* update deleted true to all products and users (and store folder) and put the deletedShop func inside the then */
-            deletedShop(req.body)
-                .then(data => {
-                    res.status(200).json({
-                        success: `La boutique a bien été désactivée.`
-                    });
-                })
-                .catch(err => {
-                    res.status(500).json({
-                        error: `Une erreur est survenue lors de l'envoi du mail.`
-                    });
-                });
+            deletedShop(req.shop);
             res.status(200).json({
-                success: `La boutique a bien été supprimée.`
+                success: `La boutique a bien été désactivée.`
             });
         })
         .catch(err => {

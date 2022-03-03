@@ -44,17 +44,10 @@ export const findOneTicket = (req, res) => {
 export const updateTicket = (req, res) => {
     Ticket.update(req.body, { where: { id: req.params.id } })
         .then(num => {
-            closedTicket(req.ticket, req.currentUser)
-                .then(data => {
-                    res.status(200).json({
-                        success: `Le ticket a bien été clos`
-                    });
-                })
-                .catch(err => {
-                    res.status(500).json({
-                        error: `Une erreur est survenue lors de l'envoi du mail.`
-                    });
-                });
+            closedTicket(req.ticket, req.ticket.dataValues.user);
+            res.status(200).json({
+                success: `Le ticket a bien été clos`
+            });
         })
         .catch(err => {
             res.status(500).json({

@@ -229,3 +229,23 @@ export const closedTicket = async (ticket, user) => {
     }
     await mailSender(data);
 }
+
+export const deletedUser = async (user) => {
+    const toMail = user.email;
+    const subjectMail = `DragN'Receive - Compte clos !`;
+    const textMail = `
+    Bonjour ${user.lastname} ${user.firstname},
+    C'est dans le regret que nous vous annonçons que votre compte a bien été clos.
+    `;
+    const htmlMail = `
+    <b>Bonjour ${user.lastname} ${user.firstname},</b><br>
+    <b>C'est dans le regret que nous vous annonçons que votre compte a bien été clos.</b>
+    `;
+    const data = {
+        toMail: toMail,
+        subjectMail: subjectMail,
+        textMail: textMail,
+        htmlMail: htmlMail
+    }
+    await mailSender(data);
+}
