@@ -2,7 +2,7 @@ import { Shop } from '../Models/Models.js';
 
 import { scopedShops } from '../Permissions/Shops.js';
 
-import { mkShop, writeShop } from '../FileSystems/Shops.js';
+import { mkShop, writeShop } from '../Scripts/FileSystems.js';
 
 export const findAllShops = async (req, res) => {
     let data = await Shop.findAll();
