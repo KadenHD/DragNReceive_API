@@ -108,7 +108,9 @@ npm start
 
 ### Mailer
 
-- Mot de passe oublié + Reset de mot de passe par email + token
+- Mot de passe oublié + Reset de mot de passe par email + token sur web
+- Envoie de mail une fois la boutique créée
+- Envoie par mail quand la commande est validé
 - Envoie par mail quand la commande est prête
 - Génération de fausses factures pdf quand statut de la commande passe en préparation (envoi par mail)
 
