@@ -5,10 +5,7 @@ import ChalkMSG from '../Scripts/Chalk.js';
 
 import { Shop, Product, Role, User, Order, Ticket, Message, OrderStatus, TicketStatus } from '../Models/Models.js';
 
-import { rmStore } from '../FileSystems/FileSystems.js';
-import { mkShop } from '../FileSystems/Shops.js';
-import { mkUser } from '../FileSystems/Users.js';
-import { mkProduct } from '../FileSystems/Products.js';
+import { rmStore, mkProduct, mkShop, mkUser } from '../Scripts/FileSystems.js';
 
 faker.locale = "fr"; /* Usefull the get french faker values */
 
