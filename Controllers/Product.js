@@ -2,7 +2,7 @@ import { Product } from '../Models/Models.js';
 
 import { scopedProducts } from '../Permissions/Products.js';
 
-import { writeProduct } from '../FileSystems/Products.js';
+import { writeProduct } from '../Scripts/FileSystems.js';
 
 export const findAllProducts = async (req, res) => {
     let data = await Product.findAll();
