@@ -104,11 +104,12 @@ npm start
 # To-do
 
 ## Fonctionnel
+- fonctionnalités de password reset
+
 - une fois la boutique supprimée, supprimer tous les utilisateurs de la boutique (dossiers store aussi), ainsi que delete.true leurs produits.
 
 ### Mailer
 
-- Mot de passe oublié + Reset de mot de passe par email + token sur web (https://github.com/sk-Jahangeer/node-email-password-reset)
 - Envoie de mail une fois la boutique créée
 - Envoie par mail quand la commande est validé
 - Envoie par mail quand la commande est prête
