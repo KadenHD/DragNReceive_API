@@ -15,7 +15,7 @@ let transport = nodemailer.createTransport({
 
 const mailSender = async (data) => {
     await transport.sendMail({
-        from: data.fromMail,
+        from: fromMail,
         to: data.toMail,
         subject: data.subjectMail,
         text: data.textMail,
@@ -25,7 +25,7 @@ const mailSender = async (data) => {
 
 const createdSadminData = (user, password) => {
     const toMail = user.email;
-    const subjectMail = "Compte Super Administrateur DragN'Receive créé !";
+    const subjectMail = "DragN'Receive - Compte Super Administrateur créé !";
     const textMail = `
     Bonjour ${user.lastname} ${user.firstname},
     Vous êtes désormais un Super Administrateur DragN'Receive !
@@ -48,7 +48,7 @@ const createdSadminData = (user, password) => {
 
 const createdAdminData = (user, password) => {
     const toMail = user.email;
-    const subjectMail = "Compte Administrateur DragN'Receive créé !";
+    const subjectMail = "DragN'Receive - Administrateur créé !";
     const textMail = `
     Bonjour ${user.lastname} ${user.firstname},
     Vous êtes désormais un Administrateur DragN'Receive !
@@ -71,7 +71,7 @@ const createdAdminData = (user, password) => {
 
 const createdPartnerData = (user, password) => {
     const toMail = user.email;
-    const subjectMail = "Compte Partenaire DragN'Receive créé !";
+    const subjectMail = "DragN'Receive - Compte Partenaire créé !";
     const textMail = `
     Bonjour ${user.lastname} ${user.firstname},
     Vous êtes désormais un Partenaire DragN'Receive !
@@ -94,7 +94,7 @@ const createdPartnerData = (user, password) => {
 
 const createdClientData = (user, password) => {
     const toMail = user.email;
-    const subjectMail = "Compte Client DragN'Receive créé !";
+    const subjectMail = " DragN'Receive - Compte Client créé !";
     const textMail = `
     Bonjour ${user.lastname} ${user.firstname},
     Vous êtes désormais un Client DragN'Receive !
@@ -126,7 +126,7 @@ export const createdUser = async (user, password) => {
 
 export const resetedUser = async (user, link) => {
     const toMail = user.email;
-    const subjectMail = "Demande de réinitialisation de mot de passe !";
+    const subjectMail = "DragN'Receive - Demande de réinitialisation de mot de passe !";
     const textMail = `
     Bonjour ${user.lastname} ${user.firstname},
     Vous avez demandé une réinitialisation de mot de passe :
@@ -160,6 +160,26 @@ export const createdShop = async (shop) => {
     <b>Bonjour boutique ${shop.name},</b><br>
     <b>Nous vous confirmons la création de votre boutique, un de nos administrateurs va 
     s'occuper d'ajouter un Partenaire à votre boutique incessamment sous peu.</b>
+    `;
+    const data = {
+        toMail: toMail,
+        subjectMail: subjectMail,
+        textMail: textMail,
+        htmlMail: htmlMail
+    }
+    await mailSender(data);
+}
+
+export const deletedShop = async (shop) => {
+    const toMail = shop.email;
+    const subjectMail = `DragN'Receive - Boutique ${shop.name} supprimée !`;
+    const textMail = `
+    Bonjour boutique ${shop.name},
+    Nous vous confirmons la suppression de votre boutique. Merci d'avoir collaboré avec nous jusque là !
+    `;
+    const htmlMail = `
+    <b>Bonjour boutique ${shop.name},</b><br>
+    <b>Nous vous confirmons la suppression de votre boutique. Merci d'avoir collaboré avec nous jusque là !</b>
     `;
     const data = {
         toMail: toMail,

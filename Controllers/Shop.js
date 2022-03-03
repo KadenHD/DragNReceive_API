@@ -4,7 +4,7 @@ import { scopedShops } from '../Permissions/Shops.js';
 
 import { mkShop, writeShop } from '../Scripts/FileSystems.js';
 
-import { createdShop } from '../Scripts/NodeMailer.js';
+import { createdShop, deletedShop } from '../Scripts/NodeMailer.js';
 
 export const findAllShops = async (req, res) => {
     let data = await Shop.findAll();
@@ -55,7 +55,18 @@ export const findOneShop = (req, res) => {
 export const deleteShop = (req, res) => {
     Shop.update(req.body, { where: { id: req.params.id } })
         .then(num => {
-            /* update deleted true to all products and users (and store folder) */
+            /* update deleted true to all products and users (and store folder) and put the deletedShop func inside the then */
+            deletedShop(req.body)
+                .then(data => {
+                    res.status(200).json({
+                        success: `La boutique a bien été désactivée.`
+                    });
+                })
+                .catch(err => {
+                    res.status(500).json({
+                        error: `Une erreur est survenue lors de l'envoi du mail.`
+                    });
+                });
             res.status(200).json({
                 success: `La boutique a bien été supprimée.`
             });

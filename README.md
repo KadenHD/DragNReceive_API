@@ -109,16 +109,14 @@ npm start
 
 ### Mailer
 
+- Envoie par mail au user quand un admin répond au Ticket
+- Envoie par mail au user quand un ticket est clos
+
 - Envoie par mail quand la commande est validé
 - Envoie par mail quand la commande est en cours
 - Envoie par mail quand la commande est prête
 - Envoie par mail quand la commande est récupérée
 - Envoie par mail quand la commande est annulée
-
-- Envoie par mail au user quand un admin répond au Ticket
-- Envoie par mail au user quand un ticket est clos
-
-- Envoie par mail au shop quand elle est deleted
 
 - Génération de fausses factures pdf quand statut de la commande passe en préparation (envoi par mail)
 
