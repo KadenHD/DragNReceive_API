@@ -189,3 +189,43 @@ export const deletedShop = async (shop) => {
     }
     await mailSender(data);
 }
+
+export const responsedTicket = async (ticket, user) => {
+    const toMail = user.email;
+    const subjectMail = `DragN'Receive - Réponse au ticket n°${ticket.title} !`;
+    const textMail = `
+    Bonjour ${user.lastname} ${user.firstname},
+    Nous vous confirmons la réponse d'un de nos administrateur sur le ticket n°${ticket.title}.
+    `;
+    const htmlMail = `
+    <b>Bonjour ${user.lastname} ${user.firstname},</b><br>
+    <b>Nous vous confirmons la réponse d'un de nos administrateur sur le ticket n°${ticket.title}.</b>
+    `;
+    const data = {
+        toMail: toMail,
+        subjectMail: subjectMail,
+        textMail: textMail,
+        htmlMail: htmlMail
+    }
+    await mailSender(data);
+}
+
+export const closedTicket = async (ticket, user) => {
+    const toMail = user.email;
+    const subjectMail = `DragN'Receive - Ticket n°${ticket.title} clos !`;
+    const textMail = `
+    Bonjour ${user.lastname} ${user.firstname},
+    Nous vous confirmons que le ticket n°${ticket.title} a bien été clos.
+    `;
+    const htmlMail = `
+    <b>Bonjour ${user.lastname} ${user.firstname},</b><br>
+    <b>Nous vous confirmons que le ticket n°${ticket.title} a bien été clos.</b>
+    `;
+    const data = {
+        toMail: toMail,
+        subjectMail: subjectMail,
+        textMail: textMail,
+        htmlMail: htmlMail
+    }
+    await mailSender(data);
+}
