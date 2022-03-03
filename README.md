@@ -104,15 +104,13 @@ npm start
 # To-do
 
 ## Fonctionnel
-- Installer mailer : https://mailtrap.io/inboxes/1451056/messages & https://nodemailer.com/about/
-- Mot de passe oublié + Reset de mot de passe par email + token
-
 - une fois la boutique supprimée, supprimer tous les utilisateurs de la boutique (dossiers store aussi), ainsi que delete.true leurs produits.
 
-## Bonus
-- La création d'un utilisateur génère un mot de passe aléatoire qui s'envoie par mail à l'utilisateur concerné (l'admin ne rentre plus de mdp)
-- Génération de fausses factures pdf quand statut de la commande passe en préparation (envoi par mail)
+### Mailer
+
+- Mot de passe oublié + Reset de mot de passe par email + token
 - Envoie par mail quand la commande est prête
+- Génération de fausses factures pdf quand statut de la commande passe en préparation (envoi par mail)
 
 # Sources
 
