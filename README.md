@@ -108,7 +108,7 @@ npm start
 
 ### Mailer
 
-- Mot de passe oublié + Reset de mot de passe par email + token sur web (https://github.com/sk-Jahangeer/node-email-password-reset/tree/master/routes)
+- Mot de passe oublié + Reset de mot de passe par email + token sur web (https://github.com/sk-Jahangeer/node-email-password-reset)
 - Envoie de mail une fois la boutique créée
 - Envoie par mail quand la commande est validé
 - Envoie par mail quand la commande est prête
