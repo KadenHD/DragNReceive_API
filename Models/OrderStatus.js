@@ -2,7 +2,7 @@ import Sequelize from "sequelize";
 
 import sequelize from "../Database/DBConfig.js";
 
-const Role = sequelize.define("orderStatus", {
+const orderStatus = sequelize.define("orderStatus", {
     id: {
         type: Sequelize.STRING(1),
         primaryKey: true
@@ -13,4 +13,4 @@ const Role = sequelize.define("orderStatus", {
     }
 });
 
-export default Role;
+export default orderStatus;
