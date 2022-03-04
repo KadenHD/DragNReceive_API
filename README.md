@@ -105,7 +105,6 @@ npm start
 
 ## Fonctionnel
 
-- Faker ne dois créer des tickets qu'aux partner et client
 - une fois la boutique supprimée, supprimer tous les utilisateurs de la boutique (dossiers store aussi), ainsi que delete.true leurs produits. (mail chaques users)
 
 ### Mailer

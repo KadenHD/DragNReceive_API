@@ -51,11 +51,14 @@ const fakeInit = async () => {
         const hashPassword = await bcrypt.hash("test", 10);
         const ln = faker.name.lastName();
         const fn = faker.name.firstName();
+        let email = faker.internet.email(fn, ln);
+        if (roleId === "1" || roleId === "2") { email = fn + "-" + ln + "@dragnreceive.fr" }
+        else if (roleId === "3") { email = fn + "-" + ln + "@" + n1 + "-" + n2 + ".fr" }
         await User.create({
             id: userId,
             lastname: ln,
             firstname: fn,
-            email: faker.internet.email(fn, ln),
+            email: email,
             password: hashPassword,
             roleId: roleId,
             shopId: shopId
@@ -78,21 +81,23 @@ const fakeInit = async () => {
             });
         }
         const ticketId = uuidv4();
-        await Ticket.create({
-            id: ticketId,
-            title: faker.lorem.sentence(4),
-            content: faker.lorem.sentence(),
-            userId: userId,
-            ticketStatusId: faker.datatype.number({ min: 1, max: 2 })
-        });
-        for (let j = 0; j < 10; j++) {
-            const messageId = uuidv4();
-            await Message.create({
-                id: messageId,
+        if (roleId == "3" || roleId == "4") {
+            await Ticket.create({
+                id: ticketId,
+                title: faker.lorem.sentence(4),
                 content: faker.lorem.sentence(),
                 userId: userId,
-                ticketId: ticketId
+                ticketStatusId: faker.datatype.number({ min: 1, max: 2 })
             });
+            for (let j = 0; j < 10; j++) {
+                const messageId = uuidv4();
+                await Message.create({
+                    id: messageId,
+                    content: faker.lorem.sentence(),
+                    userId: userId,
+                    ticketId: ticketId
+                });
+            }
         }
     }
     console.log(`${ChalkMSG.SUCCESS}Fakes values are now inside your Database !`);
