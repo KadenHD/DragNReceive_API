@@ -1,10 +1,15 @@
-import { Shop } from '../Models/Models.js';
+import { Shop, Product, User } from '../Models/Models.js';
 
 import { scopedShops } from '../Permissions/Shops.js';
 
 import { mkShop, writeShop } from '../Scripts/FileSystems.js';
 
 import { createdShop, deletedShop } from '../Scripts/NodeMailer.js';
+
+import { deletedUser } from '../Scripts/NodeMailer.js';
+
+import { rmUser } from '../Scripts/FileSystems.js';
+
 
 export const findAllShops = async (req, res) => {
     let data = await Shop.findAll();
@@ -47,9 +52,18 @@ export const findOneShop = (req, res) => {
 
 export const deleteShop = (req, res) => {
     Shop.update(req.body, { where: { id: req.params.id } })
-        .then(num => {
-            /* update deleted true to all products and users (and store folder) and put the deletedShop func inside the then */
-            deletedShop(req.shop);
+        .then(async num => {
+            deletedShop(req.shop)
+            for (let i = 0; i < req.shop.dataValues.products.length; i++) {
+                if (req.shop.dataValues.products[i].deleted === false) {
+                    Product.update({ deleted: true }, { where: { id: req.shop.dataValues.products[i].id } });
+                }
+            }
+            for (let i = 0; i < req.shop.dataValues.users.length; i++) {
+                User.destroy({ where: { id: req.shop.dataValues.users[i].id } });
+                rmUser(req.shop.dataValues.users[i].id);
+                deletedUser(req.shop.dataValues.users[i]);
+            }
             res.status(200).json({
                 success: `La boutique a bien été désactivée.`
             });

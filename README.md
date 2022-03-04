@@ -105,7 +105,7 @@ npm start
 
 ## Fonctionnel
 
-- une fois la boutique supprimée, supprimer tous les utilisateurs de la boutique (dossiers store aussi), ainsi que delete.true leurs produits. (mail chaques users)
+- 
 
 ### Mailer
 
