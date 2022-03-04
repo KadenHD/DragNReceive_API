@@ -1,8 +1,5 @@
 import nodemailer from 'nodemailer';
 
-import dotenv from 'dotenv';
-dotenv.config(); /* Add the variables from .env file to process.env */
-
 let fromMail = '"Service DragN\'Receive" <service@dragnreceive.fr>';
 let transport = nodemailer.createTransport({
     host: process.env.MAILER_HOST,
@@ -27,13 +24,13 @@ const createdSadminData = (user, password) => {
     const toMail = user.email;
     const subjectMail = "DragN'Receive - Compte Super Administrateur créé !";
     const textMail = `
-    Bonjour ${user.lastname} ${user.firstname},
+    Bonjour ${user.firstname} ${user.lastname},
     Vous êtes désormais un Super Administrateur DragN'Receive !
     Voici votre mot de passe pour vous connecter, nous vous recommandons de le changer une fois connecté !
     Mot de passe : ${password}
     `;
     const htmlMail = `
-    <b>Bonjour ${user.lastname} ${user.firstname},</b><br>
+    <b>Bonjour ${user.firstname} ${user.lastname},</b><br>
     <b>Vous êtes désormais un Super Administrateur DragN'Receive !</b><br>
     <b>Voici votre mot de passe pour vous connecter, nous vous recommandons de le changer une fois connecté !</b><br>
     <b>Mot de passe : ${password}</b>
@@ -50,13 +47,13 @@ const createdAdminData = (user, password) => {
     const toMail = user.email;
     const subjectMail = "DragN'Receive - Administrateur créé !";
     const textMail = `
-    Bonjour ${user.lastname} ${user.firstname},
+    Bonjour ${user.firstname} ${user.lastname},
     Vous êtes désormais un Administrateur DragN'Receive !
     Voici votre mot de passe pour vous connecter, nous vous recommandons de le changer une fois connecté !
     Mot de passe : ${password}
     `;
     const htmlMail = `
-    <b>Bonjour ${user.lastname} ${user.firstname},</b><br>
+    <b>Bonjour ${user.firstname} ${user.lastname},</b><br>
     <b>Vous êtes désormais un Administrateur DragN'Receive !</b><br>
     <b>Voici votre mot de passe pour vous connecter, nous vous recommandons de le changer une fois connecté !</b><br>
     <b>Mot de passe : ${password}</b>
@@ -73,13 +70,13 @@ const createdPartnerData = (user, password) => {
     const toMail = user.email;
     const subjectMail = "DragN'Receive - Compte Partenaire créé !";
     const textMail = `
-    Bonjour ${user.lastname} ${user.firstname},
+    Bonjour ${user.firstname} ${user.lastname},
     Vous êtes désormais un Partenaire DragN'Receive !
     Voici votre mot de passe pour vous connecter, nous vous recommandons de le changer une fois connecté !
     Mot de passe : ${password}
     `;
     const htmlMail = `
-    <b>Bonjour ${user.lastname} ${user.firstname},</b><br>
+    <b>Bonjour ${user.firstname} ${user.lastname},</b><br>
     <b>Vous êtes désormais un Partenaire DragN'Receive !</b><br>
     <b>Voici votre mot de passe pour vous connecter, nous vous recommandons de le changer une fois connecté !</b><br>
     <b>Mot de passe : ${password}</b>
@@ -96,13 +93,13 @@ const createdClientData = (user, password) => {
     const toMail = user.email;
     const subjectMail = " DragN'Receive - Compte Client créé !";
     const textMail = `
-    Bonjour ${user.lastname} ${user.firstname},
+    Bonjour ${user.firstname} ${user.lastname},
     Vous êtes désormais un Client DragN'Receive !
     Voici votre mot de passe pour vous connecter, nous vous recommandons de le changer une fois connecté !
     Mot de passe : ${password}
     `;
     const htmlMail = `
-    <b>Bonjour ${user.lastname} ${user.firstname},</b><br>
+    <b>Bonjour ${user.firstname} ${user.lastname},</b><br>
     <b>Vous êtes désormais un Client DragN'Receive !</b><br>
     <b>Voici votre mot de passe pour vous connecter, nous vous recommandons de le changer une fois connecté !</b><br>
     <b>Mot de passe : ${password}</b>
@@ -128,13 +125,13 @@ export const resetedUser = async (user, link) => {
     const toMail = user.email;
     const subjectMail = "DragN'Receive - Demande de réinitialisation de mot de passe !";
     const textMail = `
-    Bonjour ${user.lastname} ${user.firstname},
+    Bonjour ${user.firstname} ${user.lastname},
     Vous avez demandé une réinitialisation de mot de passe :
     Lien : ${link}
     Ce n'est pas vous ? Veuillez changer de mot de passe par sécurité.
     `;
     const htmlMail = `
-    <b>Bonjour ${user.lastname} ${user.firstname},</b><br>
+    <b>Bonjour ${user.firstname} ${user.lastname},</b><br>
     <b>Vous avez demandé une réinitialisation de mot de passe :</b><br>
     <b>Lien : ${link}</b><br>
     <b>Ce n'est pas vous ? Veuillez changer de mot de passe par sécurité.</b>
@@ -194,11 +191,11 @@ export const responsedTicket = async (ticket, user) => {
     const toMail = user.email;
     const subjectMail = `DragN'Receive - Réponse au ticket n°${ticket.id} !`;
     const textMail = `
-    Bonjour ${user.lastname} ${user.firstname},
+    Bonjour ${user.firstname} ${user.lastname},
     Nous vous confirmons la réponse d'un de nos administrateur sur le ticket n°${ticket.id}.
     `;
     const htmlMail = `
-    <b>Bonjour ${user.lastname} ${user.firstname},</b><br>
+    <b>Bonjour ${user.firstname} ${user.lastname},</b><br>
     <b>Nous vous confirmons la réponse d'un de nos administrateur sur le ticket n°${ticket.id}.</b>
     `;
     const data = {
@@ -214,11 +211,11 @@ export const closedTicket = async (ticket, user) => {
     const toMail = user.email;
     const subjectMail = `DragN'Receive - Ticket n°${ticket.id} clos !`;
     const textMail = `
-    Bonjour ${user.lastname} ${user.firstname},
+    Bonjour ${user.firstname} ${user.lastname},
     Nous vous confirmons que le ticket n°${ticket.id} a bien été clos.
     `;
     const htmlMail = `
-    <b>Bonjour ${user.lastname} ${user.firstname},</b><br>
+    <b>Bonjour ${user.firstname} ${user.lastname},</b><br>
     <b>Nous vous confirmons que le ticket n°${ticket.id} a bien été clos.</b>
     `;
     const data = {
@@ -234,11 +231,11 @@ export const deletedUser = async (user) => {
     const toMail = user.email;
     const subjectMail = `DragN'Receive - Compte clos !`;
     const textMail = `
-    Bonjour ${user.lastname} ${user.firstname},
+    Bonjour ${user.firstname} ${user.lastname},
     C'est dans le regret que nous vous annonçons que votre compte a bien été clos.
     `;
     const htmlMail = `
-    <b>Bonjour ${user.lastname} ${user.firstname},</b><br>
+    <b>Bonjour ${user.firstname} ${user.lastname},</b><br>
     <b>C'est dans le regret que nous vous annonçons que votre compte a bien été clos.</b>
     `;
     const data = {
