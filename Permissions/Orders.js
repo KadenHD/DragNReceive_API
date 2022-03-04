@@ -1,4 +1,4 @@
-import { Order, Product } from '../Models/Models.js';
+import { Order, Product, User } from '../Models/Models.js';
 
 import { canViewOrder, canCreateOrder, canUpdateOrder } from '../Validations/Orders.js';
 import { isValidPrice, isValidQuantities } from '../Validations/Formats.js';
@@ -15,12 +15,84 @@ const collected = "4";
 const canceled = "5";
 
 export const scopedOrders = async (currentUser, orders) => { /* Fetch inside findAllUsers controller */
-    for (let i = 0; i < orders.length; i++) {
-        orders[i].product = await Product.findByPk(orders[i].productId);
+    if (currentUser.roleId === sadmin || currentUser.roleId === admin) {
+        let numberTab = [];
+        for (let i = 0; i < orders.length; i++) {
+            let numberExist = false;
+            for (let j = 0; j < numberTab.length; j++) {
+                if (orders[i].number === numberTab[j]) {
+                    numberExist = true;
+                }
+            }
+            if (!numberExist) {
+                numberTab.push(orders[i].number)
+            }
+        }
+        let finalTab = [];
+        for (let j = 0; j < numberTab.length; j++) {
+            const orders = await Order.findAll({ where: { number: numberTab[j] } })
+            const user = await User.findByPk(orders[0].userId);
+            for (let i = 0; i < orders.length; i++) {
+                orders[i].dataValues.product = await Product.findByPk(orders[i].productId)
+            }
+            finalTab[j] = { orders: orders, user: user };
+        }
+        return finalTab
     }
-    if (currentUser.roleId === sadmin || currentUser.roleId === admin) return orders;
-    if (currentUser.roleId === partner) return orders.filter(order => order.product.shopId === currentUser.shopId);
-    return orders.filter(order => order.userId === currentUser.id);
+    else if (currentUser.roleId === partner) {
+        let numberTab = [];
+        for (let i = 0; i < orders.length; i++) {
+            let numberExist = false;
+            for (let j = 0; j < numberTab.length; j++) {
+                if (orders[i].number === numberTab[j] && orders[i].shopId === currentUser.shopId) {
+                    numberExist = true;
+                }
+            }
+            if (!numberExist) {
+                numberTab.push(orders[i].number)
+            }
+        }
+        let finalTab = [];
+        for (let j = 0; j < numberTab.length; j++) {
+            const orders = await Order.findAll({ where: { number: numberTab[j], shopId: currentUser.shopId } })
+            if (orders.length != 0) {
+                const user = await User.findByPk(orders[0].userId);
+
+                for (let i = 0; i < orders.length; i++) {
+                    orders[i].dataValues.product = await Product.findByPk(orders[i].productId)
+                }
+                finalTab.push({ orders: orders, user: user })
+            }
+        }
+        return finalTab
+    }
+    else if (currentUser.roleId === client) {
+        let numberTab = [];
+        for (let i = 0; i < orders.length; i++) {
+            let numberExist = false;
+            for (let j = 0; j < numberTab.length; j++) {
+                if (orders[i].number === numberTab[j] && orders[i].userId === currentUser.id) {
+                    numberExist = true;
+                }
+            }
+            if (!numberExist) {
+                numberTab.push(orders[i].number)
+            }
+        }
+        let finalTab = [];
+        for (let j = 0; j < numberTab.length; j++) {
+            const orders = await Order.findAll({ where: { number: numberTab[j], userId: currentUser.id } })
+            if (orders.length != 0) {
+                const user = await User.findByPk(orders[0].userId);
+
+                for (let i = 0; i < orders.length; i++) {
+                    orders[i].dataValues.product = await Product.findByPk(orders[i].productId)
+                }
+                finalTab.push({ orders: orders, user: user })
+            }
+        }
+        return finalTab
+    }
 }
 
 export const setOrder = async (req, res, next) => { /* For id's parameters routes to set the order values from DB */
@@ -28,9 +100,11 @@ export const setOrder = async (req, res, next) => { /* For id's parameters route
     if (!req.order) return res.status(404).json({ error: `La commande n'existe pas !` });
     req.orders = await Order.findAll({ where: { number: req.order.number } });
     if (!req.orders) return res.status(404).json({ error: `La commande n'existe pas !` });
+    req.orders.dataValues.user = await User.findByPk(req.order.userId);
     for (let i = 0; i < req.orders.length; i++) {
         req.orders[i].dataValues.product = await Product.findByPk(req.orders[i].productId);
     }
+    next();
 }
 
 export const authCreateOrder = (req, res, next) => {
@@ -54,7 +128,7 @@ export const authUpdateOrder = async (req, res, next) => {
 export const validFormCreateOrder = async (req, res, next) => {
     for (let i = 0; i < req.body.orders.length; i++) {
         const { quantities, price, productId } = req.body.orders[i];
-        if (!quantities, !price, !productId) return res.status(403).json({ error: `Le formulaire n'est pas bon !` });
+        if (!quantities || !price || !productId) return res.status(403).json({ error: `Le formulaire n'est pas bon !` });
         req.body.orders[i].product = await Product.findByPk(productId);
         if (!req.body.orders[i].product) return res.status(404).json({ error: `Le produit n'existe pas` });
         if (req.body.orders[i].product.stock < quantities) return res.status(403).json({ error: `Il n'y a pas assez de stocks !` });;

@@ -105,27 +105,7 @@ npm start
 
 ## Fonctionnel
 
-- Risque de devoir modifier le set et scoped orders pour avoir quelque chose de plus simplifié par exemple pour les admin : 
-{
-  orders: [
-    [
-      toutes les commandes du même numéro de commande
-    ],
-    [
-      //
-    ],
-  ]
-
-  alors que pour un partenaire :
-    orders: [
-    [
-      toutes les commandes du même numéro de commande affilié au shop
-    ],
-    [
-      //
-    ],
-  ]
-}
+- modifier l'order create (pendant le dev mobile)
 
 ### Mailer
 
