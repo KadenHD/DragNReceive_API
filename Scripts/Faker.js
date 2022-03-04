@@ -44,6 +44,7 @@ const fakeInit = async () => {
                 mkProduct(productId, shopId);
             });
         const roleId = faker.datatype.number({ min: 1, max: 4 }).toString();
+        const orderShopId = shopId;
         if (roleId != 3) {
             shopId = null;
         }
@@ -77,6 +78,7 @@ const fakeInit = async () => {
                 number: uuidv4(),
                 userId: userId,
                 productId: productId,
+                shopId: orderShopId,
                 orderStatusId: faker.datatype.number({ min: 1, max: 3 })
             });
         }
@@ -163,6 +165,7 @@ const defaultDatas = async () => {
                 await Role.create({ id: i, label: "CLIENT" });
                 await User.create({ id: i, lastname: "Client", firstname: "Client", email: "client@client.client", password: hashedPassword, roleId: i, shopId: null });
                 await OrderStatus.create({ id: i + 1, label: "Canceled" });
+                // rajouter pleins d'order du client pour le partner dans un for
                 break;
         }
     }

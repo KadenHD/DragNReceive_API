@@ -29,6 +29,7 @@ export const createOrder = async (req, res) => {
             number: number,
             userId: req.currentUser.id,
             productId: productId,
+            shopId: req.body.orders[i].product.shopId,
             orderStatusId: "1"
         };
         const product = { stock: req.body.orders[i].product.stock - quantities };

@@ -89,6 +89,14 @@ Order.belongsTo(Product, {
 });
 Product.hasMany(Order);
 
+Order.belongsTo(Shop, {
+    foreignKey: {
+        allowNull: false
+    },
+    onDelete: 'CASCADE'
+});
+Shop.hasMany(Order);
+
 /* Order <-> OrderStatus */
 Order.belongsTo(OrderStatus, {
     foreignKey: {
