@@ -32,10 +32,14 @@ export const scopedOrders = async (currentUser, orders) => { /* Fetch inside fin
         for (let j = 0; j < numberTab.length; j++) {
             const orders = await Order.findAll({ where: { number: numberTab[j] } })
             const user = await User.findByPk(orders[0].userId);
+            let status = orders[0].orderStatusId;
+            let price = 0;
             for (let i = 0; i < orders.length; i++) {
                 orders[i].dataValues.product = await Product.findByPk(orders[i].productId)
+                price += orders[i].price * orders[i].quantities;
+                if (status > orders[i].orderStatusId) { status = orders[i].orderStatusId }
             }
-            finalTab[j] = { orders: orders, user: user };
+            finalTab[j] = { price: price, status: status, orders: orders, user: user, number: orders[0].number };
         }
         return finalTab
     }
@@ -57,11 +61,14 @@ export const scopedOrders = async (currentUser, orders) => { /* Fetch inside fin
             const orders = await Order.findAll({ where: { number: numberTab[j], shopId: currentUser.shopId } })
             if (orders.length != 0) {
                 const user = await User.findByPk(orders[0].userId);
-
+                let status = orders[0].orderStatusId;
+                let price = 0;
                 for (let i = 0; i < orders.length; i++) {
                     orders[i].dataValues.product = await Product.findByPk(orders[i].productId)
+                    price += orders[i].price * orders[i].quantities;
+                    if (status > orders[i].orderStatusId) { status = orders[i].orderStatusId }
                 }
-                finalTab.push({ orders: orders, user: user })
+                finalTab.push({ price: price, status: status, orders: orders, user: user, number: orders[0].number })
             }
         }
         return finalTab
@@ -84,11 +91,14 @@ export const scopedOrders = async (currentUser, orders) => { /* Fetch inside fin
             const orders = await Order.findAll({ where: { number: numberTab[j], userId: currentUser.id } })
             if (orders.length != 0) {
                 const user = await User.findByPk(orders[0].userId);
-
+                let status = orders[0].orderStatusId;
+                let price = 0;
                 for (let i = 0; i < orders.length; i++) {
                     orders[i].dataValues.product = await Product.findByPk(orders[i].productId)
+                    price += orders[i].price * orders[i].quantities;
+                    if (status > orders[i].orderStatusId) { status = orders[i].orderStatusId }
                 }
-                finalTab.push({ orders: orders, user: user })
+                finalTab.push({ price: price, status: status, orders: orders, user: user, number: orders[0].number })
             }
         }
         return finalTab

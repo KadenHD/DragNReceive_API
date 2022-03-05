@@ -109,11 +109,11 @@ npm start
 
 ### Mailer
 
-- Envoie par mail quand la commande est validé
-- Envoie par mail quand la commande est en cours
-- Envoie par mail quand la commande est prête
-- Envoie par mail quand la commande est récupérée
-- Envoie par mail quand la commande est annulée
+- Envoie par mail quand la commande est validé (user / shop)
+- Envoie par mail quand la commande est en cours (user)
+- Envoie par mail quand la commande est prête (user)
+- Envoie par mail quand la commande est récupérée (user)
+- Envoie par mail quand la commande est annulée (shop (si seulement validée tmtc))
 
 - Génération de fausses factures pdf quand statut de la commande passe en préparation (envoi par mail)
 
