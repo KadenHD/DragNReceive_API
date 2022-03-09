@@ -246,3 +246,91 @@ export const deletedUser = async (user) => {
     }
     await mailSender(data);
 }
+
+export const updatedOrderInProgress = async (user, orderNumber, shop) => {
+    const toMail = user.email;
+    const subjectMail = `DragN'Receive - Commande n°${orderNumber} en cours de préparation !`;
+    const textMail = `
+    Bonjour ${user.firstname} ${user.lastname},
+    Votre commande est en cours de préparation dans le magasins suivant : 
+    ${shop.name}
+    `;
+    const htmlMail = `
+    <b>Bonjour ${user.firstname} ${user.lastname},</b><br>
+    <b>Votre commande est en cours de préparation dans le magasins suivant : </b><br>
+    <b>${shop.name}</b>
+    `;
+    const data = {
+        toMail: toMail,
+        subjectMail: subjectMail,
+        textMail: textMail,
+        htmlMail: htmlMail
+    }
+    await mailSender(data);
+}
+
+export const updatedOrderAvailable = async (user, orderNumber, shop) => {
+    const toMail = user.email;
+    const subjectMail = `DragN'Receive - Commande n°${orderNumber} disponible !`;
+    const textMail = `
+    Bonjour ${user.firstname} ${user.lastname},
+    Votre commande est en disponible dans le magasins suivant : 
+    ${shop.name}
+    `;
+    const htmlMail = `
+    <b>Bonjour ${user.firstname} ${user.lastname},</b><br>
+    <b>Votre commande est disponible dans le magasins suivant : </b><br>
+    <b>${shop.name}</b>
+    `;
+    const data = {
+        toMail: toMail,
+        subjectMail: subjectMail,
+        textMail: textMail,
+        htmlMail: htmlMail
+    }
+    await mailSender(data);
+}
+
+export const updatedOrderCollected = async (user, orderNumber, shop) => {
+    const toMail = user.email;
+    const subjectMail = `DragN'Receive - Commande n°${orderNumber} récupéré !`;
+    const textMail = `
+    Bonjour ${user.firstname} ${user.lastname},
+    Votre commande a bien été recupéré dans le magasins suivant : 
+    ${shop.name}
+    `;
+    const htmlMail = `
+    <b>Bonjour ${user.firstname} ${user.lastname},</b><br>
+    <b>Votre commande a bien été recupéré dans le magasins suivant : </b><br>
+    <b>${shop.name}</b>
+    `;
+    const data = {
+        toMail: toMail,
+        subjectMail: subjectMail,
+        textMail: textMail,
+        htmlMail: htmlMail
+    }
+    await mailSender(data);
+}
+
+export const updatedOrderCanceled = async (user, orderNumber, shop) => {
+    const toMail = user.email;
+    const subjectMail = `DragN'Receive - Commande n°${orderNumber} annulé !`;
+    const textMail = `
+    Bonjour ${user.firstname} ${user.lastname},
+    Votre commande a bien été annulé dans le magasins suivant : 
+    ${shop.name}
+    `;
+    const htmlMail = `
+    <b>Bonjour ${user.firstname} ${user.lastname},</b><br>
+    <b>Votre commande a bien été annulé dans le magasins suivant : </b><br>
+    <b>${shop.name}</b>
+    `;
+    const data = {
+        toMail: toMail,
+        subjectMail: subjectMail,
+        textMail: textMail,
+        htmlMail: htmlMail
+    }
+    await mailSender(data);
+}
