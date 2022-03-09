@@ -165,7 +165,50 @@ const defaultDatas = async () => {
                 await Role.create({ id: i, label: "CLIENT" });
                 await User.create({ id: i, lastname: "Client", firstname: "Client", email: "client@client.client", password: hashedPassword, roleId: i, shopId: null });
                 await OrderStatus.create({ id: i + 1, label: "Canceled" });
-                // rajouter pleins d'order du client pour le partner dans un for
+                await Product.create({
+                    id: "product",
+                    name: faker.commerce.productName(),
+                    description: faker.commerce.productDescription(),
+                    price: faker.datatype.float(),
+                    stock: faker.datatype.number({ min: 1, max: 100 }),
+                    path: '/default.svg',
+                    shopId: "partner",
+                    deleted: false
+                })
+                for (let i = 0; i < 30; i++) {
+                    const number = uuidv4();
+                    const orderStatusId = faker.datatype.number({ min: 1, max: 5 });
+                    await Order.create({
+                        id: uuidv4(),
+                        quantities: faker.datatype.number({ min: 1, max: 20 }),
+                        price: faker.datatype.number({ min: 1, max: 20 }) * faker.datatype.number({ min: 1, max: 20 }),
+                        number: number,
+                        userId: "4",
+                        productId: "product",
+                        shopId: "partner",
+                        orderStatusId: orderStatusId
+                    });
+                    await Order.create({
+                        id: uuidv4(),
+                        quantities: faker.datatype.number({ min: 1, max: 20 }),
+                        price: faker.datatype.number({ min: 1, max: 20 }) * faker.datatype.number({ min: 1, max: 20 }),
+                        number: number,
+                        userId: "4",
+                        productId: "product",
+                        shopId: "partner",
+                        orderStatusId: orderStatusId
+                    });
+                    await Order.create({
+                        id: uuidv4(),
+                        quantities: faker.datatype.number({ min: 1, max: 20 }),
+                        price: faker.datatype.number({ min: 1, max: 20 }) * faker.datatype.number({ min: 1, max: 20 }),
+                        number: number,
+                        userId: "4",
+                        productId: "product",
+                        shopId: "partner",
+                        orderStatusId: orderStatusId
+                    });
+                }
                 break;
         }
     }
