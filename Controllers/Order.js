@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Order, Product } from '../Models/Models.js';
 
 import { scopedOrders } from '../Permissions/Orders.js';
+import { updatedOrderAvailable, updatedOrderCanceled, updatedOrderCollected, updatedOrderInProgress } from '../Scripts/NodeMailer.js';
 
 export const findAllOrder = async (req, res) => {
     let data = await Order.findAll();
@@ -63,12 +64,29 @@ export const updateOrder = async (req, res) => {
     for (let i = 0; i < orders.length; i++) {
         const order = { orderStatusId: req.body.orders[i].orderStatusId }
         await Order.update(order, { where: { id: orders[i].id } })
+            .then(async data => {
+                if (req.body.orders[i].orderStatusId === "5") {
+                    const product = { stock: req.body.orders[i].product.stock + req.body.orders[i].quantities };
+                    await Product.update(product, order.productId);
+                }
+            })
             .catch(err => {
                 res.status(500).json({
                     error: `Une erreur est survenue de lors de la modification de la commande.`
                 });
             });
-        /* Product update stock if canceled */
+    }
+    if (req.body.orders[0].orderStatusId === "2") {
+        updatedOrderInProgress(currentUser, req.body.orders[0].number, req.orders[0].shopId);
+    }
+    else if (req.body.orders[0].orderStatusId === "3") {
+        updatedOrderAvailable(currentUser, req.body.orders[0].number, req.orders[0].shopId);
+    }
+    else if (req.body.orders[0].orderStatusId === "4") {
+        updatedOrderCollected(currentUser, req.body.orders[0].number, req.orders[0].shopId);
+    }
+    else if (req.body.orders[0].orderStatusId === "5") {
+        updatedOrderCanceled(currentUser, req.body.orders[0].number, req.orders[0].shopId);
     }
     res.status(200).json({
         success: `La commande a bien été modifiée.`
