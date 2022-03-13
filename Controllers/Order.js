@@ -48,15 +48,13 @@ export const createOrder = async (req, res) => {
 }
 
 export const findOneOrder = (req, res) => {
-    Order.findByPk(req.params.id)
-        .then(data => {
-            res.status(200).json(data);
-        })
-        .catch(err => {
-            res.status(500).json({
-                error: `Une erreur est survenue lors de la recherche de la commande.`
-            });
+    try {
+        res.status(200).json(req.orders)
+    } catch (err) {
+        res.status(500).json({
+            error: `Une erreur est survenue lors de la recherche de la commande.`
         });
+    }
 }
 
 export const updateOrder = async (req, res) => {

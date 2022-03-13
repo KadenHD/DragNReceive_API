@@ -9,15 +9,6 @@ export const canCreateOrder = (currentUser, order) => {
     );
 }
 
-export const canViewOrder = (currentUser, order) => {
-    return (
-        currentUser.roleId === sadmin ||
-        currentUser.roleId === admin ||
-        (currentUser.roleId === partner && order.product.shopId === currentUser.shopId) ||
-        (currentUser.roleId === client && order.userId === currentUser.id)
-    );
-}
-
 export const canUpdateOrder = (currentUser, order, product) => {
     return (
         (currentUser.roleId === partner && product.shopId === currentUser.shopId) ||

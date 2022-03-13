@@ -1,6 +1,6 @@
 import { Order, Product, User } from '../Models/Models.js';
 
-import { canViewOrder, canCreateOrder, canUpdateOrder } from '../Validations/Orders.js';
+import { canCreateOrder, canUpdateOrder } from '../Validations/Orders.js';
 import { isValidPrice, isValidQuantities } from '../Validations/Formats.js';
 
 const sadmin = "1";
@@ -48,7 +48,7 @@ export const scopedOrders = async (currentUser, orders) => { /* Fetch inside fin
         for (let i = 0; i < orders.length; i++) {
             let numberExist = false;
             for (let j = 0; j < numberTab.length; j++) {
-                if (orders[i].number === numberTab[j] && orders[i].shopId === currentUser.shopId) {
+                if (orders[i].number === numberTab[j] && orders[i].shopId === currentUser.shopId) { // is own shop only
                     numberExist = true;
                 }
             }
@@ -78,7 +78,7 @@ export const scopedOrders = async (currentUser, orders) => { /* Fetch inside fin
         for (let i = 0; i < orders.length; i++) {
             let numberExist = false;
             for (let j = 0; j < numberTab.length; j++) {
-                if (orders[i].number === numberTab[j] && orders[i].userId === currentUser.id) {
+                if (orders[i].number === numberTab[j] && orders[i].userId === currentUser.id) { // is own orders only
                     numberExist = true;
                 }
             }
@@ -106,24 +106,33 @@ export const scopedOrders = async (currentUser, orders) => { /* Fetch inside fin
 }
 
 export const setOrder = async (req, res, next) => { /* For id's parameters routes to set the order values from DB */
-    req.order = await Order.findByPk(req.params.id);
-    if (!req.order) return res.status(404).json({ error: `La commande n'existe pas !` });
-    req.orders = await Order.findAll({ where: { number: req.order.number } });
-    if (!req.orders) return res.status(404).json({ error: `La commande n'existe pas !` });
-    req.orders.dataValues.user = await User.findByPk(req.order.userId);
+    const orders = await Order.findAll({ where: { number: req.params.number } });
+    if (!orders) return res.status(404).json({ error: `La commande n'existe pas !` });
+    if (req.currentUser.roleId == sadmin || req.currentUser.roleId == admin) {
+        req.orders = orders
+    } else if (req.currentUser.roleId == partner) {
+        req.orders = orders.filter(order => order.shopId === req.currentUser.shopId)
+        if (!req.orders) { return res.status(404).json({ error: `Vous n'êtes pas autorisé à voir cette commande !` }); }
+    } else if (req.currentUser.roleId == client) {
+        if (orders[0].userId === req.currentUser.id) { req.orders = orders }
+        else { return res.status(404).json({ error: `Vous n'êtes pas autorisé à voir cette commande !` }); }
+    } else {
+        return res.status(404).json({ error: `Vous n'êtes pas autorisé à voir cette commande !` });
+    }
+    const user = await User.findByPk(orders[0].userId);
+    let status = orders[0].orderStatusId;
+    let price = 0;
     for (let i = 0; i < req.orders.length; i++) {
-        req.orders[i].dataValues.product = await Product.findByPk(req.orders[i].productId);
+        req.orders[i].dataValues.user = user;
+        req.orders[i].dataValues.product = await Product.findByPk(orders[i].productId)
+        price += req.orders[i].price * req.orders[i].quantities;
+        if (status > req.orders[i].orderStatusId) { status = req.orders[i].orderStatusId }
     }
     next();
 }
 
 export const authCreateOrder = (req, res, next) => {
     if (!canCreateOrder(req.currentUser, req.body)) return res.status(403).json({ error: `Vous n'êtes pas autorisé à créer une commande !` });
-    next();
-}
-
-export const authGetOrder = (req, res, next) => {
-    if (!canViewOrder(req.currentUser, req.order)) return res.status(403).json({ error: `Vous n'êtes pas autorisé à voir cette commande !` });
     next();
 }
 
