@@ -166,8 +166,28 @@ const defaultDatas = async () => {
                 await User.create({ id: i, lastname: "Client", firstname: "Client", email: "client@client.client", password: hashedPassword, roleId: i, shopId: null });
                 await OrderStatus.create({ id: i + 1, label: "Canceled" });
                 await Product.create({
-                    id: "product",
-                    name: faker.commerce.productName(),
+                    id: "product1",
+                    name: "product1",
+                    description: faker.commerce.productDescription(),
+                    price: faker.datatype.float(),
+                    stock: faker.datatype.number({ min: 1, max: 100 }),
+                    path: '/default.svg',
+                    shopId: "partner",
+                    deleted: false
+                })
+                await Product.create({
+                    id: "product2",
+                    name: "product2",
+                    description: faker.commerce.productDescription(),
+                    price: faker.datatype.float(),
+                    stock: faker.datatype.number({ min: 1, max: 100 }),
+                    path: '/default.svg',
+                    shopId: "partner",
+                    deleted: false
+                })
+                await Product.create({
+                    id: "product3",
+                    name: "product3",
                     description: faker.commerce.productDescription(),
                     price: faker.datatype.float(),
                     stock: faker.datatype.number({ min: 1, max: 100 }),
@@ -184,7 +204,7 @@ const defaultDatas = async () => {
                         price: faker.datatype.number({ min: 1, max: 20 }) * faker.datatype.number({ min: 1, max: 20 }),
                         number: number,
                         userId: "4",
-                        productId: "product",
+                        productId: "product1",
                         shopId: "partner",
                         orderStatusId: orderStatusId
                     });
@@ -194,7 +214,7 @@ const defaultDatas = async () => {
                         price: faker.datatype.number({ min: 1, max: 20 }) * faker.datatype.number({ min: 1, max: 20 }),
                         number: number,
                         userId: "4",
-                        productId: "product",
+                        productId: "product2",
                         shopId: "partner",
                         orderStatusId: orderStatusId
                     });
@@ -204,7 +224,7 @@ const defaultDatas = async () => {
                         price: faker.datatype.number({ min: 1, max: 20 }) * faker.datatype.number({ min: 1, max: 20 }),
                         number: number,
                         userId: "4",
-                        productId: "product",
+                        productId: "product3",
                         shopId: "partner",
                         orderStatusId: orderStatusId
                     });
