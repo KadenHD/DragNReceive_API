@@ -8,10 +8,3 @@ export const canCreateOrder = (currentUser, order) => {
         currentUser.roleId === client
     );
 }
-
-export const canUpdateOrder = (currentUser, order, product) => {
-    return (
-        (currentUser.roleId === partner && product.shopId === currentUser.shopId) ||
-        (currentUser.roleId === client && order.userId === currentUser.id)
-    );
-}
