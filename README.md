@@ -108,7 +108,7 @@ npm start
 - modifier l'order create (pendant le dev mobile)
 
 ### Mailer
-- décrire et montrer les produits dans l'email
+- montrer les produits dans l'email
 - Génération de fausses factures pdf quand statut de la commande passe en préparation (envoi par mail au user)
 
 # Sources
