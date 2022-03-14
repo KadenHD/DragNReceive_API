@@ -107,13 +107,9 @@ npm start
 
 # To-do
 
-## Fonctionnel
-
-- modifier l'order create (pendant le dev mobile)
-
-### Mailer
-- montrer les produits dans l'email
-- Génération de fausses factures pdf quand statut de la commande passe en préparation (envoi par mail au user)
+- Montrer les produits dans l'email de commande
+- Génération de fausses factures pdf dans les dossiers invoices (quand statut de la commande passe en préparation)
+- Envoi par mail
 
 # Documentations
 
