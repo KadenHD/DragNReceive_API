@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { Order, Product } from '../Models/Models.js';
+import { Order, Product, Shop } from '../Models/Models.js';
 
 import { scopedOrders } from '../Permissions/Orders.js';
 import { updatedOrderAvailable, updatedOrderCanceled, updatedOrderCollected, updatedOrderInProgress } from '../Scripts/NodeMailer.js';
@@ -58,14 +58,12 @@ export const findOneOrder = (req, res) => {
 }
 
 export const updateOrder = async (req, res) => {
-    const orders = req.body.orders
-    for (let i = 0; i < orders.length; i++) {
-        const order = { orderStatusId: req.body.orders[i].orderStatusId }
-        await Order.update(order, { where: { id: orders[i].id } })
+    for (let i = 0; i < req.orders.length; i++) {
+        await Order.update(req.orders[i], { where: { id: req.orders[i].id } })
             .then(async data => {
-                if (req.body.orders[i].orderStatusId === "5") {
-                    const product = { stock: req.body.orders[i].product.stock + req.body.orders[i].quantities };
-                    await Product.update(product, order.productId);
+                if (req.orders[i].orderStatusId === "5") {
+                    const product = { stock: req.orders[i].product.stock + req.orders[i].quantities };
+                    await Product.update(product, { where: { id: req.orders[i].productId } });
                 }
             })
             .catch(err => {
@@ -74,19 +72,29 @@ export const updateOrder = async (req, res) => {
                 });
             });
     }
-    if (req.body.orders[0].orderStatusId === "2") {
-        updatedOrderInProgress(currentUser, req.body.orders[0].number, req.orders[0].shopId);
+    const shop = await Shop.findByPk(req.orders[0].shopId)
+    if (req.orders[0].orderStatusId === "2") {
+        updatedOrderInProgress(req.currentUser, req.orders[0].number, shop);
+        res.status(200).json({
+            success: `La commande est désormais en cours de préparation.`
+        });
     }
-    else if (req.body.orders[0].orderStatusId === "3") {
-        updatedOrderAvailable(currentUser, req.body.orders[0].number, req.orders[0].shopId);
+    else if (req.orders[0].orderStatusId === "3") {
+        updatedOrderAvailable(req.currentUser, req.orders[0].number, shop);
+        res.status(200).json({
+            success: `La commande est désormais prête.`
+        });
     }
-    else if (req.body.orders[0].orderStatusId === "4") {
-        updatedOrderCollected(currentUser, req.body.orders[0].number, req.orders[0].shopId);
+    else if (req.orders[0].orderStatusId === "4") {
+        updatedOrderCollected(req.currentUser, req.orders[0].number, shop);
+        res.status(200).json({
+            success: `La commande a bien été récupéré.`
+        });
     }
-    else if (req.body.orders[0].orderStatusId === "5") {
-        updatedOrderCanceled(currentUser, req.body.orders[0].number, req.orders[0].shopId);
+    else if (req.orders[0].orderStatusId === "5") {
+        updatedOrderCanceled(req.currentUser, req.orders[0].number, shop);
+        res.status(200).json({
+            success: `La commande a bien été annulé.`
+        });
     }
-    res.status(200).json({
-        success: `La commande a bien été modifiée.`
-    });
 }
