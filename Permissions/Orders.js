@@ -1,6 +1,6 @@
 import { Order, Product, User } from '../Models/Models.js';
 
-import { canCreateOrder, canUpdateOrder } from '../Validations/Orders.js';
+import { canCreateOrder } from '../Validations/Orders.js';
 import { isValidPrice, isValidQuantities } from '../Validations/Formats.js';
 
 const sadmin = "1";
@@ -136,18 +136,10 @@ export const authCreateOrder = (req, res, next) => {
     next();
 }
 
-export const authUpdateOrder = async (req, res, next) => {
-    for (let i = 0; i < req.body.orders.length; i++) {
-        const product = await Product.findByPk(req.body.orders[i].productId);
-        if (!canUpdateOrder(req.currentUser, req.body.orders[i], product)) return res.status(403).json({ error: `Vous n'êtes pas autorisé à modifier cette commande !` });
-    }
-    next();
-}
-
 export const validFormCreateOrder = async (req, res, next) => {
     for (let i = 0; i < req.body.orders.length; i++) {
         const { quantities, price, productId } = req.body.orders[i];
-        if (!quantities || !price || !productId) return res.status(403).json({ error: `Le formulaire n'est pas bon !` });
+        if (!quantities || !price || !productId) return res.status(403).json({ error: `Le formulaire n'est pas bon !` }); // Risque de modifier, ne pas recevoir le prix et le définir ici
         req.body.orders[i].product = await Product.findByPk(productId);
         if (!req.body.orders[i].product) return res.status(404).json({ error: `Le produit n'existe pas` });
         if (req.body.orders[i].product.stock < quantities) return res.status(403).json({ error: `Il n'y a pas assez de stocks !` });;
@@ -158,20 +150,21 @@ export const validFormCreateOrder = async (req, res, next) => {
 }
 
 export const validFormUpdateOrder = async (req, res, next) => {
-    for (let i = 0; i < req.body.orders.length; i++) {
-        const product = await Product.findByPk(req.body.orders[i].productId);
-        const order = await Order.findByPk(req.body.orders[i].id);
-        if (req.body.orders[i].orderStatusId === inProgress && req.currentUser.roleId === partner && req.currentUser.shopId === product.shopId && order.orderStatusId === validate) {
-            req.body.orders[i] = { id: req.body.orders[i].id, orderStatusId: inProgress }
+
+    for (let i = 0; i < req.orders.length; i++) {
+        const product = await Product.findByPk(req.orders[i].productId);
+        const order = await Order.findByPk(req.orders[i].id);
+        if (req.currentUser.roleId === partner && req.currentUser.shopId === product.shopId && order.orderStatusId === validate) {
+            req.orders[i] = { shopId: req.orders[i].shopId, id: req.orders[i].id, orderStatusId: inProgress, number: req.orders[i].number }
         }
-        else if (req.body.orders[i].orderStatusId === available && req.currentUser.roleId === partner && req.currentUser.shopId === product.shopId && order.orderStatusId === inProgress) {
-            req.body.orders[i] = { id: req.body.orders[i].id, orderStatusId: available }
+        else if (req.currentUser.roleId === partner && req.currentUser.shopId === product.shopId && order.orderStatusId === inProgress) {
+            req.orders[i] = { shopId: req.orders[i].shopId, id: req.orders[i].id, orderStatusId: available, number: req.orders[i].number }
         }
-        else if (req.body.orders[i].orderStatusId === collected && req.currentUser.roleId === partner && req.currentUser.shopId === product.shopId && order.orderStatusId === available) {
-            req.body.orders[i] = { id: req.body.orders[i].id, orderStatusId: collected }
+        else if (req.currentUser.roleId === partner && req.currentUser.shopId === product.shopId && order.orderStatusId === available) {
+            req.orders[i] = { shopId: req.orders[i].shopId, id: req.orders[i].id, orderStatusId: collected, number: req.orders[i].number }
         }
-        else if (req.body.orders[i].orderStatusId === canceled && req.currentUser.roleId === client && currentUser.id === order.userId && order.orderStatusId === validate) {
-            req.body.orders[i] = { id: req.body.orders[i].id, orderStatusId: canceled }
+        else if (req.currentUser.roleId === client && req.currentUser.id === order.userId && order.orderStatusId === validate) {
+            req.orders[i] = { shopId: req.orders[i].shopId, id: req.orders[i].id, orderStatusId: canceled, number: req.orders[i].number }
         }
         else return res.status(403).json({ error: `Vous ne pouvez pas modifier cette commande !` });
     }
