@@ -43,7 +43,7 @@
       <a href="#To-do">To-do</a>
     </li>
     <li>
-      <a href="#Sources">Sources</a>
+      <a href="#Documentations">Documentations</a>
     </li>
 </details> 
     
@@ -111,7 +111,7 @@ npm start
 - montrer les produits dans l'email
 - Génération de fausses factures pdf quand statut de la commande passe en préparation (envoi par mail au user)
 
-# Sources
+# Documentations
 
 - Video about store images and set path for accessing with front : [Link](https://youtu.be/srPXMt1Q0nY)
 - Video about permissions to access differents datas inside controllers : [Link](https://youtu.be/jI4K7L-LI58)
