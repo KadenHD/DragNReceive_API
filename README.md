@@ -81,6 +81,10 @@ npm run BuildDB
 ```
 npm run FakeDB
 ```
+- To launch unit test :
+```
+npm run test
+```
 - To start the API :
 ```
 npm start
