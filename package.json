@@ -9,6 +9,7 @@
     "Instance": "node ./Scripts/Instance.js",
     "BuildDB": "node ./Database/BuildDatabase.js",
     "FakeDB": "node ./Scripts/Faker.js",
+    "puppeteer": "node ./test/puppeteer/index.spec.js",
     "test": "mocha"
   },
   "repository": {
@@ -27,7 +28,8 @@
     "chai-http": "^4.3.0",
     "faker": "^5.5.3",
     "mocha": "^9.2.1",
-    "nodemon": "^2.0.14"
+    "nodemon": "^2.0.14",
+    "puppeteer": "^13.5.1"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
