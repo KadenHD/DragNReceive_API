@@ -1,11 +1,7 @@
-import dotenv from "dotenv";
-import { initialize, login, logout } from "./functions.js";
-dotenv.config();
+import { initialize, login, logout } from "./index.js";
+import { } from './sadmin.js';
 
-const url = process.env.PUPPETEER_URL;
-const delay = 1000;
-
-const sadminSpec = async (browser) => {
+const sadminSpec = async (browser, url, delay) => {
     const page = await initialize(browser, url);
     await login(page, delay, "sadmin@sadmin.sadmin", "Password1@");
 
