@@ -1,11 +1,11 @@
 import puppeteer from 'puppeteer';
 
-import loginSpec from './login.spec.js';
-import createTicketSpec from './create-ticket.spec.js';
+import sadminSpec from './sadmin.spec.js';
+import partnerSpec from './partner.spec.js';
 
 const browser = await puppeteer.launch({ headless: false });
 
-await loginSpec(browser);
-await createTicketSpec(browser);
+await sadminSpec(browser);
+await partnerSpec(browser);
 
 await browser.close();
