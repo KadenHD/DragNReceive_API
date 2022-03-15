@@ -2,7 +2,7 @@ import { instanceFiles } from '../Scripts/FileSystems.js';
 
 /* Delete the values if on production */
 /* String who create the .env file */
-let envContent = "PUPPETEER_URL=http://localhost:8080\n\n";
+let envContent = "PUPPETEER_WEB_URL=http://localhost:8080\n\n";
 envContent += "###> DataBase parameters ###\n";
 envContent += "DB_NAME=dragnreceive\n";
 envContent += "DB_USER=root\n";
