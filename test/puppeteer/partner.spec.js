@@ -1,15 +1,15 @@
-import dotenv from "dotenv";
-import { createTicket, initialize, login, logout } from "./functions.js";
-dotenv.config();
+import { initialize, login, logout } from "./index.js";
+import { ticket, profile, shop, product, order } from "./partner.js";
 
-const url = process.env.PUPPETEER_URL;
-const delay = 1000;
-
-const partnerSpec = async (browser) => {
+const partnerSpec = async (browser, url, delay) => {
     const page = await initialize(browser, url);
     await login(page, delay, "partner@partner.partner", "Password1@");
 
-    await createTicket(page, delay);
+    await profile(page, delay);
+    await shop(page, delay);
+    await product(page, delay);
+    await order(page, delay);
+    await ticket(page, delay);
 
     await logout(page, delay);
 };
