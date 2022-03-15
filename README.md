@@ -85,6 +85,10 @@ npm run FakeDB
 ```
 npm run test
 ```
+- To launch web puppeteer test :
+```
+npm run puppeteer
+```
 - To start the API :
 ```
 npm start
