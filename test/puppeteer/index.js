@@ -12,8 +12,8 @@ export const login = async (page, delay, email, password) => {
     await page.waitForSelector("#notlogged", { visible: true });
     await page.click("#notlogged", { delay: delay });
     await page.waitForSelector("#Login", { visible: true });
+    await page.waitForTimeout(delay);
     await page.click("#Login", { delay: delay });
-
     /* Login */
     await page.type("input[type=text]", email, { delay: 50 });
     await page.type("input[type=password]", password, { delay: 50 });
@@ -27,12 +27,13 @@ export const logout = async (page, delay) => {
     await page.waitForSelector("#logged", { visible: true });
     await page.click("#logged", { delay: delay });
     await page.waitForSelector("#logout", { visible: true });
+    await page.waitForTimeout(delay);
     await page.click("#logout", { delay: delay });
-
     /* Close the script */
     await page.waitForNavigation();
     await page.waitForTimeout(5000);
     await page.close();
+    await page.waitForTimeout(2000);
 }
 
 export const clearInput = async (page, element) => {
