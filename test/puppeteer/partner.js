@@ -57,12 +57,15 @@ export const shop = async (page, delay) => {
     await page.type("#postal", "60350".toString(), { delay: 50 });
     await page.click("#saveEdit", { delay: delay });
     await page.waitForTimeout(5000);
+    await page.evaluate(() => { window.scrollBy(0, window.innerHeight); });
+    await page.waitForTimeout(3000);
 }
 
 export const product = async (page, delay) => {
     /* Go to Products */
     await page.click("#drawer", { delay: delay });
     await page.waitForSelector("#MyProducts", { visible: true });
+    await page.waitForTimeout(delay);
     await page.click("#MyProducts", { delay: delay });
     await page.waitForTimeout(5000);
 }
@@ -71,6 +74,7 @@ export const order = async (page, delay) => {
     /* Go to Orders */
     await page.click("#drawer", { delay: delay });
     await page.waitForSelector("#Orders", { visible: true });
+    await page.waitForTimeout(delay);
     await page.click("#Orders", { delay: delay });
     await page.waitForTimeout(5000);
 }
@@ -79,6 +83,7 @@ export const ticket = async (page, delay) => {
     /* Go to Tickets */
     await page.click("#drawer", { delay: delay });
     await page.waitForSelector("#Tickets", { visible: true });
+    await page.waitForTimeout(delay);
     await page.click("#Tickets", { delay: delay });
     /* Go to create ticket */
     await page.waitForSelector("#ticket-create", { visible: true });
