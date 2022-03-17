@@ -1,0 +1,1 @@
+import { clearInput } from "./index.js";
