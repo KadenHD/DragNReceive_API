@@ -111,9 +111,10 @@ npm start
 
 # To-do
 
+- Fonctionnalités de Puppeteer : faire le partenaire (order, ticket), faire le sadmin/admin (), faire le non-connecté (pages du footer)
 - Montrer les produits dans l'email de commande
 - Génération de fausses factures pdf dans les dossiers invoices (quand statut de la commande passe en préparation)
-- Envoi par mail
+- Envoi par mail des factures
 
 # Documentations
 
