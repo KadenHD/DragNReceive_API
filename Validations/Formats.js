@@ -77,6 +77,7 @@ export const isValidStreet = (key) => {
 }
 
 export const isValidPostal = (key) => {
+    if (typeof key === "string") { key = parseInt(key); }
     return (
         typeof key === 'number' &&
         key.toString().length === 5
