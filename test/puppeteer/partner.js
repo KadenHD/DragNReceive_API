@@ -143,8 +143,33 @@ export const order = async (page, delay) => {
     await page.waitForTimeout(delay);
     await page.click("#Orders", { delay: delay });
     await page.waitForTimeout(5000);
-
-
+    /* Search Validate */
+    // click on Validée button
+    await page.waitForSelector("", { visible: true });
+    await page.click("", { delay: delay });
+    // click on viewItem
+    await page.waitForSelector("", { visible: true });
+    await page.click("", { delay: delay });
+    await page.waitForNavigation();
+    // click on one card
+    await page.waitForSelector("", { visible: true });
+    await page.click("", { delay: delay });
+    // click on update status button
+    // wait for button update
+    //click on update status button
+    // wait for button cancel
+    // click on cancel button
+    /* Search InProgress */
+    // click on InProgress button
+    /* Search Disponible */
+    // click on Disponible button
+    /* Search Collected */
+    // click on Disponible button
+    /* Search Canceled */
+    // click on Canceled button
+    // click on viewItem button
+    // stay 5000
+    // click on cancel button
 }
 
 export const ticket = async (page, delay) => {
@@ -153,9 +178,6 @@ export const ticket = async (page, delay) => {
     await page.waitForSelector("#Tickets", { visible: true });
     await page.waitForTimeout(delay);
     await page.click("#Tickets", { delay: delay });
-
-
-
     /* Go to create ticket */
     await page.waitForSelector("#ticket-create", { visible: true });
     await page.click("#ticket-create", { delay: delay });
@@ -164,5 +186,23 @@ export const ticket = async (page, delay) => {
     await page.type("textarea", getRandomContent(), { delay: 50 });
     await page.click("#submit", { delay: delay });
     await page.waitForNavigation();
+    await page.waitForTimeout(5000);
+    /* View Ticket */
+    await page.waitForSelector("#viewItem", { visible: true });
+    await page.click("#viewItem", { delay: delay });
+    await page.waitForTimeout(3000);
+    /* Send message */
+    await page.waitForSelector("textarea", { visible: true });
+    await page.type("textarea", getRandomContent(), { delay: 50 });
+    await page.waitForTimeout(delay);
+    await page.click("#send", { delay: delay });
+    await page.waitForTimeout(5000);
+    await page.click("#goBack", { delay: delay });
+    /* Delete Ticket */
+    await page.waitForSelector("#deleteItem", { visible: true });
+    await page.click("#deleteItem", { delay: delay });
+    await page.waitForTimeout(delay);
+    await page.waitForSelector("#deleteItemConfirm", { visible: true });
+    await page.click("#deleteItemConfirm", { delay: delay });
     await page.waitForTimeout(5000);
 }
