@@ -20,7 +20,7 @@ export const ticketExist = (key) => {
 }
 
 export const nameExist = (key) => {
-    return Shop.findOne({ where: { name: key } })
+    return Shop.findOne({ where: { name: key, deleted: false } })
 }
 
 export const phoneExist = (key) => {
