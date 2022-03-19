@@ -145,36 +145,59 @@ export const order = async (page, delay) => {
     await page.waitForTimeout(5000);
     /* Search Validate */
     // click on Validée button
-    await page.waitForSelector("", { visible: true });
-    await page.click("", { delay: delay });
+    await page.waitForSelector("#Validate", { visible: true });
+    await page.click("#Validate", { delay: delay });
+    await page.waitForTimeout(3000);
     // click on viewItem
-    await page.waitForSelector("", { visible: true });
-    await page.click("", { delay: delay });
+    await page.waitForSelector("#viewItem", { visible: true });
+    await page.click("#viewItem", { delay: delay });
     await page.waitForNavigation();
     // click on one card
-    await page.waitForSelector("", { visible: true });
-    await page.click("", { delay: delay });
+    await page.waitForSelector("#card", { visible: true });
+    await page.click("#card", { delay: delay });
+    await page.waitForTimeout(3000);
     // click on update status button
-    // wait for button update
+    await page.waitForSelector("#update", { visible: true });
+    await page.click("#update", { delay: delay });
+    await page.waitForNavigation();
     //click on update status button
-    // wait for button cancel
+    await page.waitForTimeout(3000);
+    await page.waitForSelector("#update", { visible: true });
+    await page.click("#update", { delay: delay });
+    await page.waitForNavigation();
+    await page.waitForTimeout(3000);
     // click on cancel button
+    await page.waitForSelector("#goBack", { visible: true });
+    await page.click("#goBack", { delay: delay });
+    await page.waitForTimeout(5000);
     /* Search InProgress */
     // click on InProgress button
+    await page.waitForSelector("#InProgress", { visible: true });
+    await page.click("#InProgress", { delay: delay });
+    await page.waitForTimeout(3000);
     /* Search Disponible */
     // click on Disponible button
+    await page.waitForSelector("#Available", { visible: true });
+    await page.click("#Available", { delay: delay });
+    await page.waitForTimeout(3000);
     /* Search Collected */
     // click on Disponible button
+    await page.waitForSelector("#Collected", { visible: true });
+    await page.click("#Collected", { delay: delay });
+    await page.waitForTimeout(3000);
     /* Search Canceled */
     // click on Canceled button
-    // click on viewItem button
-    // stay 5000
-    // click on cancel button
+    await page.waitForSelector("#Canceled", { visible: true });
+    await page.click("#Canceled", { delay: delay });
+    await page.waitForTimeout(3000);
 }
 
 export const ticket = async (page, delay) => {
     /* Go to Tickets */
+    await page.waitForSelector("#drawer", { visible: true });
     await page.click("#drawer", { delay: delay });
+    await page.waitForSelector("#shop", { visible: true });
+    await page.click("#shop", { delay: delay });
     await page.waitForSelector("#Tickets", { visible: true });
     await page.waitForTimeout(delay);
     await page.click("#Tickets", { delay: delay });
@@ -205,4 +228,11 @@ export const ticket = async (page, delay) => {
     await page.waitForSelector("#deleteItemConfirm", { visible: true });
     await page.click("#deleteItemConfirm", { delay: delay });
     await page.waitForTimeout(5000);
+    /* View Ticket */
+    await page.waitForSelector("#viewItem", { visible: true });
+    await page.click("#viewItem", { delay: delay });
+    await page.waitForTimeout(3000);
+    await page.waitForSelector("#goBack", { visible: true });
+    await page.click("#goBack", { delay: delay });
+    await page.waitForTimeout(2000);
 }
