@@ -111,7 +111,6 @@ npm start
 
 # To-do
 
-- Fonctionnalités de Puppeteer : faire le sadmin/admin ()
 - Montrer les produits dans l'email de commande
 - Génération de fausses factures pdf dans les dossiers invoices (quand statut de la commande passe en préparation)
 - Envoi par mail des factures
