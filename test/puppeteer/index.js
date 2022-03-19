@@ -77,7 +77,7 @@ export const getRandomProductName = () => {
 }
 
 export const getRandomEmail = () => {
-    return ("service@" + faker.company.catchPhraseAdjective() + "-" + faker.company.bsNoun() + ".fr");
+    return ("service@" + faker.company.catchPhraseAdjective() + ".fr");
 }
 
 export const getRandomPhone = () => {
