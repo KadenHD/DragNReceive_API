@@ -13,8 +13,8 @@ const delay = 1000;
 
 try {
     console.log(`${ChalkMSG.INFO}Launching the Puppeteer test...`);
-    // await unlogSpec(browser, url, delay);
-    await partnerSpec(browser, url, delay);
+    await unlogSpec(browser, url, delay);
+    // await partnerSpec(browser, url, delay);
     // await sadminSpec(browser, url, delay);
     await browser.close();
     console.log(`${ChalkMSG.SUCCESS}The Puppeteer test is successfully done.`);
