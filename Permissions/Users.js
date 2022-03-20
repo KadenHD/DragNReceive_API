@@ -67,8 +67,7 @@ export const validFormCreateUser = async (req, res, next) => {
     if (!isValidLastName(req.body.lastname)) return res.status(403).json({ error: `Format de nom non-valide !` });
     if (!isValidFirstName(req.body.firstname)) return res.status(403).json({ error: `Format de prénom non-valide !` });
     if (!isValidEmail(req.body.email)) return res.status(403).json({ error: `Format d'email non-valide !` });
-    req.password = faker.internet.password(50) + "@" + faker.datatype.number(4) + "_" + faker.random.alpha({ count: 4, upcase: true });
-    console.log(req.password)
+    if (req.body.roleId != client) req.password = faker.internet.password(50) + "@" + faker.datatype.number(4) + "_" + faker.random.alpha({ count: 4, upcase: true });
     if (!isValidPassword(req.password)) return res.status(403).json({ error: `Format de mot de passe non-valide !` });
     const hashedPassword = await bcrypt.hash(req.password, 10);
     req.body = {
