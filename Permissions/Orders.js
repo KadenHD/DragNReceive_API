@@ -1,5 +1,4 @@
 import { Order, Product, User } from '../Models/Models.js';
-
 import { canCreateOrder } from '../Validations/Orders.js';
 import { isValidPrice, isValidQuantities } from '../Validations/Formats.js';
 
