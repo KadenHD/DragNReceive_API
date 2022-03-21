@@ -2,9 +2,7 @@ import faker from 'faker';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 
-
 import { User, WebToken } from '../Models/Models.js';
-
 import { isValidEmail, isValidPassword } from "../Validations/Formats.js";
 
 export const authRegisterClient = async (req, res, next) => {
