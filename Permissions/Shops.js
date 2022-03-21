@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { Shop, Product, User } from '../Models/Models.js';
-
 import { emailExist, nameExist, phoneExist } from '../Validations/Exists.js';
 import { canCreateShop, canViewShop, canDeleteShop, canUpdateShop } from '../Validations/Shops.js';
 import { isValidEmail, isValidName, isValidPhone, isValidCity, isValidStreet, isValidPostal, isValidLogo } from '../Validations/Formats.js';
