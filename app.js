@@ -1,13 +1,12 @@
-import dotenv from 'dotenv';
 import express from 'express';
 import fileUpload from 'express-fileupload';
 import cors from 'cors';
 import ip from 'ip';
 import chalk from 'chalk';
+import dotenv from 'dotenv';
+dotenv.config(); /* Add the variables from .env file to process.env */
 
 import router from './Routes/Routes.js';
-
-dotenv.config(); /* Add the variables from .env file to process.env */
 
 const app = express();
 
