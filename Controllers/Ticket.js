@@ -1,7 +1,5 @@
 import { Ticket } from '../Models/Models.js';
-
 import { scopedTickets } from '../Permissions/Tickets.js';
-
 import { closedTicket } from '../Scripts/NodeMailer.js';
 
 export const findAllTickets = async (req, res) => {
