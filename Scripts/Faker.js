@@ -1,10 +1,9 @@
 import faker from 'faker';
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
+
 import ChalkMSG from '../Scripts/Chalk.js';
-
 import { Shop, Product, Role, User, Order, Ticket, Message, OrderStatus, TicketStatus } from '../Models/Models.js';
-
 import { rmStore, mkProduct, mkShop, mkUser } from '../Scripts/FileSystems.js';
 
 faker.locale = "fr"; /* Usefull the get french faker values */
