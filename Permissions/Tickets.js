@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { Ticket, User, Message } from '../Models/Models.js';
-
 import { canCreateTicket, canViewTicket, canUpdateTicket } from '../Validations/Tickets.js';
 import { isValidTitle, isValidContent } from '../Validations/Formats.js';
 
