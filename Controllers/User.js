@@ -1,5 +1,4 @@
 import { User } from '../Models/Models.js';
-
 import { scopedUsers } from '../Permissions/Users.js';
 import { mkUser, writeUser, rmUser } from '../Scripts/FileSystems.js';
 import { createdUser, deletedUser } from '../Scripts/NodeMailer.js';
