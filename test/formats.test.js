@@ -1,4 +1,5 @@
 import { assert } from 'chai';
+
 import { isValidEmail, isValidPassword } from '../Validations/Formats.js';
 
 describe('Formats', () => {
