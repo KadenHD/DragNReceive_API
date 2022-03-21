@@ -1,5 +1,6 @@
 import express from 'express';
 
+import { isValidToken } from '../Permissions/TokenJWT.js';
 import authsRouter from './Auths.js';
 import messagesRouter from './Messages.js';
 import ordersRouter from './Orders.js';
@@ -7,8 +8,6 @@ import productsRouter from './Products.js';
 import shopsRouter from './Shops.js';
 import ticketsRouter from './Tickets.js';
 import usersRouter from './Users.js';
-
-import { isValidToken } from '../Permissions/TokenJWT.js';
 
 const router = express.Router();
 
