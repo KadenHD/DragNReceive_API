@@ -1,15 +1,7 @@
 import { Shop, Product, User } from '../Models/Models.js';
-
 import { scopedShops } from '../Permissions/Shops.js';
-
-import { mkShop, writeShop } from '../Scripts/FileSystems.js';
-
-import { createdShop, deletedShop } from '../Scripts/NodeMailer.js';
-
-import { deletedUser } from '../Scripts/NodeMailer.js';
-
-import { rmUser } from '../Scripts/FileSystems.js';
-
+import { mkShop, writeShop, rmUser } from '../Scripts/FileSystems.js';
+import { createdShop, deletedShop, deletedUser } from '../Scripts/NodeMailer.js';
 
 export const findAllShops = async (req, res) => {
     let data = await Shop.findAll();
