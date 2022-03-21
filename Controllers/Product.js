@@ -1,7 +1,5 @@
 import { Product } from '../Models/Models.js';
-
 import { scopedProducts } from '../Permissions/Products.js';
-
 import { writeProduct } from '../Scripts/FileSystems.js';
 
 export const findAllProducts = async (req, res) => {
