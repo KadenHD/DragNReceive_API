@@ -1,8 +1,8 @@
 import puppeteer from 'puppeteer';
-import ChalkMSG from '../../Scripts/Chalk.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
+import ChalkMSG from '../../Scripts/Chalk.js';
 import unlogSpec from './unlog.spec.js';
 import partnerSpec from './partner.spec.js';
 import sadminSpec from './sadmin.spec.js';
