@@ -1,7 +1,6 @@
 import express from 'express';
 
 import { findAllShops, createShop, findOneShop, deleteShop, updateShop } from '../Controllers/Shop.js';
-
 import { setShop, authCreateShop, authGetShop, authDeleteShop, authUpdateShop, validFormCreateShop, validFormUpdateShop } from '../Permissions/Shops.js';
 
 const router = express.Router();
