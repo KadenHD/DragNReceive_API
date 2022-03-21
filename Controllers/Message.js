@@ -1,5 +1,4 @@
 import { Message, Ticket } from '../Models/Models.js';
-
 import { responsedTicket } from '../Scripts/NodeMailer.js';
 
 export const createMessage = (req, res) => {
