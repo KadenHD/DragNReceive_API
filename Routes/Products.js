@@ -1,9 +1,7 @@
 import express from 'express';
 
 import { findAllProducts, createProduct, deleteProduct, findOneProduct, updateProduct } from '../Controllers/Product.js';
-
-import { authCreateProduct, validFormCreateProduct, authDeleteProduct, authGetProduct, authUpdateProduct, validFormUpdateProduct } from '../Permissions/Products.js';
-import { setProduct } from '../Permissions/Products.js';
+import { setProduct, authCreateProduct, validFormCreateProduct, authDeleteProduct, authGetProduct, authUpdateProduct, validFormUpdateProduct } from '../Permissions/Products.js';
 
 const router = express.Router();
 
