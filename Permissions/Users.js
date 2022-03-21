@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt';
 import faker from 'faker';
 
 import { User, Shop } from '../Models/Models.js';
-
 import { emailExist, shopExist, roleExist } from '../Validations/Exists.js';
 import { canViewUser, canCreateUser, canDeleteUser, canUpdateUser } from '../Validations/Users.js';
 import { isValidEmail, isValidFirstName, isValidLastName, isValidPassword, isValidPhoto } from '../Validations/Formats.js';
