@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { Product, Shop } from '../Models/Models.js';
-
 import { canCreateProduct, canDeleteProduct, canViewProduct, canUpdateProduct } from '../Validations/Products.js';
 import { isValidName, isValidDescription, isValidPrice, isValidStock, isValidImage } from '../Validations/Formats.js';
 
@@ -42,7 +41,6 @@ export const authDeleteProduct = (req, res, next) => {
 
 export const authGetProduct = (req, res, next) => {
     if (!canViewProduct(req.currentUser, req.product, req.product.dataValues.shop)) return res.status(403).json({ error: `Vous n'êtes pas autorisé à voir ce produit !` });
-    req.body = { deleted: true };
     next();
 }
 
