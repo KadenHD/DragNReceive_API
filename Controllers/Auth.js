@@ -1,9 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import { WebToken } from '../Models/Models.js';
+import { WebToken, User } from '../Models/Models.js';
 import { extractBearerToken } from '../Permissions/TokenJWT.js';
-import { User } from '../Models/Models.js';
 import { resetedUser } from '../Scripts/NodeMailer.js';
 
 export const loginUser = async (req, res) => {
