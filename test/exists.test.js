@@ -1,4 +1,5 @@
 import { assert } from 'chai';
+
 import { emailExist, shopExist } from '../Validations/Exists.js';
 
 describe('Exists', () => {
