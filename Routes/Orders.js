@@ -1,9 +1,7 @@
 import express from 'express';
 
 import { findAllOrder, createOrder, findOneOrder, updateOrder } from '../Controllers/Order.js';
-
-import { authCreateOrder, validFormCreateOrder, validFormUpdateOrder } from '../Permissions/Orders.js';
-import { setOrder } from '../Permissions/Orders.js';
+import { setOrder, authCreateOrder, validFormCreateOrder, validFormUpdateOrder } from '../Permissions/Orders.js';
 
 const router = express.Router();
 
