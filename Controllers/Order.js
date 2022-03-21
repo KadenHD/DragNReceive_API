@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { Order, Product, Shop } from '../Models/Models.js';
-
 import { scopedOrders } from '../Permissions/Orders.js';
 import { updatedOrderAvailable, updatedOrderCanceled, updatedOrderCollected, updatedOrderInProgress } from '../Scripts/NodeMailer.js';
 
