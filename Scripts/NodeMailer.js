@@ -98,7 +98,7 @@ export const resetedUser = async (user, link) => {
     const htmlMail = `
     <b>Bonjour ${user.firstname} ${user.lastname},</b><br>
     <b>Vous avez demandé une réinitialisation de mot de passe :</b><br>
-    <b>Lien : ${link}</b><br>
+    <b>Lien : <a href="${link}">${link}</a></b><br>
     <b>Ce n'est pas vous ? Veuillez changer de mot de passe par sécurité.</b>
     `;
     const data = {
