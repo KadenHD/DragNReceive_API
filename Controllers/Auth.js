@@ -39,14 +39,14 @@ export const getCurrentUser = async (req, res) => {
 
 export const createForgotUser = (req, res) => {
     WebToken.create(req.body)
-        .then(data => {
+        .then(() => {
             const link = `http://${process.env.CLIENT_URL}:${process.env.CLIENT_PORT}/reset/${req.body.userId}/${req.body.token}`;
             resetedUser(req.user, link);
             res.status(200).json({
                 success: `Le token a bien été envoyé.`
             });
         })
-        .catch(err => {
+        .catch(() => {
             res.status(500).json({
                 error: `Une erreur est survenue lors de la création du token.`
             });
@@ -55,20 +55,20 @@ export const createForgotUser = (req, res) => {
 
 export const updateResetUser = (req, res) => {
     User.update(req.body, { where: { id: req.user.id } })
-        .then(data => {
+        .then(() => {
             WebToken.destroy({ where: { token: req.token.token } })
-                .then(data => {
+                .then(() => {
                     res.status(200).json({
                         success: `La réinitialisation de mot de passe a bien été effectué !`
                     });
                 })
-                .catch(err => {
+                .catch(() => {
                     res.status(500).json({
                         error: `Une erreur est survenue lors de la destruction du token.`
                     });
                 });
         })
-        .catch(err => {
+        .catch(() => {
             res.status(500).json({
                 error: `Une erreur est survenue lors de la modification de l'utilisateur.`
             });
