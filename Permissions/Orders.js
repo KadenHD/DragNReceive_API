@@ -47,7 +47,7 @@ export const scopedOrders = async (currentUser, orders) => { /* Fetch inside fin
         for (let i = 0; i < orders.length; i++) {
             let numberExist = false;
             for (let j = 0; j < numberTab.length; j++) {
-                if (orders[i].number === numberTab[j] && orders[i].shopId === currentUser.shopId) { // is own shop only
+                if (orders[i].number === numberTab[j] && orders[i].shopId === currentUser.shopId) { /* is own shop only */
                     numberExist = true;
                 }
             }
@@ -77,7 +77,7 @@ export const scopedOrders = async (currentUser, orders) => { /* Fetch inside fin
         for (let i = 0; i < orders.length; i++) {
             let numberExist = false;
             for (let j = 0; j < numberTab.length; j++) {
-                if (orders[i].number === numberTab[j] && orders[i].userId === currentUser.id) { // is own orders only
+                if (orders[i].number === numberTab[j] && orders[i].userId === currentUser.id) { /* is own orders only */
                     numberExist = true;
                 }
             }
