@@ -38,7 +38,7 @@ const fakeInit = async () => {
             shopId: shopId,
             deleted: false
         })
-            .then(store => {
+            .then(() => {
                 mkShop(shopId);
                 mkProduct(productId, shopId);
             });
@@ -63,7 +63,7 @@ const fakeInit = async () => {
             roleId: roleId,
             shopId: shopId
         })
-            .then(store => {
+            .then(() => {
                 mkUser(userId);
             });
 
@@ -152,7 +152,7 @@ const defaultDatas = async () => {
                         shopId: shopId,
                         deleted: false
                     })
-                        .then(store => {
+                        .then(() => {
                             mkShop(shopId);
                             mkProduct(productId, shopId);
                         });
