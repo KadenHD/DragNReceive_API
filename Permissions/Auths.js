@@ -23,7 +23,7 @@ export const validForgotUser = async (req, res, next) => {
         let expiracy = new Date(req.token.createdAt.setHours(req.token.createdAt.getHours() + 1));
         if (expiracy < new Date()) {
             WebToken.destroy({ where: { userId: req.user.id } })
-                .then(data => {
+                .then(() => {
                     const token = faker.datatype.hexaDecimal(32);
                     req.body = {
                         id: uuidv4(),
@@ -32,7 +32,7 @@ export const validForgotUser = async (req, res, next) => {
                     }
                     next();
                 })
-                .catch(err => {
+                .catch(() => {
                     return res.status(500).json({ error: `Une erreur est survenue lors de la suppression du token expiré !` });
                 });
         } else {
