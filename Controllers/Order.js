@@ -5,12 +5,11 @@ import { scopedOrders } from '../Permissions/Orders.js';
 import { updatedOrderAvailable, updatedOrderCanceled, updatedOrderCollected, updatedOrderInProgress } from '../Scripts/NodeMailer.js';
 
 export const findAllOrder = async (req, res) => {
-    let data = await Order.findAll();
-    scopedOrders(req.currentUser, data)
-        .then(data => {
-            res.status(200).json(data);
+    scopedOrders(req.currentUser, await Order.findAll())
+        .then(result => {
+            res.status(200).json(result);
         })
-        .catch(err => {
+        .catch(() => {
             res.status(500).json({
                 error: `Une erreur est survenue lors de la recherche de commandes.`
             });
@@ -29,17 +28,22 @@ export const createOrder = async (req, res) => {
             number: number,
             userId: req.currentUser.id,
             productId: productId,
-            shopId: req.body.orders[i].product.shopId,
+            shopId: orders[i].product.shopId,
             orderStatusId: "1"
         };
-        const product = { stock: req.body.orders[i].product.stock - quantities };
+        const product = { stock: orders[i].product.stock - quantities };
         await Order.create(order)
-            .catch(err => {
+            .catch(() => {
                 res.status(500).json({
                     error: `Une erreur est survenue lors de la création de la commande.`
                 });
             });
         await Product.update(product, order.productId)
+            .catch(() => {
+                res.status(500).json({
+                    error: `Une erreur est survenue lors de la création de la commande.`
+                });
+            });
     }
     res.status(200).json({
         success: `La commande a bien été créée.`
@@ -59,13 +63,13 @@ export const findOneOrder = (req, res) => {
 export const updateOrder = async (req, res) => {
     for (let i = 0; i < req.orders.length; i++) {
         await Order.update(req.orders[i], { where: { id: req.orders[i].id } })
-            .then(async data => {
+            .then(async () => {
                 if (req.orders[i].orderStatusId === "5") {
                     const product = { stock: req.orders[i].product.stock + req.orders[i].quantities };
                     await Product.update(product, { where: { id: req.orders[i].productId } });
                 }
             })
-            .catch(err => {
+            .catch(() => {
                 res.status(500).json({
                     error: `Une erreur est survenue de lors de la modification de la commande.`
                 });
