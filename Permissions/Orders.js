@@ -34,7 +34,7 @@ export const scopedOrders = async (currentUser, orders) => { /* Fetch inside fin
             let status = orders[0].orderStatusId;
             let price = 0;
             for (let i = 0; i < orders.length; i++) {
-                orders[i].dataValues.product = await Product.findByPk(orders[i].productId)
+                orders[i].dataValues.product = await Product.findByPk(orders[i].productId); /* Return every orders */
                 price += orders[i].price * orders[i].quantities;
                 if (status > orders[i].orderStatusId) { status = orders[i].orderStatusId }
             }
