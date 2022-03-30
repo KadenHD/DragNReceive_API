@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 import { WebToken, User } from '../Models/Models.js';
 import { extractBearerToken } from '../Permissions/TokenJWT.js';
-import { resetedUser } from '../Scripts/NodeMailer.js';
+import { resetedUser, updateResetedUser } from '../Scripts/NodeMailer.js';
 
 export const loginUser = async (req, res) => {
     const user = await User.findOne({ where: { email: req.body.email } });
@@ -58,6 +58,7 @@ export const updateResetUser = (req, res) => {
         .then(() => {
             WebToken.destroy({ where: { token: req.token.token } })
                 .then(() => {
+                    updateResetedUser(req.user);
                     res.status(200).json({
                         success: `La réinitialisation de mot de passe a bien été effectué !`
                     });
