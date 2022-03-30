@@ -112,11 +112,8 @@ npm start
 
 # To-do
 
-- envoie par email une fois la réinitialisation de mdp faite
-
-- Montrer les produits dans l'email de commande
-- Génération de fausses factures pdf dans les dossiers invoices (quand statut de la commande passe en préparation)
-- Envoi par mail des factures
+- Montrer les produits dans les email de commande / statut
+- Envoi par mail des factures (quand la commande est réalisée)
 
 # Documentations
 
