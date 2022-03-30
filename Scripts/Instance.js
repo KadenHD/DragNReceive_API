@@ -26,5 +26,4 @@ envContent += "CLIENT_PORT=8080\n";
 envContent += "CLIENT_URL=localhost\n";
 envContent += "###< WEB Client parameters ###\n\n";
 
-
 instanceFiles(envContent);
