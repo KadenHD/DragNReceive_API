@@ -61,7 +61,7 @@ The DragN'Receive company wishes to create a click & collect system across the e
 
 ### Install Node and NPM
 
-> I use Node 16.x and NPM 8.x versions <br>
+> I use Node 16.x and NPM 8.x versions. <br>
 > You can also easily install them, downloading [Node LTS version](https://nodejs.org/en/) on the official website.
 
 ## Implementation of the project
