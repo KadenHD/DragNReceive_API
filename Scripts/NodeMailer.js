@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 
+/* NodeMailer config */
 let fromMail = '"Service DragN\'Receive" <service@dragnreceive.fr>';
 let transport = nodemailer.createTransport({
     host: process.env.MAILER_HOST,
@@ -10,6 +11,7 @@ let transport = nodemailer.createTransport({
     }
 });
 
+/* The default sending mail format */
 const mailSender = async (data) => {
     await transport.sendMail({
         from: fromMail,
@@ -83,6 +85,7 @@ const createdClientData = (user, password) => {
     }
 }
 
+/* Redirect depend on the role of the created user */
 export const createdUser = async (user, password) => {
     let data = {};
     if (user.roleId === "1") { data = createdSadminData(user, password); }
@@ -100,6 +103,22 @@ export const resetedUser = async (user, link) => {
     <b>Vous avez demandé une réinitialisation de mot de passe :</b><br>
     <b>Lien : <a href="${link}">${link}</a></b><br>
     <b>Ce n'est pas vous ? Veuillez changer de mot de passe par sécurité.</b>
+    `;
+    const data = {
+        toMail: toMail,
+        subjectMail: subjectMail,
+        htmlMail: htmlMail
+    }
+    await mailSender(data);
+}
+
+export const updateResetedUser = async (user) => {
+    const toMail = user.email;
+    const subjectMail = "DragN'Receive - Mot de passe réinitialisé !";
+    const htmlMail = `
+    <b>Bonjour ${user.firstname} ${user.lastname},</b><br>
+    <b>Votre mot de passe à bien été réinitialisé.</b><br>
+    <b>Ce n'est pas vous ? Veuillez nous contacter au xx.xx.xx.xx.xx.</b>
     `;
     const data = {
         toMail: toMail,
