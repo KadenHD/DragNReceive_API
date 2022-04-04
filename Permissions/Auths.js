@@ -2,7 +2,7 @@ import faker from 'faker';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 
-import { User, WebToken } from '../Models/Models.js';
+import { User, WebToken, MobileCode } from '../Models/Models.js';
 import { isValidEmail, isValidPassword } from "../Validations/Formats.js";
 
 export const authRegisterClient = async (req, res, next) => {
@@ -62,6 +62,60 @@ export const validResetUser = async (req, res, next) => {
 
     let expiracy = new Date(req.token.createdAt.setHours(req.token.createdAt.getHours() + 1));
     if (expiracy < new Date()) { return res.status(403).json({ error: `Le lien est invalide ou a expiré !` }); }
+    else {
+        req.user.password = await bcrypt.hash(req.body.password, 10);
+        req.body = req.user.dataValues;
+        next();
+    }
+}
+
+export const validForgotClient = async (req, res, next) => {
+    if (!req.body.email) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
+    if (!isValidEmail(req.body.email)) return res.status(403).json({ error: `Format d'email non-valide !` });
+
+    req.user = await User.findOne({ where: { email: req.body.email } });
+    if (!req.user) return res.status(403).json({ error: `L'utilisateur n'existe pas !` });
+    if (req.user && req.user.roleId != "4") return res.status(403).json({ error: `Seul les clients peuvent faire cette demande !` });
+
+    req.code = await MobileCode.findOne({ where: { userId: req.user.id } });
+    if (req.code) {
+        MobileCode.destroy({ where: { userId: req.user.id } })
+            .then(() => {
+                const code = `${faker.datatype.number(9)}` + `${faker.datatype.number(9)}` + `${faker.datatype.number(9)}` + `${faker.datatype.number(9)}`;
+                req.body = {
+                    id: uuidv4(),
+                    userId: req.user.id,
+                    code: code
+                }
+                next();
+            })
+            .catch(() => {
+                return res.status(500).json({ error: `Une erreur est survenue lors de la suppression de l'ancien code !` });
+            });
+    } else {
+        const code = `${faker.datatype.number(9)}` + `${faker.datatype.number(9)}` + `${faker.datatype.number(9)}` + `${faker.datatype.number(9)}`;
+        req.body = {
+            id: uuidv4(),
+            userId: req.user.id,
+            code: code
+        }
+        next();
+    }
+}
+
+export const validResetClient = async (req, res, next) => {
+    if (!req.body.password) return res.status(401).json({ error: `Le formulaire n'est pas bon !` });
+    if (!isValidPassword(req.body.password)) return res.status(403).json({ error: `Format de mot de passe non-valide !` });
+
+    req.user = await User.findByPk(req.params.userId);
+    if (!req.user) return res.status(403).json({ error: `Le code est invalide ou a expiré !` });
+    if (req.user && req.user.roleId != "4") return res.status(403).json({ error: `Seul les clients peuvent faire cette demande !` });
+
+    req.code = await MobileCode.findOne({ where: { userId: req.user.id, id: req.params.id, code: req.body.code, } });
+    if (!req.code) return res.status(403).json({ error: `Le code est invalide ou a expiré !` });
+
+    let expiracy = new Date(req.code.createdAt.setHours(req.code.createdAt.getHours() + 1));
+    if (expiracy < new Date()) { return res.status(403).json({ error: `Le code est invalide ou a expiré !` }); }
     else {
         req.user.password = await bcrypt.hash(req.body.password, 10);
         req.body = req.user.dataValues;
