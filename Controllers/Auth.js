@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import { WebToken, User } from '../Models/Models.js';
+import { User, WebToken, MobileCode } from '../Models/Models.js';
 import { extractBearerToken } from '../Permissions/TokenJWT.js';
-import { resetedUser, updateResetedUser } from '../Scripts/NodeMailer.js';
+import { resetedUser, updateResetedUser, resetedClient, updateResetedClient } from '../Scripts/NodeMailer.js';
 
 export const loginUser = async (req, res) => {
     const user = await User.findOne({ where: { email: req.body.email } });
@@ -66,6 +66,47 @@ export const updateResetUser = (req, res) => {
                 .catch(() => {
                     res.status(500).json({
                         error: `Une erreur est survenue lors de la destruction du token.`
+                    });
+                });
+        })
+        .catch(() => {
+            res.status(500).json({
+                error: `Une erreur est survenue lors de la modification de l'utilisateur.`
+            });
+        });
+}
+
+export const createForgotClient = (req, res) => {
+    MobileCode.create(req.body)
+        .then(() => {
+            const code = req.body.code;
+            resetedClient(req.user, code);
+            res.status(200).json({
+                id: req.body.id,
+                userId: req.body.userId,
+                success: `Le code a bien été envoyé.`
+            });
+        })
+        .catch(() => {
+            res.status(500).json({
+                error: `Une erreur est survenue lors de la création du code.`
+            });
+        });
+}
+
+export const updateResetClient = (req, res) => {
+    User.update(req.body, { where: { id: req.user.id } })
+        .then(() => {
+            MobileCode.destroy({ where: { code: req.code.code } })
+                .then(() => {
+                    updateResetedClient(req.user);
+                    res.status(200).json({
+                        success: `La réinitialisation de mot de passe a bien été effectué !`
+                    });
+                })
+                .catch(() => {
+                    res.status(500).json({
+                        error: `Une erreur est survenue lors de la destruction du code.`
                     });
                 });
         })
