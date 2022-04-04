@@ -234,7 +234,7 @@ const defaultDatas = async () => {
 }
 
 try {
-    console.log(`${ChalkMSG.INFO}Launching the Faker script...`);
+    console.log(`${ChalkMSG.INFO}Faker script is running...`);
     rmStore();
     fakeInit();
 } catch (error) {
