@@ -8,6 +8,7 @@ import Order from './Order.js';
 import OrderStatus from './OrderStatus.js';
 import TicketStatus from './TicketStatus.js';
 import WebToken from './WebToken.js';
+import MobileCode from './MobileCode.js';
 
 /* All the relations, FK and constraints from Models */
 
@@ -19,6 +20,15 @@ WebToken.belongsTo(User, {
     onDelete: 'CASCADE'
 });
 User.hasOne(WebToken);
+
+/* User <-> MobileCode */
+MobileCode.belongsTo(User, {
+    foreignKey: {
+        allowNull: false
+    },
+    onDelete: 'CASCADE'
+});
+User.hasOne(MobileCode);
 
 /* User <-> Role */
 User.belongsTo(Role, {
@@ -113,4 +123,4 @@ Ticket.belongsTo(TicketStatus, {
 });
 TicketStatus.hasMany(Ticket);
 
-export { User, Role, Ticket, Message, Shop, Product, Order, OrderStatus, TicketStatus, WebToken };
+export { User, Role, Ticket, Message, Shop, Product, Order, OrderStatus, TicketStatus, WebToken, MobileCode };
