@@ -12,6 +12,6 @@ sequelize
     })
     .catch(err => {
         console.log(`${ChalkMSG.ERROR}${err}`)
-        console.log(`${ChalkMSG.ERROR}Try to launch your Laragon, Xamp or Wamp server.`)
+        console.log(`${ChalkMSG.ERROR}Try to launch your Laragon, Xamp or Wamp server (Apache2).`)
         process.exit();
     });
