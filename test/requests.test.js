@@ -26,14 +26,14 @@ describe('Requests API', () => {
         });
     });
 
-    describe("POST /api/loginUser", () => {
-        it('Client cannot loggedin', () => {
+    describe("POST /api/loginClient", () => {
+        it('Sadmin, Admin or Partner cant be loggedin', () => {
             let data = {
-                email: 'client@client.client',
+                email: 'admin@admin.admin',
                 password: 'Password1@'
             }
             chai.request(server)
-                .post("/api/loginUser")
+                .post("/api/loginClient")
                 .send(data)
                 .end((err, response) => {
                     response.should.have.status(400);
@@ -46,7 +46,7 @@ describe('Requests API', () => {
                 password: 'Password2@'
             }
             chai.request(server)
-                .post("/api/loginUser")
+                .post("/api/loginClient")
                 .send(data)
                 .end((err, response) => {
                     response.should.have.status(400);
@@ -59,20 +59,20 @@ describe('Requests API', () => {
                 password: 'Password1@'
             }
             chai.request(server)
-                .post("/api/loginUser")
+                .post("/api/loginClient")
                 .send(data)
                 .end((err, response) => {
                     response.should.have.status(400);
                     response.body.should.have.property('error')
                 });
         });
-        it('Valid Sadmin, Admin or Partner can be logged in', () => {
+        it('Valid Client can be logged in', () => {
             let data = {
-                email: 'admin@admin.admin',
+                email: 'client@client.client',
                 password: 'Password1@'
             }
             chai.request(server)
-                .post("/api/loginUser")
+                .post("/api/loginClient")
                 .send(data)
                 .end((err, response) => {
                     response.should.have.status(200);
