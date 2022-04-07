@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 import faker from 'faker';
 
-import { User, Shop } from '../Models/Models.js';
+import { User, Shop, Order } from '../Models/Models.js';
 import { emailExist, shopExist, roleExist } from '../Validations/Exists.js';
 import { canViewUser, canCreateUser, canDeleteUser, canUpdateUser } from '../Validations/Users.js';
 import { isValidEmail, isValidFirstName, isValidLastName, isValidPassword, isValidPhoto } from '../Validations/Formats.js';
@@ -44,9 +44,15 @@ export const authGetUser = (req, res, next) => {
     next();
 }
 
-export const authDeleteUser = (req, res, next) => {
+export const authDeleteUser = async (req, res, next) => {
     if (!canDeleteUser(req.currentUser, req.user)) return res.status(403).json({ error: `Vous n'êtes pas autorisé à supprimer cet utilisateur !` });
-    next();
+    if ((req.currentUser.id === req.user.id) && req.currentUser.roleId === client) {
+        const orders = await Order.findAll({ where: { userId: req.user.id } });
+        for (let i = 0; i < orders.length; i++) {
+            if (orders[i].orderStatusId != '4' && orders[i].orderStatusId != '5') return res.status(403).json({ error: `Vous ne pouvez pas supprimer votre compte en ayant des commandes en cours !` });
+        }
+        next();
+    }
 }
 
 export const authUpdateUser = (req, res, next) => {
