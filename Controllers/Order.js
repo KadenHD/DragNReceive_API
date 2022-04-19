@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { Order, Product, Shop } from '../Models/Models.js';
 import { scopedOrders } from '../Permissions/Orders.js';
-import { updatedOrderAvailable, updatedOrderCanceled, updatedOrderCollected, updatedOrderInProgress } from '../Scripts/NodeMailer.js';
+import { updatedOrderAvailable, updatedOrderCanceled, updatedOrderCollected, updatedOrderInProgress, newOrder } from '../Scripts/NodeMailer.js';
 
 export const findAllOrder = async (req, res) => {
     scopedOrders(req.currentUser, await Order.findAll())
@@ -17,37 +17,50 @@ export const findAllOrder = async (req, res) => {
 }
 
 export const createOrder = async (req, res) => {
-    const orders = req.body.orders;
-    const number = uuidv4();
-    for (let i = 0; i < orders.length; i++) {
-        const { quantities, price, productId } = orders[i];
-        const order = {
-            id: uuidv4(),
-            quantities: quantities,
-            price: price,
-            number: number,
-            userId: req.currentUser.id,
-            productId: productId,
-            shopId: orders[i].product.shopId,
-            orderStatusId: "1"
-        };
-        const product = { stock: orders[i].product.stock - quantities };
-        await Order.create(order)
-            .catch(() => {
-                res.status(500).json({
-                    error: `Une erreur est survenue lors de la création de la commande.`
+    try {
+        let finalList = [];
+        let noError = true
+        const orders = req.body.orders;
+        const number = uuidv4();
+        for (let i = 0; i < orders.length; i++) {
+            const { quantities, id } = orders[i];
+            let order = {
+                id: uuidv4(),
+                quantities: quantities,
+                price: parseFloat(orders[i].product.price * quantities).toFixed(2),
+                number: number,
+                userId: req.currentUser.id,
+                productId: id,
+                shopId: orders[i].product.shopId,
+                orderStatusId: "1",
+                product: orders[i].product
+            };
+            finalList.push(order)
+            const product = { stock: orders[i].product.stock - quantities };
+            await Order.create(order)
+                .catch(() => {
+                    noError = false
+                    res.status(500).json({
+                        error: `Une erreur est survenue lors de la création de la commande.`
+                    });
                 });
-            });
-        await Product.update(product, order.productId)
-            .catch(() => {
-                res.status(500).json({
-                    error: `Une erreur est survenue lors de la création de la commande.`
+            await Product.update(product, { where: { id: order.productId } })
+                .catch(() => {
+                    noError = false
+                    res.status(500).json({
+                        error: `Une erreur est survenue lors de la création de la commande.`
+                    });
                 });
+        }
+        if (noError) {
+            newOrder(req.currentUser, finalList);
+            res.status(200).json({
+                success: `La commande a bien été créée.` // email ?
             });
+        }
+    } catch (error) {
+        console.log(error)
     }
-    res.status(200).json({
-        success: `La commande a bien été créée.`
-    });
 }
 
 export const findOneOrder = (req, res) => {
