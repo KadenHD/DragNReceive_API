@@ -112,8 +112,7 @@ npm start
 
 # To-do
 
-- Montrer les produits dans les email de commande / statut
-- Envoi par mail des factures au format pdf (quand la commande est réalisée)
+- Envoi par mail des factures au format pdf lors d'un commande
 
 # Documentations
 
