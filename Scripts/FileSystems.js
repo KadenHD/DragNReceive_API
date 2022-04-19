@@ -88,6 +88,8 @@ export const rmShop = (id) => {
 */
 
 export const mkUser = (id) => {
+    dir = 'Store/Users/' + id + '/Invoices/';
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     dir = 'Store/Users/' + id + '/Photo/';
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
