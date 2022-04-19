@@ -136,14 +136,14 @@ export const authCreateOrder = (req, res, next) => {
 }
 
 export const validFormCreateOrder = async (req, res, next) => {
+    if (!req.body.orders) { return res.status(403).json({ error: `La commande est vide !` }); }
     for (let i = 0; i < req.body.orders.length; i++) {
-        const { quantities, price, productId } = req.body.orders[i];
-        if (!quantities || !price || !productId) return res.status(403).json({ error: `Le formulaire n'est pas bon !` }); // Risque de modifier, ne pas recevoir le prix et le définir ici
-        req.body.orders[i].product = await Product.findByPk(productId);
+        const { quantities, id } = req.body.orders[i];
+        if (!quantities || !id) return res.status(403).json({ error: `Le formulaire n'est pas bon !` });
+        if (!isValidQuantities(quantities)) return res.status(403).json({ error: `Format de quantités non-valide !` });
+        req.body.orders[i].product = await Product.findOne({ where: { id: id, deleted: false } });
         if (!req.body.orders[i].product) return res.status(404).json({ error: `Le produit n'existe pas` });
         if (req.body.orders[i].product.stock < quantities) return res.status(403).json({ error: `Il n'y a pas assez de stocks !` });;
-        if (!isValidQuantities) return res.status(403).json({ error: `Format de quantités non-valide !` });
-        if (!isValidPrice) return res.status(403).json({ error: `Format de prix non-valide !` });
     }
     next();
 }
