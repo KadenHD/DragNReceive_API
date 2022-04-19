@@ -1,6 +1,5 @@
 import nodemailer from 'nodemailer';
-import fs from 'fs';
-import Pdfmake from 'pdfmake'
+import { orderInvoicesPDF } from './PdfMake.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -310,7 +309,6 @@ export const newOrder = async (user, orders) => {
     let totalPrice = 0.00
     for (let i = 0; i < orders.length; i++) {
         totalPrice = (parseFloat(totalPrice) + parseFloat(orders[i].price)).toFixed(2);
-        console.log(totalPrice)
     }
     let ordersCard = `<b>Prix total de la commande : ${totalPrice} €</b><br><br>`
     for (let i = 0; i < orders.length; i++) {
@@ -329,62 +327,14 @@ export const newOrder = async (user, orders) => {
     <b>Votre commande a bien été réalisé, veuillez trouver ci-joint votre facture : </b><br><br>
     ${ordersCard}
     `;
-    // create the file pdf
-    var fonts = {
-        'Roboto': {
-            normal: 'Roboto-Regular.ttf',
-            bold: 'Roboto-Medium.ttf',
-            italics: 'Roboto-Italic.ttf',
-            bolditalics: 'Roboto-Italic.ttf'
-        },
-    };
-    let pdfmake = new Pdfmake(fonts);
-    let content = [{
-        text: "Commande n°" + orders[0].number,
-        alignment: 'center',
-        fontSize: 25
-    }]
-    for (let i = 0; i < orders.length; i++) {
-        content.push({
-            text: `${orders[i].product.name}`
-        })
-    }
-    let headerfooterDoc = {
-        header: {
-            margin: [0, 20, 0, 0],
-            alignment: 'center',
-        },
-        footer: {
-            margin: [72, 0, 72, 0],
-            fontSize: 10,
-            columns: [{
-                with: 'auto',
-                alignment: 'left',
-                text: "DragN'Receive"
-            }
 
-            ],
-        },
-        content: content,
-        pageMargins: [72, 120, 72, 50],
-    }
-    const fileName = `${user.firstname}-${user.lastname}-${orders[0].number}`
-    const path = '../Store/' + user.id + '/Invoices/' + fileName + '.pdf'
-    let pdfDoc = pdfmake.createPdfKitDocument(headerfooterDoc, {});
-    pdfDoc.pipe(fs.createWriteStream(path));
-    pdfDoc.end();
+    const attachments = orderInvoicesPDF(user, orders);
 
     const data = {
         toMail: toMail,
         subjectMail: subjectMail,
         htmlMail: htmlMail,
-        attachments: [
-            {
-                filename: 'file-name.pdf', // <= Here: made sure file name match
-                path: path.join(__dirname, path), // <= Here
-                contentType: 'application/pdf'
-            }
-        ]
+        attachments: attachments
     }
     await mailSender(data);
 }
