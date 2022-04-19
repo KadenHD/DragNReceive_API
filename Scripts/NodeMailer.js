@@ -1,4 +1,6 @@
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+dotenv.config();
 
 /* NodeMailer config */
 let fromMail = '"Service DragN\'Receive" <service@dragnreceive.fr>';
@@ -292,6 +294,37 @@ export const updatedOrderCanceled = async (user, orderNumber, shop) => {
     <b>Bonjour ${user.firstname} ${user.lastname},</b><br>
     <b>Votre commande a bien été annulé dans le magasins suivant : </b><br>
     <b>${shop.name}</b>
+    `;
+    const data = {
+        toMail: toMail,
+        subjectMail: subjectMail,
+        htmlMail: htmlMail
+    }
+    await mailSender(data);
+}
+
+export const newOrder = async (user, orders) => {
+    let totalPrice = 0.00
+    for (let i = 0; i < orders.length; i++) {
+        totalPrice = (parseFloat(totalPrice) + parseFloat(orders[i].price)).toFixed(2);
+        console.log(totalPrice)
+    }
+    let ordersCard = `<b>Prix total de la commande : ${totalPrice} €</b><br><br>`
+    for (let i = 0; i < orders.length; i++) {
+        ordersCard += `
+        <img src="${`http://${process.env.BASE_URL}:${process.env.PORT}` + orders[i].product.path}"><br>
+        <b>Quantité : ${orders[i].quantities}</b><br>
+        <b>Prix total : ${orders[i].price} €</b><br>
+        <b>Nom : ${orders[i].product.name}</b><br>
+        <b>Prix unitaire : ${orders[i].product.price} €</b><br>
+        <br><br>`
+    }
+    const toMail = user.email;
+    const subjectMail = `DragN'Receive - Commande n°${orders[0].number} réalisée !`;
+    const htmlMail = `
+    <b>Bonjour ${user.firstname} ${user.lastname},</b><br>
+    <b>Votre commande a bien été réalisé, veuillez trouver ci-joint votre facture : </b><br><br>
+    ${ordersCard}
     `;
     const data = {
         toMail: toMail,
