@@ -114,6 +114,10 @@ npm start
 
 - 
 
+# Améliorations potentielles
+
+- 
+
 # Documentations
 
 - Video about store images and set path for accessing with front : [Link](https://youtu.be/srPXMt1Q0nY)
