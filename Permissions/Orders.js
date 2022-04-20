@@ -89,7 +89,6 @@ export const scopedOrders = async (currentUser, orders) => { /* Fetch inside fin
         for (let j = 0; j < numberTab.length; j++) {
             const orders = await Order.findAll({ where: { number: numberTab[j], userId: currentUser.id } })
             if (orders.length != 0) {
-                const user = await User.findByPk(orders[0].userId);
                 let status = orders[0].orderStatusId;
                 let price = 0;
                 for (let i = 0; i < orders.length; i++) {
@@ -97,7 +96,7 @@ export const scopedOrders = async (currentUser, orders) => { /* Fetch inside fin
                     price += orders[i].price * orders[i].quantities;
                     if (status > orders[i].orderStatusId) { status = orders[i].orderStatusId }
                 }
-                finalTab.push({ price: price, status: status, orders: orders, user: user, number: orders[0].number })
+                finalTab.push({ price: price, status: status, number: orders[0].number, date: orders[0].createdAt, orders: orders })
             }
         }
         return finalTab
@@ -105,8 +104,8 @@ export const scopedOrders = async (currentUser, orders) => { /* Fetch inside fin
 }
 
 export const setOrder = async (req, res, next) => { /* For id's parameters routes to set the order values from DB */
-    const orders = await Order.findAll({ where: { number: req.params.number } });
-    if (!orders) return res.status(404).json({ error: `La commande n'existe pas !` });
+    const orders = await Order.findAll({ where: { number: req.params.id } });
+    if (!orders.length) return res.status(404).json({ error: `La commande n'existe pas !` });
     if (req.currentUser.roleId == sadmin || req.currentUser.roleId == admin) {
         req.orders = orders
     } else if (req.currentUser.roleId == partner) {
