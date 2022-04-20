@@ -306,12 +306,10 @@ export const updatedOrderCanceled = async (user, orderNumber, shop) => {
 }
 
 export const newOrder = async (user, orders) => {
-    let totalPrice = 0.00
+    let totalPrice = 0.00;
+    let ordersCard = ``;
     for (let i = 0; i < orders.length; i++) {
         totalPrice = (parseFloat(totalPrice) + parseFloat(orders[i].price)).toFixed(2);
-    }
-    let ordersCard = `<b>Prix total de la commande : ${totalPrice} €</b><br><br>`
-    for (let i = 0; i < orders.length; i++) {
         ordersCard += `
         <img src="${`http://${process.env.BASE_URL}:${process.env.PORT}` + orders[i].product.path}"><br>
         <b>Quantité : ${orders[i].quantities}</b><br>
@@ -320,6 +318,7 @@ export const newOrder = async (user, orders) => {
         <b>Prix unitaire : ${orders[i].product.price} €</b><br>
         <br><br>`
     }
+    ordersCard += `<b>Prix total de la commande : ${totalPrice} €</b><br><br>`;
     const toMail = user.email;
     const subjectMail = `DragN'Receive - Commande n°${orders[0].number} réalisée !`;
     const htmlMail = `
@@ -327,9 +326,7 @@ export const newOrder = async (user, orders) => {
     <b>Votre commande a bien été réalisé, veuillez trouver ci-joint votre facture : </b><br><br>
     ${ordersCard}
     `;
-
-    const attachments = orderInvoicesPDF(user, orders);
-
+    const attachments = await orderInvoicesPDF(user, orders); /* Create PDF and link the assignements to the files */
     const data = {
         toMail: toMail,
         subjectMail: subjectMail,
