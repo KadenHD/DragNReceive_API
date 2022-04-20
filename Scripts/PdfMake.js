@@ -2,6 +2,7 @@ import fs from 'fs';
 import Pdfmake from 'pdfmake';
 import path from 'path';
 import { Shop } from '../Models/Models.js';
+import { sendShopInvoices } from './NodeMailer.js';
 
 const fonts = {
     Roboto: {
@@ -126,11 +127,13 @@ export const orderInvoicesPDF = async (user, orders) => {
         let pdfDoc = pdfmake.createPdfKitDocument(docDefinition, {});
         pdfDoc.pipe(fs.createWriteStream(filePath));
         pdfDoc.end();
-        attachments.push({
+        const shopAttachments = {
             filename: fileName,
             path: path.join(filePath),
             contentType: 'application/pdf'
-        });
+        }
+        attachments.push(shopAttachments);
+        sendShopInvoices(currentShop, orders[0].number, shopAttachments);
     }
     return attachments
 }
