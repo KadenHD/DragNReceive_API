@@ -112,7 +112,7 @@ npm start
 
 # To-do
 
-- Envoi par mail des factures au format pdf lors d'un commande
+- 
 
 # Documentations
 
