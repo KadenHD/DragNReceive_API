@@ -335,3 +335,19 @@ export const newOrder = async (user, orders) => {
     }
     await mailSender(data);
 }
+
+export const sendShopInvoices = async (shop, number, attachments) => {
+    const toMail = shop.email;
+    const subjectMail = `DragN'Receive - Commande n°${number} réalisée !`;
+    const htmlMail = `
+    <b>${shop.name},</b><br>
+    <b>Une commande a été réalisée dans votre boutique, veuillez trouver ci-joint votre facture. </b><br><br>
+    `;
+    const data = {
+        toMail: toMail,
+        subjectMail: subjectMail,
+        htmlMail: htmlMail,
+        attachments: attachments
+    }
+    await mailSender(data);
+}
