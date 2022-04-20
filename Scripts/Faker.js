@@ -100,6 +100,7 @@ const fakeInit = async () => {
                 });
             }
         }
+        console.log(`${ChalkMSG.SUCCESS}Row n°${i + 1} done !`);
     }
     console.log(`${ChalkMSG.SUCCESS}Fakes values are now inside your Database !`);
     process.exit();
@@ -231,6 +232,7 @@ const defaultDatas = async () => {
                 break;
         }
     }
+    console.log(`${ChalkMSG.SUCCESS}Default datas created !`);
 }
 
 try {
