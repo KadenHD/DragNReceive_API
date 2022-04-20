@@ -1,6 +1,7 @@
 import fs from 'fs';
 import Pdfmake from 'pdfmake';
 import path from 'path';
+import { Shop } from '../Models/Models.js';
 
 const fonts = {
     Roboto: {
@@ -11,9 +12,7 @@ const fonts = {
     }
 };
 
-export const orderInvoicesPDF = (user, orders) => {
-    let attachments = [];
-
+export const orderInvoicesPDF = async (user, orders) => {
     let shopIdTab = [];
     for (let i = 0; i < orders.length; i++) {
         let shopIdExist = false;
@@ -36,35 +35,103 @@ export const orderInvoicesPDF = (user, orders) => {
         }
         finalTab[i] = finalOrders;
     }
-
-    // faire boucle for, final tab lisible en 2d : [][]
-    // chaque fin de commande boutique, rajouter l'attachments
-    let pdfmake = new Pdfmake(fonts);
-    var docDefinition = {
-        content: [{
-            text: "Commande n°" + orders[0].number,
-            alignment: 'center',
-            fontSize: 25
-        }]
-    };
-    for (let i = 0; i < orders.length; i++) {
-        docDefinition.content.push({
-            text: `${orders[i].product.name}`
-        })
+    const d = new Date;
+    const currentTime =
+        [
+            d.getMonth() + 1,
+            d.getDate(),
+            d.getFullYear()
+        ].join('-') + '_' +
+        [
+            d.getHours(),
+            d.getMinutes(),
+            d.getSeconds()
+        ].join('-');
+    let attachments = [];
+    for (let i = 0; i < finalTab.length; i++) {
+        const currentShop = await Shop.findByPk(finalTab[i][0].shopId);
+        const shopName = currentShop.name.replace(" ", "_");
+        const fileName = `${currentTime}-${shopName}.pdf`;
+        const filePath = `./Store/Users/${user.id}/Invoices/${fileName}`;
+        let pdfDatas = {
+            table: {
+                body: [
+                    ["Produit", "Quantité", "Prix HT unitaire", "Prix TTC unitaire", "Prix HT", "Prix TTC"],
+                ]
+            }
+        }
+        let totalPrice = 0.00;
+        for (let j = 0; j < finalTab[i].length; j++) {
+            totalPrice = (parseFloat(totalPrice) + parseFloat(finalTab[i][j].price)).toFixed(2);
+            pdfDatas.table.body.push([
+                `${finalTab[i][j].product.name}`,
+                `${finalTab[i][j].quantities}`,
+                `${parseFloat(finalTab[i][j].product.price * 0.8).toFixed(2)} €`,
+                `${finalTab[i][j].product.price} €`,
+                `${parseFloat(finalTab[i][j].price * 0.8).toFixed(2)} €`,
+                `${finalTab[i][j].price} €`
+            ]);
+        }
+        let pdfmake = new Pdfmake(fonts);
+        let docDefinition = {
+            header: {
+                text: `Facture - DragN'Receive`,
+                bold: true,
+                decoration: 'underline',
+                fontSize: 18,
+                alignment: 'center'
+            },
+            content: [
+                {
+                    columns: [
+                        [
+                            {
+                                text: `${user.firstname} ${user.firstname}`,
+                                bold: true
+                            },
+                            { text: user.email },
+                            { text: ` ` },
+                            { text: `Date: ${new Date().toLocaleString()}` },
+                            { text: `Commande n° : ${orders[0].number}` },
+                        ],
+                        [
+                            {
+                                text: `${currentShop.name}`,
+                                alignment: 'right',
+                                bold: true
+                            },
+                            {
+                                text: `Email : ${currentShop.email}`,
+                                alignment: 'right'
+                            },
+                            {
+                                text: `Téléphone : ${currentShop.phone}`,
+                                alignment: 'right'
+                            }
+                            ,
+                            {
+                                text: `Adresse : ${currentShop.city}, ${currentShop.street}, ${currentShop.postal}`,
+                                alignment: 'right'
+                            }
+                        ]
+                    ],
+                },
+                { text: " " }, { text: " " }, { text: " " },
+                { text: "Détails de la commande :", bold: true, decoration: 'underline' },
+                { text: " " }, { text: " " }, { text: " " },
+                pdfDatas,
+                { text: `Prix total : ${totalPrice} €`, bold: true },
+            ],
+        }
+        let pdfDoc = pdfmake.createPdfKitDocument(docDefinition, {});
+        pdfDoc.pipe(fs.createWriteStream(filePath));
+        pdfDoc.end();
+        attachments.push({
+            filename: fileName,
+            path: path.join(filePath),
+            contentType: 'application/pdf'
+        });
     }
-    const currentTime = "date"
-    const fileName = `${currentTime}-${orders[0].number}.pdf`
-    const filePath = `./Store/Users/${user.id}/Invoices/${fileName}`
-    let pdfDoc = pdfmake.createPdfKitDocument(docDefinition, {});
-    pdfDoc.pipe(fs.createWriteStream(filePath));
-    pdfDoc.end();
-    attachments = [{
-        filename: fileName,
-        path: path.join(filePath),
-        contentType: 'application/pdf'
-    }]
-    //end
-
     return attachments
 }
 
