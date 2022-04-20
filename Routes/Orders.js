@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', findAllOrder);
 router.post('/', authCreateOrder, validFormCreateOrder, createOrder);
-router.get('/:number', setOrder, findOneOrder)
-router.put('/:number', setOrder, validFormUpdateOrder, updateOrder);
+router.get('/:id', setOrder, findOneOrder)
+router.put('/:id', setOrder, validFormUpdateOrder, updateOrder);
 
 export default router;
