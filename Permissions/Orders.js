@@ -1,6 +1,6 @@
-import { Order, Product, User } from '../Models/Models.js';
+import { Order, Product, User, Shop } from '../Models/Models.js';
 import { canCreateOrder } from '../Validations/Orders.js';
-import { isValidPrice, isValidQuantities } from '../Validations/Formats.js';
+import { isValidQuantities } from '../Validations/Formats.js';
 
 const sadmin = "1";
 const admin = "2";
@@ -118,13 +118,12 @@ export const setOrder = async (req, res, next) => { /* For id's parameters route
         return res.status(404).json({ error: `Vous n'êtes pas autorisé à voir cette commande !` });
     }
     const user = await User.findByPk(orders[0].userId);
-    let status = orders[0].orderStatusId;
     let price = 0;
     for (let i = 0; i < req.orders.length; i++) {
         req.orders[i].dataValues.user = user;
         req.orders[i].dataValues.product = await Product.findByPk(orders[i].productId)
+        req.orders[i].dataValues.shop = await Shop.findByPk(req.orders[i].shopId)
         price += req.orders[i].price * req.orders[i].quantities;
-        if (status > req.orders[i].orderStatusId) { status = req.orders[i].orderStatusId }
     }
     next();
 }
@@ -148,7 +147,6 @@ export const validFormCreateOrder = async (req, res, next) => {
 }
 
 export const validFormUpdateOrder = async (req, res, next) => {
-
     for (let i = 0; i < req.orders.length; i++) {
         const product = await Product.findByPk(req.orders[i].productId);
         const order = await Order.findByPk(req.orders[i].id);
