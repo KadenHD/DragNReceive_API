@@ -159,10 +159,44 @@ export const validFormUpdateOrder = async (req, res, next) => {
         else if (req.currentUser.roleId === partner && req.currentUser.shopId === product.shopId && order.orderStatusId === available) {
             req.orders[i] = { shopId: req.orders[i].shopId, id: req.orders[i].id, orderStatusId: collected, number: req.orders[i].number }
         }
-        else if (req.currentUser.roleId === client && req.currentUser.id === order.userId && order.orderStatusId === validate) {
-            req.orders[i] = { shopId: req.orders[i].shopId, id: req.orders[i].id, orderStatusId: canceled, number: req.orders[i].number }
-        }
         else return res.status(403).json({ error: `Vous ne pouvez pas modifier cette commande !` });
+    }
+    next();
+}
+
+export const validFormCancelOrder = async (req, res, next) => {
+    const { number, shops } = req.body;
+    if (!number || !shops.length) { return res.status(403).json({ error: `La demande d'annulation de commande n'est pas valide !` }); }
+    const orders = await Order.findAll({ where: { number: number } });
+    for (let i = 0; i < orders.length; i++) { orders[i].dataValues.product = await Product.findByPk(orders[i].productId) }
+    if (req.currentUser.roleId != client || orders[0].userId != req.currentUser.id) {
+        return res.status(403).json({ error: `Vous ne pouvez pas annuler cette commande !` });
+    }
+    req.orders = [];
+    for (let i = 0; i < shops.length; i++) {
+        const findShop = await Shop.findByPk(shops[i]);
+        const filterOrders = orders.filter(order => order.shopId === shops[i]);
+        req.orders.push({
+            shop: findShop,
+            orders: filterOrders
+        })
+        if (!req.orders.length || !findShop || !filterOrders) { return res.status(403).json({ error: `La demande d'annulation de commande n'est pas valide !` }); }
+    }
+    for (let i = 0; i < req.orders.length; i++) {
+        for (let j = 0; j < req.orders[i].orders.length; j++) {
+            if (req.orders[i].orders[j].orderStatusId != validate) { return res.status(403).json({ error: `Vous ne pouvez annuler que des commandes non-traitées !` }); }
+            else {
+                req.orders[i].orders[j] = {
+                    shopId: req.orders[i].orders[j].shopId,
+                    id: req.orders[i].orders[j].id,
+                    orderStatusId: canceled,
+                    number: req.orders[i].orders[j].number,
+                    product: req.orders[i].orders[j].dataValues.product.dataValues,
+                    quantities: req.orders[i].orders[j].quantities,
+                    productId: req.orders[i].orders[j].productId
+                }
+            }
+        }
     }
     next();
 }
