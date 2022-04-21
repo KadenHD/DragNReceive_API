@@ -76,12 +76,6 @@ export const findOneOrder = (req, res) => {
 export const updateOrder = async (req, res) => {
     for (let i = 0; i < req.orders.length; i++) {
         await Order.update(req.orders[i], { where: { id: req.orders[i].id } })
-            .then(async () => {
-                if (req.orders[i].orderStatusId === "5") {
-                    const product = { stock: req.orders[i].product.stock + req.orders[i].quantities };
-                    await Product.update(product, { where: { id: req.orders[i].productId } });
-                }
-            })
             .catch(() => {
                 res.status(500).json({
                     error: `Une erreur est survenue de lors de la modification de la commande.`
@@ -107,10 +101,32 @@ export const updateOrder = async (req, res) => {
             success: `La commande a bien été récupéré.`
         });
     }
-    else if (req.orders[0].orderStatusId === "5") {
-        updatedOrderCanceled(req.currentUser, req.orders[0].number, shop);
-        res.status(200).json({
-            success: `La commande a bien été annulé.`
-        });
+}
+
+export const cancelOrder = async (req, res) => {
+    for (let i = 0; i < req.orders.length; i++) {
+        const currentUser = req.currentUser
+        const number = req.body.number
+        const shop = req.orders[i].shop
+        for (let j = 0; j < req.orders[i].orders.length; j++) {
+            const order = req.orders[i].orders[j]
+            await Order.update(order, { where: { id: order.id } })
+                .catch(() => {
+                    res.status(500).json({
+                        error: `Une erreur est survenue de lors de la modification de la commande.`
+                    });
+                });
+            const product = { stock: order.product.stock + order.quantities };
+            await Product.update(product, { where: { id: order.productId } })
+                .catch(() => {
+                    res.status(500).json({
+                        error: `Une erreur est survenue de lors de la modification des stocks.`
+                    });
+                });
+        }
+        updatedOrderCanceled(currentUser, number, shop); // for each shops
     }
+    res.status(200).json({
+        success: `La commande a bien été annulé.`
+    });
 }
