@@ -228,6 +228,13 @@ const defaultDatas = async () => {
                         shopId: "partner",
                         orderStatusId: orderStatusId
                     });
+                    await Ticket.create({
+                        id: uuidv4(),
+                        title: faker.lorem.sentence(4),
+                        content: faker.lorem.sentence(),
+                        userId: "4",
+                        ticketStatusId: faker.datatype.number({ min: 1, max: 2 })
+                    });
                 }
                 break;
         }
