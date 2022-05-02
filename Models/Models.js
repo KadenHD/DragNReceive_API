@@ -9,8 +9,28 @@ import OrderStatus from './OrderStatus.js';
 import TicketStatus from './TicketStatus.js';
 import WebToken from './WebToken.js';
 import MobileCode from './MobileCode.js';
+import Favoris from './Favoris.js'
 
 /* All the relations, FK and constraints from Models */
+
+
+/* Favoris <-> Ticket */
+Favoris.belongsTo(User, {
+    foreignKey: {
+        allowNull: false
+    },
+    onDelete: 'CASCADE'
+});
+User.hasMany(Favoris);
+
+/* Favoris <-> Shop */
+Favoris.belongsTo(Shop, {
+    foreignKey: {
+        allowNull: false
+    },
+    onDelete: 'CASCADE'
+});
+Shop.hasMany(Favoris);
 
 /* User <-> WebToken */
 WebToken.belongsTo(User, {
@@ -123,4 +143,4 @@ Ticket.belongsTo(TicketStatus, {
 });
 TicketStatus.hasMany(Ticket);
 
-export { User, Role, Ticket, Message, Shop, Product, Order, OrderStatus, TicketStatus, WebToken, MobileCode };
+export { User, Role, Ticket, Message, Shop, Product, Order, OrderStatus, TicketStatus, WebToken, MobileCode, Favoris };

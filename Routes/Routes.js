@@ -8,6 +8,7 @@ import productsRouter from './Products.js';
 import shopsRouter from './Shops.js';
 import ticketsRouter from './Tickets.js';
 import usersRouter from './Users.js';
+import favorisRouter from './Favoris.js';
 
 const router = express.Router();
 
@@ -18,5 +19,7 @@ router.use('/products', isValidToken, productsRouter);
 router.use('/shops', isValidToken, shopsRouter);
 router.use('/tickets', isValidToken, ticketsRouter);
 router.use('/users', isValidToken, usersRouter);
+
+router.use('/favoris', isValidToken, favorisRouter);
 
 export default router;
